@@ -1,0 +1,158 @@
+   ---   20   cards of disk file read into card cache cells  1   onward.
+Alternative Transients Program (ATP),  GNU Linux or DOS.  All rights reserved by Can/Am user group of Portland, Oregon, USA.
+ Date (dd-mth-yy) and time of day (hh.mm.ss) = 12-Jul-21  09:21:04   Name of disk plot file is  p46.pl4
+Consult the 860-page ATP Rule Book of the Can/Am EMTP User Group in Portland,  Oregon, USA.  Source code date is 13 May 2008.
+Total size of LABCOM tables = 10913313 INTEGER words.  31 VARDIM  List Sizes follow:  6002  10K  192K  900  420K  1200  15K
+  120K  2250  3800  720  2K  72800  510  90K  800  90  254  120K  100K  3K  15K  192K  120  45K  260K  600  210K  1100  19  200
+--------------------------------------------------+--------------------------------------------------------------------------------
+Descriptive interpretation of input data cards.   |  Input data card images are shown below, all 80 columns, character by character
+                                                  0         1         2         3         4         5         6         7         8
+                                                  012345678901234567890123456789012345678901234567890123456789012345678901234567890
+--------------------------------------------------+--------------------------------------------------------------------------------
+Comment card.   KOMPAR > 0.                       |C data:P46.DAT
+Marker card preceding new EMTP data case.         |BEGIN NEW DATA CASE
+Akihiro Ametani`s old code.  Limits =   50  100   |CABLE CONSTANTS
+Prof. Akihiro Ametani`s 1994 code.   Order = 71   |CABLE PARAMETERS
+Pairs of A6 terminal node names for each phase.   |BRANCH  IN___AOUT__AIN___BOUT__BIN___COUT__CIN___DOUT__D
+Misc.   2   1   4   0   0   1   0   0   0   0   0 |    2    1    4              1              0    0    0
+Cable conductor numbers.  1 1 1 1                 |    1    1    1    1
+Radii.    .00   .01   .01                         |   0.00463   0.01257   0.01257
+Physical constants for conductors & insulators.   | 7.1221E-8        1.        1.        1.
+Radii.    .00   .01   .01                         |   0.00463   0.01257   0.01257
+Physical constants for conductors & insulators.   | 7.1221E-8        1.        1.        1.
+Radii.    .00   .01   .01                         |   0.00463   0.01257   0.01257
+Physical constants for conductors & insulators.   | 7.1221E-8        1.        1.        1.
+Radii.    .12   .13   .23                         |    0.1245     0.127     0.227
+Physical constants for conductors & insulators.   | 2.8444E-7      250.        1.        3.
+(Y,X)  1.350E+01 -6.600E+00  1.350E+01  0.000E+00 |      13.5      -6.6      13.5       0.0      13.5       6.6        1.       10.
+Frequency card 1.000E+02 5.000E+01  0  1 1.00E+00 |           100.            50.                1.         1
+         4 -phase SC cable with 4  conductors.  0  grounded.  Total # of conductors = 4
+           Overhead cable
+           Cable constants
+           Phase 1  Boundary radii ;
+            1  4.63000E-03  2  1.25700E-02  3  1.26700E-02
+                   Resistivity(ohm-m): Core 7.12210000E-08, Sheath 1.00000000E-08, Armor 1.00000000E-08
+                   Relative permeability;  1.00000000E+00, 1.00000000E+00, 1.00000000E+00
+                   Insulator:  1; (Relative) Permeability  1.0   Permittivity  1.00   Velocity(m/s) 2.99793E+08
+                   DC resistance(ohm/m),      1.66000E-04
+           Phase 2  Boundary radii ;
+            1  4.63000E-03  2  1.25700E-02  3  1.26700E-02
+                   Resistivity(ohm-m): Core 7.12210000E-08, Sheath 1.00000000E-08, Armor 1.00000000E-08
+                   Relative permeability;  1.00000000E+00, 1.00000000E+00, 1.00000000E+00
+                   Insulator:  1; (Relative) Permeability  1.0   Permittivity  1.00   Velocity(m/s) 2.99793E+08
+                   DC resistance(ohm/m),      1.66000E-04
+           Phase 3  Boundary radii ;
+            1  4.63000E-03  2  1.25700E-02  3  1.26700E-02
+                   Resistivity(ohm-m): Core 7.12210000E-08, Sheath 1.00000000E-08, Armor 1.00000000E-08
+                   Relative permeability;  1.00000000E+00, 1.00000000E+00, 1.00000000E+00
+                   Insulator:  1; (Relative) Permeability  1.0   Permittivity  1.00   Velocity(m/s) 2.99793E+08
+                   DC resistance(ohm/m),      1.66000E-04
+           Phase 4  Boundary radii ;
+            1  1.24500E-01  2  1.27000E-01  3  2.27000E-01
+                   Resistivity(ohm-m): Core 2.84440000E-07, Sheath 1.00000000E-08, Armor 1.00000000E-08
+                   Relative permeability;  2.50000000E+02, 1.00000000E+00, 1.00000000E+00
+                   Insulator:  1; (Relative) Permeability  1.0   Permittivity  3.00   Velocity(m/s) 1.73085E+08
+                   DC resistance(ohm/m),      1.44000E-04
+           Distance from Earth surface ;      1  13.5000    2  13.5000    3  13.5000    4   1.0000
+           Distance between phases     :        -6.6000         .0000        6.6000       10.0000
+           Earth ; resistivity 1.00000000E+02
+       Punched cards:  1) pi-circuit (IPUNCH=1) or distributed line (IPUNCH=2);
+          IPUNCH = 1      Total length = 1.00000000E+00
+           Frequency 5.00000000E+01  Hz
+ 
+ 
+             Earth impedance ZE, in ohm/m
+  4.78563E-05  4.78525E-05  4.78412E-05  4.84982E-05
+  2.24076E-04  2.22254E-04  2.17347E-04  2.36109E-04  Core 1
+ 
+  4.78525E-05  4.78563E-05  4.78525E-05  4.85162E-05
+  2.22254E-04  2.24076E-04  2.22254E-04  2.50193E-04  Core 2
+ 
+  4.78412E-05  4.78525E-05  4.78563E-05  4.85255E-05
+  2.17347E-04  2.22254E-04  2.24076E-04  2.60733E-04  Core 3
+ 
+  4.84982E-05  4.85162E-05  4.85255E-05  4.92312E-05
+  2.36109E-04  2.50193E-04  2.60733E-04  3.86154E-04  Core 4
+ 
+ 
+             Conductor internal impedance ZC, in ohm/m
+  1.66261E-04  0.00000E+00  0.00000E+00  0.00000E+00
+  1.28127E-05  0.00000E+00  0.00000E+00  0.00000E+00  Core 1
+ 
+  0.00000E+00  1.66261E-04  0.00000E+00  0.00000E+00
+  0.00000E+00  1.28127E-05  0.00000E+00  0.00000E+00  Core 2
+ 
+  0.00000E+00  0.00000E+00  1.66261E-04  0.00000E+00
+  0.00000E+00  0.00000E+00  1.28127E-05  0.00000E+00  Core 3
+ 
+  0.00000E+00  0.00000E+00  0.00000E+00  1.58263E-04
+  0.00000E+00  0.00000E+00  0.00000E+00  1.36619E-04  Core 4
+ 
+            Total impedance [Zc], in ohm/m
+  2.14118E-04  4.78525E-05  4.78412E-05  4.84982E-05
+  7.18454E-04  3.12592E-04  2.69044E-04  2.39811E-04  Core 1
+ 
+  4.78525E-05  2.14118E-04  4.78525E-05  4.85162E-05
+  3.12592E-04  7.18454E-04  3.12592E-04  2.56201E-04  Core 2
+ 
+  4.78412E-05  4.78525E-05  2.14118E-04  4.85255E-05
+  2.69044E-04  3.12592E-04  7.18454E-04  2.69498E-04  Core 3
+ 
+  4.84982E-05  4.85162E-05  4.85255E-05  2.07495E-04
+  2.39811E-04  2.56201E-04  2.69498E-04  6.59492E-04  Core 4
+ 
+            Total admittance [Yc], in mho/m
+  0.00000E+00  0.00000E+00  0.00000E+00  0.00000E+00
+  2.37432E-09 -4.11388E-10 -1.76946E-10 -3.20182E-11  Core 1
+ 
+  0.00000E+00  0.00000E+00  0.00000E+00  0.00000E+00
+ -4.11388E-10  2.43284E-09 -4.10638E-10 -6.37639E-11  Core 2
+ 
+  0.00000E+00  0.00000E+00  0.00000E+00  0.00000E+00
+ -1.76946E-10 -4.10638E-10  2.37609E-09 -1.18911E-10  Core 3
+ 
+  0.00000E+00  0.00000E+00  0.00000E+00  0.00000E+00
+ -3.20182E-11 -6.37639E-11 -1.18911E-10  7.38626E-09  Core 4
+Blank card terminating frequency cards.           |BLANK CARD ENDING FREQUENCY CARDS
+Request for flushing of punch buffer.             |$PUNCH
+ 
+A listing of 80-column card images now being flushed from punch buffer follows.
+===============================================================================
+1234567890123456789012345678901234567890123456789012345678901234567890123456789
+===============================================================================
+C  <++++++>  Cards punched by support routine on  12-Jul-21  09:21:04  <++++++>
+C CABLE CONSTANTS
+C CABLE PARAMETERS
+C BRANCH  IN___AOUT__AIN___BOUT__BIN___COUT__CIN___DOUT__D
+C     2    1    4              1              0    0    0
+C     1    1    1    1
+C    0.00463   0.01257   0.01257
+C  7.1221E-8        1.        1.        1.
+C    0.00463   0.01257   0.01257
+C  7.1221E-8        1.        1.        1.
+C    0.00463   0.01257   0.01257
+C  7.1221E-8        1.        1.        1.
+C     0.1245     0.127     0.227
+C  2.8444E-7      250.        1.        3.
+C       13.5      -6.6      13.5       0.0      13.5       6.6        1.       1
+C            100.            50.                1.         1
+$UNITS, 0.0, 0.0
+$VINTAGE, 1
+C  Pi-equivalent model with length =  1.0000E+00 (meter)
+ 1IN___AOUT__A              2.14117742E-04  2.28691038E-03  7.55768583E-06
+ 2IN___BOUT__B              4.78525298E-05  9.95012028E-04 -1.30948971E-06
+                            2.14117742E-04  2.28691038E-03  7.74398183E-06
+ 3IN___COUT__C              4.78411543E-05  8.56392237E-04 -5.63236904E-07
+                            4.78525298E-05  9.95012028E-04 -1.30710198E-06
+                            2.14117742E-04  2.28691038E-03  7.56333758E-06
+ 4IN___DOUT__D              4.84981744E-05  7.63342790E-04 -1.01917006E-07
+                            4.85162218E-05  8.15512759E-04 -2.02966736E-07
+                            4.85255287E-05  8.57838199E-04 -3.78505634E-07
+                            2.07494653E-04  2.09922709E-03  2.35111858E-05
+$VINTAGE, -1,
+$UNITS, -1., -1.,
+=========<  End of LUNIT7 punched cards as flushed by  $PUNCH  request  >=======
+ 
+Blank card ends stacked subcases of cable data.   |BLANK CARD ENDING CABLE CONSTANTS
+Total case timing (CP, I/O, tot), sec:      0.000     0.000     0.000
+ 

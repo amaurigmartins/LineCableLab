@@ -1,0 +1,20 @@
+BEGIN NEW DATA CASE
+JMARTI SETUP
+$ERASE
+BRANCH  IN_001OUT001IN_002OUT002IN_003OUT003
+LINE CONSTANTS
+METRIC
+  10.316    .215 4           1.724     0.0      8.      8.
+  20.316    .215 4           1.724     1.5      8.      8.
+  30.316    .215 4           1.724     2.3      8.      8.
+BLANK CARD ENDING CONDUCTOR CARDS
+    100.      100.                                1.                 1-9
+    100.       50.                                1.                 1-9
+    100.       50.                                1.         2 10    1-9
+BLANK CARD ENDING FREQUENCY CARDS
+BLANK CARD ENDING LINE CONSTANT
+DEFAULT
+$PUNCH
+BLANK CARD ENDING JMARTI SETUP
+BEGIN NEW DATA CASE
+BLANK CARD

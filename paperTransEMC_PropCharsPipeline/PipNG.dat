@@ -1,0 +1,21 @@
+BEGIN NEW DATA CASE
+CABLE CONSTANTS
+CABLE PARAMETERS
+BRANCH  IN_001OUT001IN_002OUT002IN_003OUT003IN_004OUT004
+    2    1    4              1              0    0    0
+    1    1    1    1
+    .00463    .01257    .01257
+ 7.1221E-8        1.        1.        1.
+    .00463    .01257    .01257
+ 7.1221E-8        1.        1.        1.
+    .00463    .01257    .01257
+ 7.1221E-8        1.        1.        1.
+     .1245      .127      .227
+   2.84E-7      250.        1.        3.
+      13.5      -6.6      13.5       0.0      13.5       6.6        1.       10.
+           100.           1.E6              200.         1
+BLANK CARD ENDING FREQUENCY CARDS
+$PUNCH
+BLANK CARD ENDING CABLE CONSTANTS
+BEGIN NEW DATA CASE
+BLANK CARD

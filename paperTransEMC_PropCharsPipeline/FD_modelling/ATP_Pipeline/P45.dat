@@ -1,0 +1,21 @@
+BEGIN NEW DATA CASE
+CABLE CONSTANTS
+CABLE PARAMETERS
+BRANCH  IN___AOUT__AIN___BOUT__BIN___COUT__CIN___DOUT__D
+    2    1    4              1              0    0    0
+    1    1    1    1
+   0.00463   0.01257   0.01257
+ 7.1221E-8        1.        1.        1.
+   0.00463   0.01257   0.01257
+ 7.1221E-8        1.        1.        1.
+   0.00463   0.01257   0.01257
+ 7.1221E-8        1.        1.        1.
+    0.1245     0.127     0.227
+ 2.8444E-7      250.        1.        1.
+      13.5      -6.6      13.5       0.0      13.5       6.6        1.       10.
+           100.            50.                1.         1
+BLANK CARD ENDING FREQUENCY CARDS
+$PUNCH
+BLANK CARD ENDING CABLE CONSTANTS
+BEGIN NEW DATA CASE
+BLANK CARD

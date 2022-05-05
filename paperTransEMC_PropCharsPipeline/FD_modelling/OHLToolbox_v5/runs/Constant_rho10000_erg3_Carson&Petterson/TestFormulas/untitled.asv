@@ -1,0 +1,14 @@
+f = 60;
+
+%% A simple geometry
+hi=20;
+hj=20;
+x=10; %horizontal spacing
+ri = 1.25705e-2;
+
+%% Ground parameters
+rho=100;
+mu_rg = 1;
+e_rg = 1;
+
+
