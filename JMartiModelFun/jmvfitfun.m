@@ -74,7 +74,7 @@ asymp_FLAG=1; %d=e=0;
 for m=1:ord
     A1 = exp(-g_dis(:,m).*line_length).*exp(1i*2*pi.*f.*tau(m));
     fun=A1;
-    [pol, res, infval, NORD, ffit, err]=vectfit_wrapper(fun,f,ERR,asymp_FLAG,stable_FLAG,passive_FLAG,spyplot_FLAG,msg_FLAG);
+    [pol, res, infval, NORD, ffit, err]=vectfit_wrapper(fun,f,ERR,opts);
 %     [b,a] = residue(res, pol, 0);
     fitA1OHLT(m).mode = m;
     fitA1OHLT(m).NORD = NORD;
@@ -129,9 +129,9 @@ for m=1:ord
 %     grid on
 %     legend;
     
-    for k=1:length(s)
-        h(k) = sum(fitA1OHLT(m).res ./ (s(k) + fitA1OHLT(m).pol));
-    end
+%     for k=1:length(s)
+%         h(k) = sum(fitA1OHLT(m).res ./ (s(k) + fitA1OHLT(m).pol));
+%     end
     
     figure(4)
     subplot(2,1,1)

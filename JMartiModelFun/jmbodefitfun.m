@@ -105,7 +105,7 @@ for o=1:ord
 end
 
 pchfname = ['E:\Users\Amauri\Documents\ATPdata\project\Usp\' fname '200kopt.pch'];
-fcontent = punchJMartiCard(ord, fitZcOHLT, fitA1OHLT, Ti, pchfname);
+% fcontent = punchJMartiCard(ord, fitZcOHLT, fitA1OHLT, Ti, pchfname);
 
 for m=1:ord
     [b,a] = residue(fitZcOHLT(m).res, fitZcOHLT(m).pol, fitZcOHLT(m).zInf);

@@ -15,6 +15,7 @@ Ymod_src='Ytot_Imag';Ymod_src='Ytot_Wise';
 % Flags
 ZYprnt=1; % Flag to print parameters
 ZYsave=0; % Flag to save parameters to matfiles
+JmartiFlag=1;
 FD_flag=0; % Flag for FD soil models. (0) Constant, (1) Longmire & Smith, (2) Portela, (3) Alipio & Visacro, (4) Datsios & Mikropoulos, (5) Scott, (6) Messier, (7) Visacro & Portela, (8) Visacro & Alipio, (9) Cigre
 decmp_flag = 13; % Modal decomposition flag. (1) QR,(2)QR ATP,(3)simple_QR,(4)simple_QR,(5)NR,(6)NR_back,(7)SQP,(8)SQP_back,(9)LM Levenberg-Marquardt,(10)LM_back,(11)LM_fast,(12)LM_alt, (13) eigenvalue shuffle QR, (14) intercheig QR
 
