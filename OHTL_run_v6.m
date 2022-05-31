@@ -10,8 +10,8 @@ format longEng; % Engineering format that has exactly 16 significant digits and 
 soil_rho=1000;%resistivity of earth
 soil_eps=5; %this is not used if FD_flag != 0
 % These are whatever formulas I choose to compute modal params
-Zmod_src='Ztot_Carson';%Zmod_src='Ztot_Wise';
-Ymod_src='Ytot_Imag';%Ymod_src='Ytot_Wise';
+Zmod_src='Ztot_Carson';Zmod_src='Ztot_Wise';
+Ymod_src='Ytot_Imag';Ymod_src='Ytot_Wise';
 % Flags
 ZYprnt=1; % Flag to print parameters
 ZYsave=0; % Flag to save parameters to matfiles
@@ -143,7 +143,7 @@ function [length,Ncon,soil,h,d,Geom]=LineData_fun_(soil_rho,soil_eps)
 % Geom = [1   0.0     20   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   1
 %         2   10.0     20   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   1];
 
-UNIF_LEN = 100;
+UNIF_LEN = 1000;
 
 Geom = [1  -6.6     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
     2   0.0     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN

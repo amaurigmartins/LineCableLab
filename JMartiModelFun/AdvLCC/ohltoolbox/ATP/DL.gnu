@@ -1,1 +1,0 @@
-set data style line

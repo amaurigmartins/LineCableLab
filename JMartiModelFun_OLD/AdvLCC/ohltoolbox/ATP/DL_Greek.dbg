@@ -1,0 +1,2811 @@
+  GUTATP  connects diagnostic file.  IPRSUP = -1  in  STARTUP  suppresses such output (see Apr, 96, newsletter).
+  Begin LFLUSH by setting L6HAND = -99.
+ Top of OVER1.  KILL, KPARAM, NCHAIN, IPRSNO =  1111   -46     1     0
+ OVER1 initialize.  NUMDCD, KASEND, KCARD2 = -8765     5     0
+                    NUMRUN, L6DISK =     0 -2244
+ OVER1 has LINUSE = -1   Define SLASH =\
+  over1 defines  DENABL =$ENABLE 
+ OVER1 tests KPARAM, NUMRUN = -46 0
+       CIM132(1:30) =D:\temp\DL_Greek.atp          
+       Length LENCIM = 20
+ Incoming prefix =D:\temp\
+  Input data file  CIM132(1:LENCIM) =D:\temp\DL_Greek.atp
+ Top  UNIXIN.  LUNDAT   NOTAB  KOLSAV  LCTACS   MSCSV  LENSPY  UNIXON
+                    3       0     132 2000000       0      25    0.00
+  LUNDAT is not yet connected to input data.
+   Connect it now (next),  as read-only.  LENSPY = 25
+  Back in UNIXIN.  Connection of input data was
+  successful (no  ERR=1761  service).
+  Exit  UNIXIN.  Back to OVER1 with  KILL = 0
+  Input arg?   INCDAT, KCARD1 = 0 401
+  Begin new  DIMENS.   NCHARG, LISBEG = -55222 -22666
+  Initialize.   LUNDAT, LUNIT6, NUMDCD, LISBEG = 3 6 400 -22666
+  DIMENS builds  BUFF77 =C:\EEUG18\GNUATP\listsize.dat
+         length  N9 = LENPTH + 12 = 29
+  Exit new  DIMENS.   LISBEG = 400
+  Begin new  DIMENS.   NCHARG, LISBEG = 20 400
+  Done 20.   LSIZE(1:8) = 0 20000000 29 3 23 2000000 1 100002
+  Exit new  DIMENS.   LISBEG = 400
+  OVER1 checks  LSTAT(17) = 0
+  $INCL OPEN comment name =D:\temp\DL.lib
+  Begin copy loop to store at bottom with reverse
+  indexing.  When done, there will be message.
+  Before  DO 1816.  LIMCRD = 60000
+ Top  UNIXIN.  LUNDAT   NOTAB  KOLSAV  LCTACS   MSCSV  LENSPY  UNIXON
+                    3       0     132 2000000       0      14    0.00
+  LUNDAT is not yet connected to input data.
+   Connect it now (next),  as read-only.  LENSPY = 14
+  Back in UNIXIN.  Connection of input data was
+  successful (no  ERR=1761  service).
+  Exit  UNIXIN.  Back to OVER1 with  KILL = 0
+  Enter  DO 4273.  n18, limcrd = 419 60000
+  $EOF detected.  GO TO 1828 next.
+  Done copying lower cards back to top (DO 1835).
+  Enter loop with top at SN 2338  J, KCARD2, kill = 401 488 0
+  Out of loop ending below SN 2382.  KSLASH, kill = 1 0
+  Done class 6 (SOURCE).  Next try 12 (UM).
+  Done class 6 (SOURCE).  Next try 12 (UM).
+  Over1 after EMTSPY.   kill = 0
+  Over1 checks  NUMDCD, KASEND, KCARD2, LLBUFF = 400 5 484 -3333
+ ^^^^  Top of  SUBR1.   NUMDCD  KASEND  KCARD2  LLBUFF  MRELAY
+                           400       5     484   -3333       0
+  Top SUBR1 saves  XMAXMX, TENERG =  2.  1.E+020
+  subr1 sets  LUNIT4, MOPLOT = -4 1
+  Begin new  DIMENS.   NCHARG, LISBEG = 0 400
+  Begin  TAPSAV/TAPSIZ.
+  Done  ENTRY TAPSIZ.   N3 = 322422708
+  Bytes of LABCOM from TAPSIZ.   N6 = 322422708
+  Exit new  DIMENS.   LISBEG = 400
+  Top of  SYSDEP.   NUMRUN, KTRPL4, KSWTCH = 0 -6666 -7799
+  GNU LU2OPN ready to open with  FNAME =
+ dum12345.bin                            
+  GNU LU2OPN ready to open with  FSTAT =SCRATCH
+      This is  UNFORMATTED.  LUNIT2 = 22
+  Exit  LOWCAS  with  TEXT(1:K2) =d:\temp\dl_greek.pl4
+  SYSDEP checks KPARAM = -1
+  Parallel name begins with  FILNAM =
+ D:\temp\DL_Greek.lis                                                                                                                                                                                                                                           
+ GNU  SYSDEP.   MAXKNT, KNT, ICAT, TMAX =    0    0    0  0.000000E+00
+           L4BYTE, LEN32L = 1 21  ANSI32L =D:\temp\DL_Greek.pl4 
+  SYSDEP considers  NUMRUN, KTRPL4 = 0 -6666
+  SYSDEP ready to delete old C-like .PL4 file.   ANSI32L =D:\temp\DL_Greek.pl4 
+  SYSDEP disconnects PL4?   L4HAND, IERROR = 0 0
+  SYSDEP shortens .PL4 name.  LEN32L = 20
+  After C-like .PL4 delete.
+  GNU sysdep ready for OPENRW.   KBL, L4HAND = 20 0
+             ANSI32L(1:KBL) =D:\temp\DL_Greek.pl4
+            KBL, L4HAND, IERROR = 20 9 0
+  Next, exit SYSDEP with KTRPL4 = -6666
+  Re-form JUNIT6 line.  K, LAST2 = 30 29
+  Re-form JUNIT6 line.  K, LAST2 = 30 28
+  Re-form JUNIT6 line.  K, LAST2 = 30 27
+  Re-form JUNIT6 line.  K, LAST2 = 30 26
+  Re-form JUNIT6 line.  K, LAST2 = 30 25
+  Re-form JUNIT6 line.  K, LAST2 = 30 24
+  Re-form JUNIT6 line.  K, LAST2 = 30 23
+  Re-form JUNIT6 line.  K, LAST2 = 30 22
+  Re-form JUNIT6 line.  K, LAST2 = 31 21
+  Re-form JUNIT6 line.  K, LAST2 = 31 20
+  Re-form JUNIT6 line.  K, LAST2 = 31 19
+  Re-form JUNIT6 line.  K, LAST2 = 31 18
+  Re-form JUNIT6 line.  K, LAST2 = 31 17
+  Re-form JUNIT6 line.  K, LAST2 = 31 16
+  Re-form JUNIT6 line.  K, LAST2 = 31 15
+  Re-form JUNIT6 line.  K, LAST2 = 31 14
+  Re-form JUNIT6 line.  K, LAST2 = 31 13
+  Re-form JUNIT6 line.  K, LAST2 = 31 12
+  Re-form JUNIT6 line.  K, LAST2 = 31 11
+  Re-form JUNIT6 line.  K, LAST2 = 31 10
+  Re-form JUNIT6 line.  K, LAST2 = 31 9
+  Re-form JUNIT6 line.  K, LAST2 = 31 8
+  Re-form JUNIT6 line.  K, LAST2 = 31 7
+  Begin  ENTRY OV1FLT  of  SUBR1.
+  Begin new  DIMENS.   NCHARG, LISBEG = 20 400
+  Done 20.   LSIZE(1:8) = 0 20000000 29 3 23 2000000 1 100002
+  Exit new  DIMENS.   LISBEG = 400
+ GNU HEADL4 begins writing C-like header.
+            L4HAND, NUMBUS, NCHAIN =    9   -1   11
+  After  19-byte date/time.   IERROR = 0
+  After 15 integers of Pisa header.   IERROR = 0
+  Done with C-like PL4 header.   IPRSOV(23) = 177
+  Done with Pisa PL4 header.   IPRSOV(23) = 177
+   OVER11 sets new  MIMSTP, JNDSTP = 9999999 7
+  Begin C-like flush.   L6HAND, K = -99 131
+  Begin C-like flush.   LU6NAM =D:\temp\DL_Greek.lis
+        Length of this name = LENLU6 = 20
+  C-like  open.   L6HAND, IERROR = 10 0
+  TFLUS4 after EMPTY@,  IERROR = 0
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 32768
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 65536
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 98304
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 131072
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 163840
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 196608
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 229376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 262144
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 294912
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 327680
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 360448
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 393216
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 425984
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 458752
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 491520
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 524288
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 557056
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 589824
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 622592
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 655360
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 688128
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 720896
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 753664
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 786432
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 819200
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 851968
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 884736
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 917504
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 950272
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 983040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1015808
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1048576
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1081344
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1114112
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 1146880
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1179648
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1212416
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 1245184
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 1277952
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1310720
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1343488
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1376256
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1409024
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1441792
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1474560
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1507328
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1540096
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1572864
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1605632
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1638400
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1671168
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1703936
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1736704
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1769472
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1802240
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1835008
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1867776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1900544
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 1933312
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 1966080
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 1998848
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 2031616
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2064384
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2097152
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 2129920
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 2162688
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2195456
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2228224
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2260992
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 2293760
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2326528
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2359296
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2392064
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 2424832
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2457600
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2490368
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2523136
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2555904
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2588672
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 2621440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2654208
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2686976
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2719744
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 2752512
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 2785280
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2818048
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2850816
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 2883584
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 2916352
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 2949120
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 2981888
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 3014656
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 3047424
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3080192
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3112960
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3145728
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 3178496
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3211264
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3244032
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3276800
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 3309568
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3342336
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3375104
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3407872
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3440640
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3473408
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 3506176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3538944
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3571712
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3604480
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 3637248
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 3670016
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3702784
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3735552
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 3768320
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 3801088
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3833856
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3866624
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3899392
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 3932160
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 3964928
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 3997696
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4030464
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 4063232
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4096000
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4128768
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4161536
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4194304
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4227072
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 4259840
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4292608
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4325376
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4358144
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 4390912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4423680
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4456448
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4489216
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 4521984
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 4554752
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4587520
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4620288
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 4653056
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 4685824
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4718592
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4751360
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4784128
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 4816896
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4849664
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 4882432
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4915200
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 4947968
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 4980736
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5013504
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5046272
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5079040
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5111808
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 5144576
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5177344
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5210112
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5242880
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 5275648
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 5308416
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5341184
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5373952
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 5406720
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 5439488
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5472256
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5505024
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5537792
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 5570560
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5603328
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5636096
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5668864
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 5701632
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5734400
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5767168
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5799936
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 5832704
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5865472
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5898240
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5931008
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 5963776
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 5996544
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 6029312
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6062080
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6094848
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6127616
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 6160384
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 6193152
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6225920
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6258688
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 6291456
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 6324224
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6356992
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6389760
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6422528
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 6455296
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6488064
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6520832
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6553600
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 6586368
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6619136
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6651904
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6684672
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6717440
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6750208
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 6782976
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6815744
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6848512
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 6881280
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 6914048
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 6946816
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 6979584
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7012352
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 7045120
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 7077888
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7110656
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7143424
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7176192
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 7208960
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7241728
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7274496
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7307264
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 7340032
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7372800
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7405568
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7438336
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 7471104
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7503872
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7536640
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7569408
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7602176
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7634944
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 7667712
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7700480
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7733248
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7766016
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 7798784
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 7831552
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7864320
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 7897088
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 7929856
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 7962624
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 7995392
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8028160
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8060928
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 8093696
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8126464
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 8159232
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8192000
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 8224768
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8257536
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 8290304
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8323072
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 8355840
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8388608
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 8421376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8454144
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8486912
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 8519680
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 8552448
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 8585216
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8617984
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8650752
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 8683520
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 8716288
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 8749056
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8781824
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 8814592
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 8847360
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 8880128
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8912896
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 8945664
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 8978432
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9011200
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9043968
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9076736
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 9109504
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9142272
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9175040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9207808
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9240576
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9273344
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 9306112
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9338880
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9371648
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9404416
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 9437184
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 9469952
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9502720
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9535488
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 9568256
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 9601024
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9633792
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9666560
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9699328
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 9732096
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9764864
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9797632
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9830400
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 9863168
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9895936
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 9928704
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 9961472
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 9994240
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10027008
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 10059776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10092544
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10125312
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 10158080
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 10190848
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10223616
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10256384
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 10289152
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 10321920
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 10354688
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10387456
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10420224
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 10452992
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 10485760
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 10518528
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10551296
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10584064
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 10616832
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10649600
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10682368
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10715136
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 10747904
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10780672
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 10813440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10846208
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 10878976
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10911744
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 10944512
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 10977280
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11010048
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11042816
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 11075584
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11108352
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11141120
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11173888
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 11206656
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 11239424
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11272192
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11304960
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11337728
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 11370496
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11403264
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11436032
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11468800
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 11501568
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11534336
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11567104
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11599872
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 11632640
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11665408
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11698176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11730944
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 11763712
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11796480
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 11829248
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11862016
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 11894784
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 11927552
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 11960320
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 11993088
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12025856
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12058624
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 12091392
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 12124160
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12156928
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12189696
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12222464
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 12255232
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12288000
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12320768
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12353536
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 12386304
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12419072
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12451840
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12484608
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 12517376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12550144
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12582912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12615680
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12648448
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12681216
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 12713984
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12746752
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12779520
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12812288
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 12845056
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 12877824
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 12910592
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 12943360
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 12976128
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 13008896
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13041664
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13074432
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13107200
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 13139968
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13172736
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13205504
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13238272
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 13271040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13303808
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13336576
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13369344
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 13402112
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13434880
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13467648
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13500416
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13533184
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13565952
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 13598720
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13631488
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13664256
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13697024
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 13729792
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 13762560
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13795328
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13828096
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 13860864
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 13893632
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 13926400
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13959168
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 13991936
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 14024704
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14057472
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14090240
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14123008
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 14155776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14188544
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14221312
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14254080
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14286848
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14319616
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 14352384
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14385152
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14417920
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14450688
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 14483456
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 14516224
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14548992
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14581760
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 14614528
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 14647296
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14680064
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14712832
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14745600
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 14778368
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14811136
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14843904
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14876672
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 14909440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 14942208
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 14974976
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15007744
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 15040512
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15073280
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15106048
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15138816
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15171584
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15204352
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 15237120
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15269888
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15302656
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15335424
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 15368192
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 15400960
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15433728
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15466496
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 15499264
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 15532032
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15564800
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15597568
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15630336
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 15663104
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15695872
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15728640
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15761408
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 15794176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15826944
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15859712
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15892480
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 15925248
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 15958016
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 15990784
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16023552
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16056320
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16089088
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 16121856
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16154624
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16187392
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16220160
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 16252928
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 16285696
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16318464
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16351232
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 16384000
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 16416768
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16449536
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16482304
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16515072
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 16547840
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16580608
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16613376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16646144
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 16678912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16711680
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16744448
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16777216
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16809984
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16842752
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 16875520
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16908288
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 16941056
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 16973824
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 17006592
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 17039360
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17072128
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17104896
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 17137664
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 17170432
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17203200
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17235968
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17268736
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 17301504
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17334272
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17367040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17399808
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 17432576
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17465344
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17498112
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17530880
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 17563648
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17596416
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17629184
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17661952
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17694720
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17727488
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 17760256
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17793024
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17825792
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17858560
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 17891328
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 17924096
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 17956864
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 17989632
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 18022400
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 18055168
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18087936
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18120704
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18153472
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 18186240
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18219008
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18251776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18284544
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 18317312
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18350080
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18382848
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18415616
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18448384
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18481152
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 18513920
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18546688
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18579456
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18612224
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 18644992
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 18677760
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18710528
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18743296
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 18776064
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 18808832
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18841600
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18874368
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 18907136
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 18939904
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 18972672
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19005440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19038208
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 19070976
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19103744
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19136512
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19169280
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 19202048
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19234816
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19267584
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19300352
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19333120
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19365888
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 19398656
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19431424
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19464192
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19496960
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 19529728
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 19562496
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19595264
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19628032
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 19660800
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 19693568
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19726336
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19759104
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19791872
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 19824640
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19857408
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 19890176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19922944
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 19955712
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 19988480
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20021248
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20054016
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20086784
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20119552
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 20152320
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20185088
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20217856
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20250624
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 20283392
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 20316160
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20348928
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20381696
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 20414464
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 20447232
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20480000
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20512768
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 20545536
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 20578304
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20611072
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20643840
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20676608
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 20709376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20742144
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20774912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20807680
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 20840448
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20873216
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 20905984
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20938752
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 20971520
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21004288
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 21037056
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21069824
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21102592
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21135360
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 21168128
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 21200896
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21233664
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21266432
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 21299200
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 21331968
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21364736
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21397504
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21430272
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 21463040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21495808
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21528576
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21561344
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 21594112
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21626880
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21659648
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21692416
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21725184
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21757952
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 21790720
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21823488
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21856256
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 21889024
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 21921792
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21954560
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 21987328
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22020096
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 22052864
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 22085632
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22118400
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22151168
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 22183936
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 22216704
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22249472
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22282240
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22315008
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 22347776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22380544
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22413312
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22446080
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 22478848
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22511616
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22544384
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22577152
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22609920
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22642688
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 22675456
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22708224
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22740992
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 22773760
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 22806528
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 22839296
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22872064
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 22904832
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 22937600
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 22970368
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23003136
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23035904
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23068672
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 23101440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23134208
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23166976
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23199744
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 23232512
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23265280
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23298048
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23330816
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 23363584
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23396352
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23429120
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23461888
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23494656
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23527424
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 23560192
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23592960
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23625728
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23658496
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 23691264
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 23724032
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23756800
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23789568
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 23822336
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 23855104
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 23887872
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23920640
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 23953408
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 23986176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24018944
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24051712
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24084480
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 24117248
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24150016
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24182784
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24215552
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 24248320
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24281088
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 24313856
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24346624
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24379392
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24412160
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 24444928
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 24477696
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24510464
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24543232
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 24576000
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 24608768
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24641536
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24674304
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24707072
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 24739840
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24772608
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24805376
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24838144
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 24870912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24903680
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 24936448
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 24969216
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 25001984
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25034752
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25067520
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25100288
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25133056
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25165824
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 25198592
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25231360
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25264128
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25296896
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 25329664
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 25362432
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25395200
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25427968
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 25460736
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 25493504
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25526272
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25559040
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25591808
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 25624576
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25657344
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25690112
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25722880
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 25755648
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25788416
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 25821184
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25853952
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 25886720
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25919488
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 25952256
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 25985024
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26017792
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 26050560
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26083328
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26116096
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26148864
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 26181632
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26214400
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 26247168
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26279936
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26312704
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 26345472
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 26378240
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 26411008
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26443776
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26476544
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26509312
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26542080
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26574848
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26607616
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26640384
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26673152
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 26705920
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26738688
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26771456
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26804224
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 26836992
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26869760
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 26902528
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 26935296
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 26968064
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27000832
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27033600
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27066368
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 27099136
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 27131904
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27164672
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27197440
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27230208
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 27262976
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27295744
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27328512
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27361280
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 27394048
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27426816
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27459584
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27492352
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 27525120
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27557888
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27590656
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27623424
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 27656192
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27688960
+  Begin C-like flush.   L6HAND, K = 10 77
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 77 32768 27721728
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27754496
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27787264
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 27820032
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 27852800
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 27885568
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27918336
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 27951104
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 27983872
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 28016640
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28049408
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28082176
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28114944
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 28147712
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28180480
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28213248
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28246016
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 28278784
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28311552
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28344320
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28377088
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 28409856
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28442624
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28475392
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28508160
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28540928
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28573696
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 28606464
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28639232
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28672000
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28704768
+  Begin C-like flush.   L6HAND, K = 10 124
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 124 32768 28737536
+  Begin C-like flush.   L6HAND, K = 10 132
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 132 32768 28770304
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28803072
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28835840
+  Begin C-like flush.   L6HAND, K = 10 24
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 24 32768 28868608
+  Begin C-like flush.   L6HAND, K = 10 116
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 116 32768 28901376
+  Begin C-like flush.   L6HAND, K = 10 113
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 113 32768 28934144
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28966912
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 28999680
+  Begin C-like flush.   L6HAND, K = 10 131
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 131 32768 29032448
+  Begin C-like flush.   L6HAND, K = 10 130
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = 130 32768 29065216
+ TGRUNT.   Wall-clock times for the time-step loop are: 15:20:26  15:20:26
+ MAIN20 checks  KTRPL4, ICAT, NOTAIL =   -6666       1       0
+                 IPLOT, MAXKNT, KEXACT = 1 0 0
+  L4HAND to byte 56.  IPRSOV(23), L4BYTE, LASTOV = 177 279925 8
+  GNU HEADL4/PISEND  done.   L4BYTE = 279925
+  ENTRY PISEND increases NTOT by 6 to NTOT = 13
+ TGRUNT.   Wall-clock times for the time-step loop are: 15:20:26  15:20:26
+ Top of LU4CLS.  ICAT  LUNIT4  L4BYTE  L4HAND  LEN32L
+                    1       4     177       9      20
+  LU4CLS disconnects PL4.   L4HAND, IERROR = 9 0
+  LU4CLS  checks  KPARAM, NCHAIN, KILL = -1 29 0
+  Begin new  DIMENS.   NCHARG, LISBEG = -66444 400
+  Top reinitializes.   Set  LISBEG = -22666.
+  Exit new  DIMENS.   LISBEG = -22666
+  End.   M4PLOT, NOTMAX, KFILE5, LOCKBR = 2 0 0 0
+ Top of OVER1.  KILL, KPARAM, NCHAIN, IPRSNO =     0    -1     1     0
+  OVER1 after EMTSPY.  LSTAT(17) = 7
+  Enter loop with top at SN 2338  J, KCARD2, kill = 401 402 0
+  Out of loop ending below SN 2382.  KSLASH, kill = 0 0
+  Over1 after EMTSPY.   kill = 0
+  Over1 checks  NUMDCD, KASEND, KCARD2, LLBUFF = 400 5 402 1025
+STOPTP.  KILL  L4DISK  L6DISK  L4BYTE  L4HAND  NOPROG
+        -9999       0   -2244     177       0       0
+  S.N. 4872.  L4BYTE, L4HAND = 177 0
+  STOPTP checks  NOPOST, KSHOWP = 0 0
+  Within STOPTP, ready to CALL DFLUSH.
+  Begin  ENTRY DFLUSH  of  TFLUSH  at end of job.
+          L6HAND, LENLU6 = 10 20
+  Begin C-like flush.   L6HAND, K = 10 -99444
+  Begin C-like dump of text to .LIS on disk.
+    End C-like dump.   K, N9, JTANKT = -99444 22121 29087337
+  TFLUS4 disconnects .LIS   L6HAND, IERROR = 10 0
+  Below S.N. 6382 of STOPTP,  ready for TIME_OUT.
+  Two or more HP-GL plots?  KNTHPG = 0
