@@ -30,6 +30,7 @@ addpath([currPath 'ZY_OHTL_pul_funs']);
 addpath([currPath 'mode_decomp_funs']);
 addpath([currPath 'FD_soil_models_funs']);
 addpath([currPath 'export_fun']);
+addpath([currPath 'Bundle_reduction_funs']);
 
 %% Frequency range
 points_per_dec=100;
@@ -67,17 +68,18 @@ freq_siz=length(f);
 % LineData_fun()
 % [line_length,ord,soil,h,d,Geom]=LineData_fun();
 
+
 %% Calculations
 tic
-[Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise] = Z_clc_fun(f,ord,ZYprnt,FD_flag,freq_siz,soil,h,d,Geom,ZYsave,jobid); % Calculate Z pul parameters by different earth approaches
+[Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Nph] = Z_clc_fun(f,ord,ZYprnt,FD_flag,freq_siz,soil,h,d,Geom,ZYsave,jobid); % Calculate Z pul parameters by different earth approaches
 
 % added more outputs to Y_clc_fun - to make it easier to access soil data
 % from the top level procedure
-[Ytot_Imag,Ytot_Pettersson,Ytot_Wise,sigma_g_total,erg_total] = Y_clc_fun(f,ord,ZYprnt,FD_flag,freq_siz,soil,h,d,Geom,ZYsave,jobid); % Calculate Y pul parameters by different earth approaches
+[Ytot_Imag,Ytot_Pettersson,Ytot_Wise,sigma_g_total,erg_total,Nph] = Y_clc_fun(f,ord,ZYprnt,FD_flag,freq_siz,soil,h,d,Geom,ZYsave,jobid); % Calculate Y pul parameters by different earth approaches
 
 % added more parameters to mode_decomp_fun() to plot results versus soil
 % data
-[Zch_mod,Ych_mod,Zch,Ych,g_dis,a_dis,vel_dis,Ti_dis,Z_dis,Y_dis] = mode_decomp_fun(eval(Zmod_src),eval(Ymod_src),f,freq_siz,ord,decmp_flag,sigma_g_total,erg_total,ZYprnt,jobid); % Modal decomposition
+[Zch_mod,Ych_mod,Zch,Ych,g_dis,a_dis,vel_dis,Ti_dis,Z_dis,Y_dis] = mode_decomp_fun(eval(Zmod_src),eval(Ymod_src),f,freq_siz,Nph,decmp_flag,sigma_g_total,erg_total,ZYprnt,jobid); % Modal decomposition
 % [H_mod,F_mod,pol_co] = HF_VF_fun(Ti_dis,g_dis,line_length,f,ord); % Vector Fitting
 toc
 
@@ -127,7 +129,7 @@ end
 function [length,Ncon,soil,h,d,Geom]=LineData_fun_(soil_rho,soil_eps)
 % Line Geometry
 %
-% 1 column -- number of conductor
+% 1 column -- number of phase (0 to CPR with kron reduction)
 % 2 column -- x position of each conduntor in meters
 % 3 column -- y position of each coductor in meters
 % 4 column -- internal radii of each conductor
@@ -142,21 +144,30 @@ function [length,Ncon,soil,h,d,Geom]=LineData_fun_(soil_rho,soil_eps)
 
 % Geom = [1   0.0     20   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   1
 %         2   10.0     20   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   1];
-
+ 
 UNIF_LEN = 1000;
 
-Geom = [1  -6.6     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
-    2   0.0     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
-    3   6.6     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
-    4  10.0     01.0   0.12450  0.12700  2.8444e-7   250   0.227    1     3   UNIF_LEN       % P46
-    5  -4.65    17.6   0.00000  0.004765 2.46925E-7   1     nan    nan   nan  UNIF_LEN
-    6   4.65    17.6   0.00000  0.004765 2.46925E-7   1     nan    nan   nan   UNIF_LEN];     % P66
-%        4  10.0     01.0   0.12450  0.12700  2.8444e-7   250   nan    nan   nan   1];    % P44
-%        4  10.0     01.0   0.12450  0.12700  2.8444e-7   1   nan    nan   nan   1];      % P43
-%        4  10.0     01.0   0.00463  0.01257  7.1221e-8   1   nan    nan   nan   1];      % P42
-%        4  10.0     13.5   0.00463  0.01257  7.1221e-8   1   nan    nan   nan   1];      % P41
+% Geom = [1  -6.6     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
+%         2   0.0     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
+%         3   6.6     13.5   0.00463  0.01257  7.1221e-8   1     nan    nan   nan   UNIF_LEN
+%         4  10.0     01.0   0.12450  0.12700  2.8444e-7   250   0.227    1     3   UNIF_LEN       % P46
+%         5  -4.65    17.6   0.00000  0.004765 2.46925E-7   1     nan    nan   nan  UNIF_LEN
+%         6   4.65    17.6   0.00000  0.004765 2.46925E-7   1     nan    nan   nan  UNIF_LEN];     % P66
+% %        4  10.0     01.0   0.12450  0.12700  2.8444e-7   250   nan    nan   nan   1];    % P44
+% %        4  10.0     01.0   0.12450  0.12700  2.8444e-7   1   nan    nan   nan   1];      % P43
+% %        4  10.0     01.0   0.00463  0.01257  7.1221e-8   1   nan    nan   nan   1];      % P42
+% %        4  10.0     13.5   0.00463  0.01257  7.1221e-8   1   nan    nan   nan   1];      % P41
+
+Geom = [1  -13.312    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        1  -11.206    13.250   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        2  -12.812    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        2  -11.206    13.750   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN  
+        2  -10.773    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        0   -9.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN
+        0   -7.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN];
+
 length  = Geom(1,11);                                     % Line length
-Ncon    = Geom(max(Geom(:,1)),1);                        % Number of conductors
+Ncon    = size(Geom,1);                        % Number of conductors
 
 % Variables
 %e0=8.854187817e-12;  % Farads/meters

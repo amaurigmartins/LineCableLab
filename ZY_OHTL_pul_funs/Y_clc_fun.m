@@ -1,7 +1,17 @@
-function [Ytot_Imag,Ytot_Pet,Ytot_Wise,sigma_g_total,erg_total] = Y_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
+function [Ytot_Imag,Ytot_Pet,Ytot_Wise,sigma_g_total,erg_total,Nph] = Y_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
 % Variables
 e0=8.854187817e-12;  % Farads/meters
 omega_total=2*pi*f_total;
+
+%% Reordenation to make bundle reduction
+% To make a bundle reduction is necessary to reorder the original
+% conductors matrix
+Geom = reorderGeoMatrix(Geom);
+
+ph_order = Geom(:,1);
+Nph = unique(ph_order);
+Nph = size(Nph(Nph~=0),1);
+
 
 %% Conductor data
 % Determine the outer radius of the cable
@@ -52,9 +62,9 @@ e_g_total=e0.*erg_total;
 
 %% Calculations
 % Dynamic allocation
-Ytot_Imag=zeros(ord,ord,siz);
-Ytot_Pet=zeros(ord,ord,siz);
-Ytot_Wise=zeros(ord,ord,siz);
+Ytot_Imag=zeros(Nph,Nph,siz);
+Ytot_Pet=zeros(Nph,Nph,siz);
+Ytot_Wise=zeros(Nph,Nph,siz);
 %% Shunt admittance
 for k=1:siz
     omega=omega_total(k);
@@ -103,6 +113,11 @@ for k=1:siz
     L_Q_mat=Ps_pet+Pm_pet+Pin_mat;
     L_Q_wise=Ps_wise+Pm_wise+Pin_mat;
     
+    % Bundle reduction
+    L_Q_imag_mat = bundleReduction(ph_order,L_Q_imag_mat);
+    L_Q_mat = bundleReduction(ph_order,L_Q_mat);
+    L_Q_wise = bundleReduction(ph_order,L_Q_wise);
+    
     % Total Admittance Matrices
     Ytot_Imag(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_imag_mat);
     Ytot_Pet(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_mat);
@@ -111,7 +126,7 @@ for k=1:siz
 end
 
 if (ZYprnt)
-    plotY_fun_ct(f_total,ord,Ytot_Imag,Ytot_Pet,Ytot_Wise,jobid)
+    plotY_fun_ct(f_total,Nph,Ytot_Imag,Ytot_Pet,Ytot_Wise,jobid)
 end
 
 if (ZYsave)

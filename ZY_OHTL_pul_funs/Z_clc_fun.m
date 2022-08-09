@@ -1,10 +1,18 @@
-function [Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen, Ztot_Wise] = Z_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
+function [Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen, Ztot_Wise,Nph] = Z_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
 %% Variables
 e0=8.854187817e-12;  % Farads/meters
 m0=4*pi*1e-7;        % Henry's/meters
 
 omega_total=2*pi*f_total;
 
+%% Reordenation to make bundle reduction
+% To make a bundle reduction is necessary to reorder the original
+% conductors matrix
+Geom = reorderGeoMatrix(Geom);
+
+ph_order = Geom(:,1);
+Nph = unique(ph_order);
+Nph = size(Nph(Nph~=0),1);
 
 
 %% Conductor data
@@ -58,14 +66,14 @@ end
 e_g_total=e0.*erg_total;
 %% Calculations
 % Dynamic allocation
-Ztot_Carson=zeros(ord,ord,siz);
-Ztot_Noda=zeros(ord,ord,siz);
-Ztot_Deri=zeros(ord,ord,siz);
-Ztot_Sunde=zeros(ord,ord,siz);
-Ztot_Pettersson=zeros(ord,ord,siz);
-Ztot_Wise=zeros(ord,ord,siz);
-Ztot_Semlyen=zeros(ord,ord,siz);
-Ztot_AlDe=zeros(ord,ord,siz);
+Ztot_Carson=zeros(Nph,Nph,siz);
+Ztot_Noda=zeros(Nph,Nph,siz);
+Ztot_Deri=zeros(Nph,Nph,siz);
+Ztot_Sunde=zeros(Nph,Nph,siz);
+Ztot_Pettersson=zeros(Nph,Nph,siz);
+Ztot_Wise=zeros(Nph,Nph,siz);
+Ztot_Semlyen=zeros(Nph,Nph,siz);
+Ztot_AlDe=zeros(Nph,Nph,siz);
 Zin_test=zeros(ord,ord,siz);
 Zg_Carson_mat=zeros(ord,ord,siz);
 
@@ -171,19 +179,37 @@ for k=1:siz
     Ze_pg(:,:,k)=Zpg;
     Zg(:,:,k)=Zg_Carson-Zpg;
     Zg_Carson_mat(:,:,k)=Zg_Carson;
-    Ztot_Carson(:,:,k)=Zin+Zg_Carson;
-    Ztot_Noda(:,:,k)=Zin+Zg_Noda;
-    Ztot_Deri(:,:,k)=Zin+Zpg+Zg_Deri;
-    Ztot_AlDe(:,:,k)=Zin+Zpg+Zg_AlDe;
-    Ztot_Sunde(:,:,k)=Zin+Zpg+Zg_Sund;
-    Ztot_Pettersson(:,:,k)=Zin+Zpg+Zg_Pet;
-    Ztot_Wise(:,:,k)=Zin+Zpg+Zg_Wise;
-    Ztot_Semlyen(:,:,k)=Zin+Zpg+Zg_Sem;
+    Z_Carson=Zin+Zg_Carson;
+    Z_Noda=Zin+Zg_Noda;
+    Z_Deri=Zin+Zpg+Zg_Deri;
+    Z_AlDe=Zin+Zpg+Zg_AlDe;
+    Z_Sunde=Zin+Zpg+Zg_Sund;
+    Z_Pettersson=Zin+Zpg+Zg_Pet;
+    Z_Wise=Zin+Zpg+Zg_Wise;
+    Z_Semlyen=Zin+Zpg+Zg_Sem;
+    
+    % Bundle reduction matrices   
+    Ztot_Carson(:,:,k) = bundleReduction(ph_order,Z_Carson);
+    
+    Ztot_AlDe(:,:,k) = bundleReduction(ph_order,Z_AlDe);
+    
+    Ztot_Deri(:,:,k) = bundleReduction(ph_order,Z_Deri);
+    
+    Ztot_Noda(:,:,k) = bundleReduction(ph_order,Z_Noda);
+    
+    Ztot_Pettersson(:,:,k) = bundleReduction(ph_order,Z_Pettersson);
+    
+    Ztot_Semlyen(:,:,k) = bundleReduction(ph_order,Z_Semlyen);
+    
+    Ztot_Sunde(:,:,k) = bundleReduction(ph_order,Z_Sunde);
+    
+    Ztot_Wise(:,:,k) = bundleReduction(ph_order,Z_Wise);   
+    
     
 end
 %% Plot parameters
 if (ZYprnt)
-    plotZ_fun_ct(f_total,ord,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,jobid);
+    plotZ_fun_ct(f_total,Nph,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,jobid);
 end
 
 if (ZYsave)
