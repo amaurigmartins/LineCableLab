@@ -55,8 +55,10 @@ f=transpose([f_dec1(1:length(f_dec1)-1) f_dec2(1:length(f_dec2)-1) f_dec3(1:leng
 %f=transpose(f_dec7); % for BB-PLC
 %f=transpose([1E-6 f_dec1(1:length(f_dec1)-1) f_dec2(1:length(f_dec2)-1) f_dec3(1:length(f_dec3)-1) f_dec4(1:length(f_dec4)-1) f_dec5(1:length(f_dec5)-1) f_dec6(1:length(f_dec6)-1) f_dec7]);
 %f=50;
-f=transpose(logspace(0,6,500));
+% f=transpose(logspace(0,6,500));
+f = 60;
 freq_siz=length(f);
+
 
 %% Line Parameters
 

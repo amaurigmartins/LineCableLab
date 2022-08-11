@@ -8,6 +8,9 @@ if ~isempty(zero_ph_row)
      M1 = M(zero_ph_row(end)+1:end,:);
      PH = unique(M(zero_ph_row(end)+1:end,1));
      
+else
+    M1 = M;
+    M0 = [];
 end
 
 MF = [];
