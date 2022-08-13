@@ -5,10 +5,6 @@ m0=4*pi*1e-7;        % Henry's/meters
 
 omega_total=2*pi*f_total;
 
-%% Reordenation to make bundle reduction
-% To make a bundle reduction is necessary to reorder the original
-% conductors matrix
-Geom = reorderGeoMatrix(Geom);
 
 ph_order = Geom(:,1);
 Nph = unique(ph_order);

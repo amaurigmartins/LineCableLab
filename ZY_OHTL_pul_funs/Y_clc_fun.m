@@ -3,15 +3,10 @@ function [Ytot_Imag,Ytot_Pet,Ytot_Wise,sigma_g_total,erg_total,Nph] = Y_clc_fun(
 e0=8.854187817e-12;  % Farads/meters
 omega_total=2*pi*f_total;
 
-%% Reordenation to make bundle reduction
-% To make a bundle reduction is necessary to reorder the original
-% conductors matrix
-Geom = reorderGeoMatrix(Geom);
 
 ph_order = Geom(:,1);
 Nph = unique(ph_order);
 Nph = size(Nph(Nph~=0),1);
-
 
 %% Conductor data
 % Determine the outer radius of the cable

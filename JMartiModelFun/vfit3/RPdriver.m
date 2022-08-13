@@ -246,7 +246,7 @@ t=[0 0 0 0];
 %t(3): passivity enforcement
 %t(4): total
 
-tdumtotal=toc;
+% tdumtotal=toc;
 
 
 
@@ -276,7 +276,7 @@ for iter_out=1:Niter_out
      disp([     '  [ ' num2str(iter_out) '  ' num2str(iter_in-1) ' ]']) 
      disp( '  Passivity Assessment:')   
    end
-   tdum=toc;
+%    tdum=toc;
    
    if iter_in==1, %######
    if opts.parametertype=='Y'
@@ -285,7 +285,7 @@ for iter_out=1:Niter_out
      TOL=1e-3; spy=1;  
      [wintervals]=pass_check_S(SERflag,SER.poles,[],SER1.R,SER1.D,TOL,spy,colinterch);  
    end  
-   t(1)=t(1) +toc-tdum;
+%    t(1)=t(1) +toc-tdum;
   
     if length(wintervals)>0  
       if outputlevel==1  
@@ -302,18 +302,18 @@ for iter_out=1:Niter_out
 
   if opts.parametertype=='Y'
     %Identifying minima within each interval:
-    tdum=toc;  
+%     tdum=toc;  
     [s_viol,g_pass,ss]=violextremaY(SERflag,wintervals.',SER.poles,[],SER1.R,SER1.D,colinterch);
-    t(2)=t(2) +toc-tdum; 
+%     t(2)=t(2) +toc-tdum; 
     s2=[s_viol.'];s2=sort(s2);
     if length(s2)==0 & all(eig(SER1.D)>0)  
       break 
     end
   elseif opts.parametertype=='S'  
      %Identifying maxima within each interval:
-    tdum=toc;  
+%     tdum=toc;  
     [s_viol,g_pass,ss]=violextremaS(SERflag,wintervals.',SER.poles,[],SER1.R,SER1.D,colinterch);
-    t(2)=t(2) +toc-tdum;
+%     t(2)=t(2) +toc-tdum;
     s2=[s_viol.'];s2=sort(s2);
     SER1=SER0; 
     if length(s2)==0 & all(svd(SER1.D)<1) 
@@ -380,7 +380,7 @@ for iter_out=1:Niter_out
 
    %[SER1,MPopts]=FMP(SER1,s,s2,s3,MPopts); 
    if outputlevel==1, disp( '  Passivity Enforcement...'), end
-   tdum=toc;
+%    tdum=toc;
    if opts.method=='FMP'     
      [SER1,MPopts]=FMP(SER0,s,s2,s3,MPopts);  
    elseif opts.method=='FRP'
@@ -392,9 +392,9 @@ for iter_out=1:Niter_out
    else
      disp('****** ERROR #1 in FMPdriver.m')  
    end  
-   t(3)=t(3) +toc-tdum;
+%    t(3)=t(3) +toc-tdum;
 
-    t(4)=t(4) +toc-tdumtotal;
+%     t(4)=t(4) +toc-tdumtotal;
     if plotte==1
       if opts.parametertype=='Y' 
         oldT0=[];
@@ -432,22 +432,22 @@ for iter_out=1:Niter_out
       legend([h2(1) h3(1)],'Previous','Perturbed'); drawnow, pause(0.01); hold off
     end
     
-    tdumtotal=toc;
+%     tdumtotal=toc;
     if iter_in~=Niter_in+1 %Not last run in inner-loop
       if opts.parametertype=='Y'  
-        tdum=toc;
+%         tdum=toc;
         [wintervals]=pass_check_Y(SERflag,SER1.poles,[],SER1.R,SER1.D);
-        t(1)=t(1) +toc-tdum;   
-        tdum=toc;      
+%         t(1)=t(1) +toc-tdum;   
+%         tdum=toc;      
         [s_viol]=violextremaY(SERflag,wintervals.',SER1.poles,[],SER1.R,SER1.D,colinterch);  
-        t(2)=t(2) +toc-tdum;        
+%         t(2)=t(2) +toc-tdum;        
       elseif opts.parametertype=='S'  
-         tdum=toc;  
+%          tdum=toc;  
          [wintervals]=pass_check_S(SERflag,SER1.poles,[],SER1.R,SER1.D,TOL,spy,colinterch);
-          t(1)=t(1) +toc-tdum;        
-         tdum=toc;  
+%           t(1)=t(1) +toc-tdum;        
+%          tdum=toc;  
          [s_viol]=violextremaS(SERflag,wintervals.',SER1.poles,[],SER1.R,SER1.D,colinterch);  
-         t(2)=t(2) +toc-tdum;
+%          t(2)=t(2) +toc-tdum;
       end  
       olds3=s3;
       s3=[s3; s2; s_viol.'];
@@ -464,7 +464,7 @@ for iter_out=1:Niter_out
       %break %leave inner loop
     end 
 
-    t(4)=t(4) +toc-tdumtotal;    
+%     t(4)=t(4) +toc-tdumtotal;    
 
   end %for iter=1:1
 

@@ -1,27 +1,35 @@
-close all
-clear
-clc
+% close all
+% clear
+% clc
 
-addpath('vfit3')
-addpath('functions')
+% currmfile = mfilename('fullpath');
+% currPath = currmfile(1:end-length(mfilename()));
+% addpath('/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v6/mode_decomp_funs');
+addpath(fullfile(currPath,'JMartiModelFun','vfit3'))
+addpath(fullfile(currPath,'JMartiModelFun','functions'))
+
+
+ZYprnt=true;
 
 % Load dataset
-fname='carson';
-load([fname '.mat'])
+% fname='carson';
+% load([fname '.mat'])
 
 % General parameters
-line_length = 1000;
-f_Ti=200e3; % Frequency chosen for JMarti model
+% line_length = 1000;
+% f_Ti=200e3; % Frequency chosen for JMarti model
 
 % Raw impedance and admittance matrices
-Z=permute(Ztot_Carson,[3 1 2]);
-Y=permute(Ytot_Imag,[3 1 2]);
+% Zmod_src='Ztot_Carson';
+% Ymod_src='Ytot_Imag';
+Z=permute(eval(Zmod_src),[3 1 2]);
+Y=permute(eval(Ymod_src),[3 1 2]);
 
 % Frequency-variant transform matrix from OHLT
-    [Ti_dis,g_dis]=LM_calc_norm_str(ord,freq_siz,Z,Y,f);
+%     [Ti_dis,g_dis]=LM_calc_norm_str(ord,freq_siz,Z,Y,f);
     % [Ti_dis,g_dis]=intercheig_QR_decomp(ord,freq_siz,Z,Y);
 % [Ti_dis,g_dis]=simple_QR_decomp(ord,freq_siz,Z,Y);
-Ti_dis=rot_min_imag(Ti_dis,ord,freq_siz);
+% Ti_dis=rot_min_imag(Ti_dis,ord,freq_siz);
 Ti=list2sqmat(Ti_dis,ord,freq_siz);
 
 % Now let's pick the corresponding matrix for a specific frequency @ f_Ti
@@ -32,7 +40,7 @@ T=real(T); %is this really necessary?
 % Recompute Zc and H using modified T and g
 modif_T=sqmat2list(T,ord,freq_siz);
 [Zch_m,Ych_m,~,~]=calc_char_imped_admit(modif_T,Z,Y,ord,freq_siz);
-Zch_m_OHLT=Zch_mod;clear Zch_mod
+Zch_m_OHLT=Zch_mod;
 % [Zch_mod,Ych_mod,~,~]=calc_char_imped_admit(sqmat2list(Ti,ord,freq_siz),Z,Y,ord,freq_siz);
 [H_m,~,~,~,~]=calc_prop_function(modif_T,g_dis,line_length,ord,freq_siz,f); %it works!!!
 [H_m_OHLT,~,~,~,~]=calc_prop_function(Ti_dis,g_dis,line_length,ord,freq_siz,f); %it works!!!
@@ -44,17 +52,17 @@ for m=1:ord
 end
 
 % Running some tests...
-for k=1:freq_siz
-    %char impedance
-    YL=squeeze(Y(k,:,:));ZL=squeeze(Z(k,:,:));
-    Zc=YL^(-1)*(YL*ZL)^0.5;
-    Zcmm=transpose(T)*Zc*T;
-    Zch_test(k,:)=diag(Zcmm);
-    %propag function
-    H=expm(-(YL*ZL)^0.5*line_length);
-    Hmm=T^(-1)*H*T;
-    H_m_test(k,:)=diag(Hmm);
-end
+% for k=1:freq_siz
+%     %char impedance
+%     YL=squeeze(Y(k,:,:));ZL=squeeze(Z(k,:,:));
+%     Zc=YL^(-1)*(YL*ZL)^0.5;
+%     Zcmm=transpose(T)*Zc*T;
+%     Zch_test(k,:)=diag(Zcmm);
+%     %propag function
+%     H=expm(-(YL*ZL)^0.5*line_length);
+%     Hmm=T^(-1)*H*T;
+%     H_m_test(k,:)=diag(Hmm);
+% end
 
 %manual_VF_test
 
@@ -97,17 +105,19 @@ for m=1:ord
     end
 end
 
-%%% DEBUGME
-figure
-for m=1:ord
-    semilogx(f,abs(Zch_src(:,m)),'o', 'DisplayName', ['mode #' num2str(m)]);hold all;
-    semilogx(f,abs(fitOHLT_Zc(m).ffit), 'DisplayName', ['fit mode #' num2str(m)]);hold all;
+if ZYprnt
+    %%% DEBUGME
+    figure
+    for m=1:ord
+        semilogx(f,abs(Zch_src(:,m)),'o', 'DisplayName', ['mode #' num2str(m)]);hold all;
+        semilogx(f,abs(fitOHLT_Zc(m).ffit), 'DisplayName', ['fit mode #' num2str(m)]);hold all;
+    end
+    axis tight
+    xlabel('Frequency [Hz]')
+    ylabel('Z_{ch} [\Omega]')
+    grid on
+    legend
 end
-axis tight
-xlabel('Frequency [Hz]')
-ylabel('Z_{ch} [\Omega]')
-grid on
-legend
 
 % VF propagation function with optimum delay time
 opts.asymp=1;      %%1-> d=e=0, 2 -> d!=0, e=0, 3-> d!=0, e!=0
@@ -128,40 +138,47 @@ for m=1:ord
     end
 end
 
-%%% DEBUGME
-figure
-for m=1:ord
-    semilogx(f,abs((H_src(:,m))),'o', 'DisplayName', ['mode #' num2str(m)]);hold all;
-    semilogx(f,abs(fitOHLT_H(m).ffit(1:freq_siz)), 'DisplayName', ['fit mode #' num2str(m)]);hold all;
+if ZYprnt
+    %%% DEBUGME
+    figure
+    for m=1:ord
+        semilogx(f,abs((H_src(:,m))),'o', 'DisplayName', ['mode #' num2str(m)]);hold all;
+        semilogx(f,abs(fitOHLT_H(m).ffit(1:freq_siz)), 'DisplayName', ['fit mode #' num2str(m)]);hold all;
+    end
+    axis tight
+    xlabel('Frequency [Hz]')
+    ylabel('H')
+    grid on
+    legend
 end
-axis tight
-xlabel('Frequency [Hz]')
-ylabel('H')
-grid on
-legend
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%DEBUGME
-m=1;
-figure
-semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(Zch_m_OHLT(:,m)),'o')
-legend('Const+real T @ 200 kHz', 'Var Ti')
-title(sprintf('Zc mode #%d',m))
-axis tight
-xlabel('Frequency [Hz]')
-ylabel('Z_{ch} [\Omega]')
-grid on
-legend
+if ZYprnt
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%DEBUGME
+    for m=1:ord
+        figure
+        semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(Zch_m_OHLT(:,m)),'o')
+        legend('Const+real T @ 200 kHz', 'Var Ti')
+        title(sprintf('Zc mode #%d',m))
+        axis tight
+        xlabel('Frequency [Hz]')
+        ylabel('Z_{ch} [\Omega]')
+        grid on
+        legend
 
-figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(H_m_OHLT(:,m)),'o')
-legend('Const+real T @ 200 kHz', 'Var Ti')
-title(sprintf('H mode #%d',m))
-axis tight
-xlabel('Frequency [Hz]')
-ylabel('H')
-grid on
-legend
+        figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(H_m_OHLT(:,m)),'o')
+        legend('Const+real T @ 200 kHz', 'Var Ti')
+        title(sprintf('H mode #%d',m))
+        axis tight
+        xlabel('Frequency [Hz]')
+        ylabel('H')
+        grid on
+        legend
+    end
+end
 
 % Now write data to PCH file
-BASEDIR=fullfile('/home','amauri','.wine','drive_c','users','amauri','My Documents','ATPdata','projects','Usp');
-pchfname = fullfile(BASEDIR,['jm_vf_' fname '_f_' sprintf('%0.0f',f_Ti) '.pch']);
+% BASEDIR=fullfile('/home','amauri','.wine','drive_c','users','amauri','My Documents','ATPdata','projects','Usp');
+BASEDIR=currPath;
+% pchfname = fullfile(BASEDIR,['jm_vf_' fname '_f_' sprintf('%0.0f',f_Ti) '.pch']);
+pchfname = fullfile(BASEDIR,[jobid '.pch']);
 fcontent = punchJMartiCard(ord, fitOHLT_Zc, fitOHLT_H, T, pchfname);
