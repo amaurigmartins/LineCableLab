@@ -11,6 +11,6 @@ Y=eval(Ymod_src);
 
 f=f';
 
-fname=['E:\Users\Amauri\Documents\EMTP\EMTP_test\' fload];
+fname=['./' fload];
 
 save(fname,'f','Z','Y','line_length')
