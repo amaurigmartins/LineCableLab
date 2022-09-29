@@ -112,6 +112,10 @@ if (export2EMTP)
  punch2emtp
 end
 
+if (export2PCH)
+ makeJmartiModel
+end
+
 if (ZYsave)
     fname = [jobid '.mat'];
     save(fname,[jobid '_data'])
