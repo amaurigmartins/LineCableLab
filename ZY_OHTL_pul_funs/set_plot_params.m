@@ -55,6 +55,7 @@ right = 1 * w_corr;  % normalized right margin
 
 %% set default figure configurations
 reset(0);
+fontface='Times New Roman';
 set(0,'defaultFigureUnits','centimeters');
 set(0,'defaultFigurePosition',[0 0 width height]);
 set(0,'defaultLineLineWidth',1*k_scaling);
@@ -62,11 +63,11 @@ set(0,'defaultAxesLineWidth',0.25*k_scaling);
 set(0,'defaultAxesGridLineStyle',':');
 set(0,'defaultAxesYGrid','on');
 set(0,'defaultAxesXGrid','on');
-set(0,'defaultAxesFontName','Times New Roman');
+set(0,'defaultAxesFontName',fontface);
 set(0,'defaultAxesFontSize',12*fnt_scaling);
-set(0,'defaultTextFontName','Times New Roman');
+set(0,'defaultTextFontName',fontface);
 set(0,'defaultTextFontSize',12*fnt_scaling);
-set(0,'defaultLegendFontName','Times New Roman');
+set(0,'defaultLegendFontName',fontface);
 set(0,'defaultLegendFontSize',12*fnt_scaling);
 set(0,'defaultAxesUnits','normalized');
 set(0,'defaultAxesPosition',[left/width bottom/height (width-left-right)/width  (height-bottom-top)/height]);

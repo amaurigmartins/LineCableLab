@@ -1,13 +1,13 @@
 % OHTL run
 
 close all; % Deletes all figures whose handles are not hidden
-clear all; % Remove items from workspace, freeing up system memory
+% clear all; % Remove items from workspace, freeing up system memory
 clear;
 clc; % Clears all input and output from the Command Window display, giving you a "clean screen"
 format longEng; % Engineering format that has exactly 16 significant digits and a power that is a multiple of three.
 
 % soil parameters - to facilitate parametric studies
-soil_rho=1000;%resistivity of earth
+soil_rho=5000;%resistivity of earth
 soil_eps=5; %this is not used if FD_flag != 0
 % These are whatever formulas I choose to compute modal params
 Zmod_src='Ztot_Carson';Zmod_src='Ztot_Wise';
@@ -165,12 +165,12 @@ UNIF_LEN = 1000;
 % %        4  10.0     13.5   0.00463  0.01257  7.1221e-8   1   nan    nan   nan   1];      % P41
 
 Geom = [1  -13.312    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
-        1  -11.206    13.250   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
-        2  -12.812    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
-        2  -11.206    13.750   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN  
-        2  -10.773    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
-        0   -9.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN
-        0   -7.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN];
+        2  -11.206    13.250   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        3  -12.812    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        4  -11.206    13.750   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN  
+        5  -10.773    13.500   0.00463  0.01257  3.9245e-8    1     nan    nan   nan   UNIF_LEN
+        6   -9.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN
+        7   -7.062    13.500   0.00152  0.00457  19.908E-8    1     nan    nan   nan   UNIF_LEN];
 
 length  = Geom(1,11);                                     % Line length
 Ncon    = size(Geom,1);                        % Number of conductors
