@@ -21,25 +21,16 @@ You will be prompted to specify a JobID and this is **mandatory**. The JobID is 
 
 The columns in the 'OHL cross section & conductor data' are described as follows:
 
-% 1 column -- **PhaseNum**: number of phase (set to 0 for Kron reduction, map to the same phase for bundled conductors).
-
-% 2 column -- **Horiz**: x position of each conduntor in meters.
-
-% 3 column -- **Vert**: y position of each coductor in meters.
-
-% 4 column -- **IntRadius**: internal radii of each conductor in meters.
-
-% 5 column -- **ExtRadius**: external radii of each conductor in meters.
-
-% 6 column -- **CondResist**: resistivity of the conductor in ohms-meter.
-
-% 7 column -- **CondPerm**: relative permeability of the conductor in pu.
-
-% 8 column -- **InsulRadius**: external radii of insulation in meters. Set to NaN if bare conductor.
-
-% 9 column -- **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
-
-% 10 column -- **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
+- 1 column -- **PhaseNum**: number of phase (set to 0 for Kron reduction, map to the same phase for bundled conductors).
+- 2 column -- **Horiz**: x position of each conduntor in meters.
+- 3 column -- **Vert**: y position of each coductor in meters.
+- 4 column -- **IntRadius**: internal radii of each conductor in meters.
+- 5 column -- **ExtRadius**: external radii of each conductor in meters.
+- 6 column -- **CondResist**: resistivity of the conductor in ohms-meter.
+- 7 column -- **CondPerm**: relative permeability of the conductor in pu.
+- 8 column -- **InsulRadius**: external radii of insulation in meters. Set to NaN if bare conductor.
+- 9 column -- **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
+- 10 column -- **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
 
 
 
