@@ -1,35 +1,20 @@
-% close all
-% clear
-% clc
 
-% currmfile = mfilename('fullpath');
-% currPath = currmfile(1:end-length(mfilename()));
-% addpath('/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v6/mode_decomp_funs');
-addpath(fullfile(currPath,'JMartiModelFun','vfit3'))
-addpath(fullfile(currPath,'JMartiModelFun','functions'))
-
-
-ZYprnt=true;
-
-% Load dataset
-% fname='carson';
-% load([fname '.mat'])
+ZYprnt=false;
+useBodeFit=true;
 
 % General parameters
-% line_length = 1000;
-% f_Ti=200e3; % Frequency chosen for JMarti model
+f_Ti=1e6; % Frequency chosen for JMarti model
+Ns = length(f); % Number of samples
+w = 2.*pi.*f; % Frequency (rad/seg)
+s = 1j*w; % Complex Frequency
+f = f.';
 
 % Raw impedance and admittance matrices
-% Zmod_src='Ztot_Carson';
-% Ymod_src='Ytot_Imag';
-Z=permute(eval(Zmod_src),[3 1 2]);
-Y=permute(eval(Ymod_src),[3 1 2]);
+Z=permute(eval([jobid '_data.Z']),[3 1 2]);
+Y=permute(eval([jobid '_data.Y']),[3 1 2]);
 
 % Frequency-variant transform matrix from OHLT
-%     [Ti_dis,g_dis]=LM_calc_norm_str(ord,freq_siz,Z,Y,f);
-    % [Ti_dis,g_dis]=intercheig_QR_decomp(ord,freq_siz,Z,Y);
-% [Ti_dis,g_dis]=simple_QR_decomp(ord,freq_siz,Z,Y);
-% Ti_dis=rot_min_imag(Ti_dis,ord,freq_siz);
+ord=size(Z,2);
 Ti=list2sqmat(Ti_dis,ord,freq_siz);
 
 % Now let's pick the corresponding matrix for a specific frequency @ f_Ti
@@ -41,30 +26,12 @@ T=real(T); %is this really necessary?
 modif_T=sqmat2list(T,ord,freq_siz);
 [Zch_m,Ych_m,~,~]=calc_char_imped_admit(modif_T,Z,Y,ord,freq_siz);
 Zch_m_OHLT=Zch_mod;
-% [Zch_mod,Ych_mod,~,~]=calc_char_imped_admit(sqmat2list(Ti,ord,freq_siz),Z,Y,ord,freq_siz);
 [H_m,~,~,~,~]=calc_prop_function(modif_T,g_dis,line_length,ord,freq_siz,f); %it works!!!
-[H_m_OHLT,~,~,~,~]=calc_prop_function(Ti_dis,g_dis,line_length,ord,freq_siz,f); %it works!!!
-
 
 % Calculate phase velocities
 for m=1:ord
-    vel(:,m)=(2*pi*f)./imag(g_dis(:,m));
+    vel(:,m)=(2.*pi.*f)./imag(g_dis(:,m));
 end
-
-% Running some tests...
-% for k=1:freq_siz
-%     %char impedance
-%     YL=squeeze(Y(k,:,:));ZL=squeeze(Z(k,:,:));
-%     Zc=YL^(-1)*(YL*ZL)^0.5;
-%     Zcmm=transpose(T)*Zc*T;
-%     Zch_test(k,:)=diag(Zcmm);
-%     %propag function
-%     H=expm(-(YL*ZL)^0.5*line_length);
-%     Hmm=T^(-1)*H*T;
-%     H_m_test(k,:)=diag(Hmm);
-% end
-
-%manual_VF_test
 
 % standard VF options
 opts.relax=1;      %Use vector fitting with relaxed non-triviality constraint
@@ -93,6 +60,28 @@ ERR=.1/100;
 for m=1:ord
     fun=(Zch_src(:,m));
     [pol, res, ks, NORD, ffit, err] = vectfit_wrapper(fun,f,ERR,opts);
+    if ~isreal(pol)
+        warning(sprintf('VF was unable to fit the characteristic impedance Zc for mode #%d with real poles only. ATP results might be unstable or inaccurate.',m));
+        if useBodeFit
+            warning(sprintf('Will try to fit Zc for mode #%d using Bode method. Beware possible innaccuracies.',m));
+            tol = 3; % Tolerance in decibels to set a new pole and/or new zero
+            [P,Z,k] = Bode_process(abs(fun),f,Ns,tol); % Bode subroutine
+            as = k.*poly(Z); bs = poly(P); % Polynomials
+            [r,p,ks] = residue(as,bs); % Poles, residues and constant term
+            TF=isempty(ks);if(TF==1);ks=0;end
+
+            ffit = zeros(1,Ns)';
+            for k = 1:length(p)
+                ffit = ffit + (r(k)./(s.' - p(k))).';
+            end
+            ffit = ffit + ks;
+            error = abs(fun - ffit);
+
+            NORD = length(p);
+            pol = -p;
+            res = r;
+        end
+    end
     fitOHLT_Zc(m).mode = m;
     fitOHLT_Zc(m).NORD = NORD;
     fitOHLT_Zc(m).ks = ks;
@@ -100,9 +89,6 @@ for m=1:ord
     fitOHLT_Zc(m).res = res;
     fitOHLT_Zc(m).err = err;
     fitOHLT_Zc(m).ffit = ffit;
-    if ~isreal(pol)
-        warning(sprintf('VF was unable to fit the characteristic impedance Zc for mode %d with real poles only. Results in ATP may be unstable and/or overflow.',m));
-    end
 end
 
 if ZYprnt
@@ -126,6 +112,34 @@ H_src=H_m;
 ERR=.1/100;
 for m=1:ord
     [err, pol, res, ks, NORD, ffit, tau_mps, tau_opt, tau]=findoptimtau(f,vel(:,m),H_src(:,m),line_length,ERR,opts);
+
+    if ~isreal(pol)
+        warning(sprintf('VF was unable to fit the propagation function H for mode #%d with real poles only. Results in ATP may be unstable and/or overflow.',m));
+        if useBodeFit
+            warning(sprintf('Will try to fit A1 for mode #%d using Bode method. Beware possible innaccuracies.',m));
+            A1min=.1;
+            tol = 3; % Tolerance in decibels to set a new pole and/or new zero
+            [ff, H] = fitnextrap(f,H,ord, 'decdecay');
+            ss=1j.*2.*pi.*ff;
+            A1 = H(:,m).*exp(1i*2*pi.*ff.*tau_opt(m));
+            fun=abs(A1);
+            [P,Z,k] = Bode_process(fun(fun>=A1min),ff(fun>=A1min),length(ff(fun>=A1min)),tol); % Bode subroutine
+            as = k.*poly(Z); bs = poly(P); % Polynomials
+            [r,p,ks] = residue(as,bs); % Poles, residues and constant term
+            TF=isempty(ks);if(TF==1);ks=0;end
+            ffit = zeros(1,length(ff))';
+            for k = 1:length(p)
+                ffit = ffit + (r(k)./(ss.' - p(k))).';
+            end
+            ffit = ffit + ks;
+
+            error = abs(fun(1:Ns) - ffit(1:Ns));
+
+            NORD = length(p);
+            pol = -p;
+            res = r;
+        end
+    end
     fitOHLT_H(m).mode = m;
     fitOHLT_H(m).NORD = NORD;
     fitOHLT_H(m).tau_opt = tau;
@@ -133,9 +147,6 @@ for m=1:ord
     fitOHLT_H(m).res = res;
     fitOHLT_H(m).err = err;
     fitOHLT_H(m).ffit = ffit;
-    if ~isreal(pol)
-        warning(sprintf('VF was unable to fit the propagation function H for mode %d with real poles only. Results in ATP may be unstable and/or overflow.',m));
-    end
 end
 
 if ZYprnt
@@ -156,8 +167,8 @@ if ZYprnt
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%DEBUGME
     for m=1:ord
         figure
-        semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(Zch_m_OHLT(:,m)),'o')
-        legend('Const+real T @ 200 kHz', 'Var Ti')
+        semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(Zch_m_OHLT(:,m)),'-.')
+        legend('Const+real T @ chosen freq', 'Var Ti')
         title(sprintf('Zc mode #%d',m))
         axis tight
         xlabel('Frequency [Hz]')
@@ -165,8 +176,8 @@ if ZYprnt
         grid on
         legend
 
-        figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(H_m_OHLT(:,m)),'o')
-        legend('Const+real T @ 200 kHz', 'Var Ti')
+        figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(H_m_OHLT(:,m)),'-.')
+        legend('Const+real T @ chosen freq', 'Var Ti')
         title(sprintf('H mode #%d',m))
         axis tight
         xlabel('Frequency [Hz]')
@@ -177,8 +188,5 @@ if ZYprnt
 end
 
 % Now write data to PCH file
-% BASEDIR=fullfile('/home','amauri','.wine','drive_c','users','amauri','My Documents','ATPdata','projects','Usp');
-BASEDIR=currPath;
-% pchfname = fullfile(BASEDIR,['jm_vf_' fname '_f_' sprintf('%0.0f',f_Ti) '.pch']);
-pchfname = fullfile(BASEDIR,[jobid '.pch']);
+pchfname = fullfile(currPath,['pch_export__' jobid '.pch']);
 fcontent = punchJMartiCard(ord, fitOHLT_Zc, fitOHLT_H, T, pchfname);
