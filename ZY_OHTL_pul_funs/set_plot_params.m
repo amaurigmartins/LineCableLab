@@ -49,8 +49,8 @@ height = h_corr * ((col * 8.8 * k_scaling) / k_width_height);
 
 %% figure margins
 top = 0.5 * h_corr;  % normalized top margin
-bottom = 3 * h_corr;	% normalized bottom margin
-left = 3.5 * w_corr;	% normalized left margin
+bottom = 1.5 * h_corr;	% normalized bottom margin
+left = 1.5 * w_corr;	% normalized left margin
 right = 1 * w_corr;  % normalized right margin
 
 %% set default figure configurations

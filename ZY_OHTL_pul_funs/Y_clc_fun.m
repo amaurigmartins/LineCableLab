@@ -1,4 +1,4 @@
-function [Ytot_Imag,Ytot_Pet,Ytot_Wise,sigma_g_total,erg_total,Nph] = Y_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
+function [Ytot_Imag,Ytot_Pet,Ytot_Wise,Ytot_Papad,Ytot_OvUnd,sigma_g_total,erg_total,Nph] = Y_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
 % Variables
 e0=8.854187817e-12;  % Farads/meters
 omega_total=2*pi*f_total;
@@ -60,6 +60,12 @@ e_g_total=e0.*erg_total;
 Ytot_Imag=zeros(Nph,Nph,siz);
 Ytot_Pet=zeros(Nph,Nph,siz);
 Ytot_Wise=zeros(Nph,Nph,siz);
+Ptot_Papad=zeros(Nph,Nph,siz);
+Ptot_OvUnd=zeros(Nph,Nph,siz);
+Ytot_Papad=zeros(Nph,Nph,siz);
+Ytot_OvUnd=zeros(Nph,Nph,siz);
+Pin_test=zeros(ord,ord,siz);
+
 %% Shunt admittance
 for k=1:siz
     omega=omega_total(k);
@@ -68,10 +74,16 @@ for k=1:siz
     sigma_g=sigma_g_total(k);
     e_g=e_g_total(k);
     n1_tetragwno=1;
-    %%%% Pettersson's Method %%%%
     
-    %% Potential coefficients (self terms)
-    
+        %%Potential Coeficients of Conductor insulation
+    [Pin_mat]=Pins_mat_fun(ord,Geom);
+     Pin_test(:,:,k)=Pin_mat;
+
+
+    if all(h>0) % all conductors are aboveground
+
+    %% Pettersson's Method
+    %*** Potential coefficients (self terms)
     %Potential Coeficients of Self Admittance - Perfect Ground
     Ps_pet_perf=P_pet_slf_perf(h,cab_ex,ord);
     %Potential Coeficients of Self Admittance - Imperfect Ground
@@ -99,9 +111,7 @@ for k=1:siz
     Pm_wise_imperf=P_wise_mut_imperf(h,d,e_g,m_g,sigma_g,omega,ord);
     Pm_wise=Pm_pet_perf+Pm_wise_imperf;
     
-    %%Potential Coeficients of Conductor insulation
-    [Pin_mat]=Pins_mat_fun(ord,Geom);
-    
+   
     
     %% Total Pottential Coefficient Matrix
     L_Q_imag_mat=Ps_imag+Pm_imag+Pin_mat;
@@ -117,14 +127,39 @@ for k=1:siz
     Ytot_Imag(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_imag_mat);
     Ytot_Pet(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_mat);
     Ytot_Wise(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_wise);
+
+    elseif all(h<0) % all conductors are underground
+        kx='k1'; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
+        Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kx);
+        Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kx);
+        Ptot_Papad(:,:,k)=Ps_papad+Pm_papad+(Pin_mat./(2*pi*e0));
+        Ptot_Papad(:,:,k) = bundleReduction(ph_order,Ptot_Papad(:,:,k));
+
+        Ytot_Papad(:,:,k)=1i.*omega.*inv(Ptot_Papad(:,:,k));
     
+    else %over-under
+        kx='k0'; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
+
+        Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kx); % self coefficients of the underground conductors
+        Pm_papad=P_papad_mut(h,d,e_g ,m_g,sigma_g,f,ord,kx); % mutual coefficients of the underground conductors
+        Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kx); % self coefficients of the overhead conductors
+        Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kx); % mutual coefficients of the overhead conductors
+        Pm_new=P_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,0); % mutual coefficients in the mixed configuration
+
+        Ptot_OvUnd(:,:,k)=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_new+(Pin_mat./(2*pi*e0));
+        Ptot_OvUnd(:,:,k) = bundleReduction(ph_order,Ptot_OvUnd(:,:,k));
+
+        Ytot_OvUnd(:,:,k)=1i.*omega.*inv(Ptot_OvUnd(:,:,k));
+
+
+    end
 end
 
 if (ZYprnt)
-    plotY_fun_ct(f_total,Nph,Ytot_Imag,Ytot_Pet,Ytot_Wise,jobid)
+    plotY_fun_ct(f_total,Nph,Ytot_Imag,Ytot_Pet,Ytot_Wise,Ytot_Papad,Ytot_OvUnd,jobid)
 end
 
 if (ZYsave)
-fname = [jobid '_Y_param.mat'];
-save(fname,'Ytot_Pet', 'Ytot_Imag', 'Ytot_Wise', 'f');
+fname = fullfile(pwd, 'Y_pul_output.mat');
+save(fname,'Ytot_Pet', 'Ytot_Imag', 'Ytot_Wise', 'f', 'Ytot_Papad', 'Ytot_OvUnd');
 end

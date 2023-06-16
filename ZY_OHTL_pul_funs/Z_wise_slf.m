@@ -20,16 +20,17 @@ gama_g = sqrt(1i*omega*m0*(sigma_g + 1i*omega*e_g));
 
 Zg_self=zeros(con,con);
 
+
+
 for k=1:1:con
-    
+    if h(1,k) >0
     % Self Impedance
     H=2*h(1,k);
     z_lambda =@(lambda) sum([0 ((2*m_g*(exp(-H*lambda)))/((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g))],'omitnan');
     Jm = integral(z_lambda,0,Inf,'ArrayValued',true);
-%     if isinf(abs(Jm))
-%         Jm = complex(1/eps,1/eps);
-%     end
 
     Zg_self(k,k)=1i*omega*m0/(2*pi)*(+Jm); % let us add the perfect earth term later, to keep consistency
+
+    end
 
 end

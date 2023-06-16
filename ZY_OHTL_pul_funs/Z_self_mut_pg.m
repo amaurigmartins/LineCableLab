@@ -1,9 +1,8 @@
-% Z_pet_mut.m
+% Z_self_mut_pg.m
 function [Zpg_mat]=Z_self_mut_pg(h,d,r,omega,con)
-% Series impedances ofr perfect ground
+% Series impedances of perfect ground
 
-% input: h1,h2,d,e_g,_m_g,sigma_g,omega
-% output: Z_mutual
+
 m0=4*pi*1e-7;
 e0=8.854187817e-12;
 
@@ -22,7 +21,7 @@ for x=1:1:con
         else
 
 
-                % Mutual Impedance
+            % Mutual Impedance
             d1=sqrt(d(x,y).^2+(h(1,x)-h(1,y)).^2);
             d2=sqrt(d(x,y).^2+(h(1,x)+h(1,y)).^2);
             term_mut=log(d2./d1);

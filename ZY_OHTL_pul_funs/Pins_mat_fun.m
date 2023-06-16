@@ -4,6 +4,13 @@ e0=8.854187817e-12;  % Farads/meters
 %Create num*num matrix
 Pin_mat=zeros(num,num);
 
+
+
+% 5 column -- external radii of each conductor
+% 8 column -- external radii of insulation
+% 10 column -- relative permittivity of insulation
+
+
 for k=1:1:num
     if isnan(Geom(k,8))
         Pin_mat(k,k)=0;
