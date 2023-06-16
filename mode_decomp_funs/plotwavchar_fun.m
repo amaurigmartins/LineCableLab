@@ -5,7 +5,7 @@ e0=8.85418782*1e-12;
 cpcond= sigma_g_total + (1i .* 2 .* pi .* freq .* erg_total .* e0);
 % vel=abs(vel);
 
-set_plot_params()
+% set_plot_params()
 figure('Name', ['AtnConst_PhaseVel_' tag])
 
 subplot(2,1,1)
