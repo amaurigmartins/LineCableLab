@@ -44,7 +44,7 @@ end
 
 
 nf = num_ph;
-ng = length(Z) - num_ph;
+ng = size(Z,2) - num_ph;
 ZC=Z2;
 
 ZR=ZC(1:nf,1:nf)-ZC(1:nf,nf+1:nf+ng)*(ZC(nf+1:nf+ng,nf+1:nf+ng)\ZC(nf+1:nf+ng,1:nf));
