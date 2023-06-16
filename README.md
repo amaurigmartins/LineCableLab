@@ -19,7 +19,7 @@ The use of the toolbox is quite self-explanatory. Launch the file 'ohlt.mlapp' f
 
 You will be prompted to specify a JobID and this is **mandatory**. The JobID is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named JobID inside the working directory. Inside this folder you will find two files: 'LineData_fun.m' and 'RunJob_JobID.m'. Call the script 'RunJob_JobID.m' and that's it.
 
-The columns in the 'OHL cross section & conductor data' are described as follows:
+The columns under the header 'OHL cross section & conductor data' are described as follows:
 
 - 1 column -- **PhaseNum**: number of phase (set to 0 for Kron reduction, map to the same phase for bundled conductors).
 - 2 column -- **Horiz**: x position of each conduntor in meters.
