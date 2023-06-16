@@ -17,7 +17,7 @@ Toolbox in MATLAB for modelling of overhead and underground transmission lines (
 
 The use of the toolbox is quite self-explanatory. Launch the file 'ohlt.mlapp' from MATLAB workspace and fill in the necessary information. You can save your design by clicking 'Save input session' or recover an existing design by clicking 'Load input session'. 
 
-You will be prompted to specify a JobID and this is **mandatory**. The JobID is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named JobID inside the working directory. Inside this folder you will find two files: 'LineData_fun.m' and 'RunJob_JobID.m'. Call the script 'RunJob_JobID.m' and that's it.
+You will be prompted to specify a JobID and this is **mandatory**. The JobID is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named JobID inside the working directory. Inside this folder you will find two files: 'LineData_fun.m' and 'RunJob_JobID.m'. Call the script 'RunJob_JobID.m' and that's it. Note that the GUI does not actually perform any calculations, it is only a wrapper to the main function call.
 
 The columns under the header 'OHL cross section & conductor data' are described as follows:
 
@@ -32,8 +32,9 @@ The columns under the header 'OHL cross section & conductor data' are described 
 - 9 column -- **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
 - 10 column -- **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
 
+### Acknowledgements
 
-
+The OHLToolbox has been actively maintained and improved by Theofilos Papadopoulos (thpapa@gmail.com), Andreas Chrysochos (anchryso@gmail.com) and Amauri Martins-Britto (amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of the external contributors, namely: Caio Moraes (implemented the original bundle reduction codes) and Jaimis Leon (provided invaluable insights that enabled us to troubleshoot the VF solution when building the PCH file).
 
 ### Important information
 
