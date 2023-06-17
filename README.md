@@ -50,7 +50,7 @@ These codes are properties of the respective authors, with all due credits given
 
 When calculating the internal impedances of tubular conductors ("pipes"), the native Bessel functions implemented in Matlab may run into overflow issues, yielding +Inf or -Inf results. This is a well-known behavior of besseli(), besselh(), besselj(), besselk(), bessely(), and is due to some floating-point precision shenanigans when the argument of the function is a large number. As a dirty workaround, it is used an external call to a Python script that runs skin effect calculations outside of Matlab. You need to install the mpmath library described above using pip or the method of your preference, and also to inform the full path to your Python interpreter (.exe or binary file) under the tab 'Computation settings' in the GUI.
 
-### Rescrictions of use
+### Restrictions of use
 
 We appreciate the interest in our work and we invite the interested users to use our codes as necessary, as long as they are not embedded in any commercial software, which is **strictly prohibited**. However, if you use the OHLToolbox as a part of scientific research, we kindly ask you to refer to our published papers:
 
