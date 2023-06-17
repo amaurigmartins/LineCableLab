@@ -38,7 +38,7 @@ The OHLToolbox has been actively maintained and improved by Theofilos Papadopoul
 
 ### Important information
 
-OHLToolbox uses external tools that must be downloaded from the corresponding sources and placed in the appropriate directories, namely:
+OHLToolbox uses external tools that must be downloaded from the corresponding sources and placed in the appropriate directories, listed below:
 
 - VFIT3 - Fast Relaxed Vector Fitting, developed by Gustavsen et al. Available: https://www.sintef.no/globalassets/project/vectfit/vfit3.zip. Unzip the file into the folder 'JMartiModelFun/vfit3'.
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'.
