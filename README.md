@@ -9,7 +9,7 @@ Toolbox in MATLAB for modelling of overhead and underground transmission lines (
 - OHLToolbox is distributed with a GUI designed to aid data entry. You can save your projects in matfiles and recover them for later use.
 - Several impedance and admittance formulas, frequency-dependent soil models and modal decomposition techniques are available.
 - It is possible to work with overhead, underground and mixed overhead-underground (coming soon) conductor arrangements.
-- Parameters are computed for any number of phases with any number of conductor per phase, with or without Kron elimination. 
+- Parameters are computed for any number of phases with any number of conductors per phase, with or without Kron elimination. 
 - You can export the computed data as a JMarti line model (PCH file), compatible with ATP/ATPDraw, or to a EMTP-compliant matfile to be used with the LineCable_Data routine available in the EMTP® software.
 - Time-domain transient simulations using the Laplace transform, with several energization sources available.
 
