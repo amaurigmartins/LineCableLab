@@ -22,13 +22,13 @@ You will be prompted to specify a JobID and this is **mandatory**. The JobID is 
 The columns under the header 'OHL cross section & conductor data' are described as follows:
 
 - 1 column -- **PhaseNum**: number of phase (set to 0 for Kron reduction, map to the same phase for bundled conductors).
-- 2 column -- **Horiz**: x position of each conductor in meters.
-- 3 column -- **Vert**: y position of each conductor in meters.
-- 4 column -- **IntRadius**: internal radii of each conductor in meters.
-- 5 column -- **ExtRadius**: external radii of each conductor in meters.
+- 2 column -- **Horiz**: y position of each conductor in meters.
+- 3 column -- **Vert**: z position of each conductor in meters.
+- 4 column -- **IntRadius**: internal radius of each conductor in meters.
+- 5 column -- **ExtRadius**: external radius of each conductor in meters.
 - 6 column -- **CondResist**: resistivity of the conductor in ohms-meter.
 - 7 column -- **CondPerm**: relative permeability of the conductor in pu.
-- 8 column -- **InsulRadius**: external radii of insulation in meters. Set to NaN if bare conductor.
+- 8 column -- **InsulRadius**: external radius of insulation in meters. Set to NaN if bare conductor.
 - 9 column -- **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
 - 10 column -- **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
 
@@ -42,13 +42,13 @@ OHLToolbox uses external tools that must be downloaded from the corresponding so
 
 - VFIT3 - Fast Relaxed Vector Fitting, developed by Gustavsen et al. Available: https://www.sintef.no/globalassets/project/vectfit/vfit3.zip. Unzip the file into the folder 'JMartiModelFun/vfit3'.
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'.
-- mpmath - A Python library for arbitrary-precision floating-point arithmetic, developed by Fredrik Johansson. Available: https://mpmath.org/.
+- mpmath - A Python library for arbitrary-precision floating-point arithmetic, developed by Fredrik Johansson. Available: https://mpmath.org/. Installation details below.
 
-The Vector Fitting toolbox is used to create the JMarti line models from the modal parameters, if requested by the user. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain. The mpmath is used to accuratelly compute Bessel function terms for large arguments.
+The vector fitting toolbox is used to create the JMarti line models from the modal parameters, if requested by the user. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain. The mpmath is used to accuratelly compute Bessel function terms for large arguments.
 
 These codes are properties of the respective authors, with all due credits given. Observe any restrictions and licensing/usage requirements in the websites above.
 
-When calculating the internal impedances of tubular conductors ("pipes"), the native Bessel functions implemented in Matlab may run into overflow issues, yielding +Inf or -Inf results. This is a well-known behavior of besseli(), besselh(), besselj(), besselk(), bessely(), and is due to some floating-point precision shenanigans when the argument of the function is a large number. As a dirty workaround, it is used an external call to a Python script that runs skin effect calculations outside of Matlab. You need to install the mpmath library described above using pip or the method of your preference, and also to inform the full path to your Python interpreter (.exe or binary file) under the tab 'Computation settings' in the GUI.
+Note about Bessel corrections: when calculating the internal impedances of tubular conductors ("pipes"), the native Bessel functions implemented in Matlab may run into overflow issues, yielding +Inf or -Inf results. This is a well-known behavior of besseli(), besselh(), besselj(), besselk(), bessely(), and is due to some floating-point precision shenanigans when the argument of the function is a large number. As a dirty workaround, it is used an external call to a Python script that runs skin effect calculations outside of MATLAB. You need to install the mpmath library described above using pip or the method of your preference, and also to inform the full path to your Python interpreter (.exe or binary file) under the tab 'Computation settings' in the GUI. This is not mandatory, but it may come necessary if you work with hollow tubular conductors.
 
 ### Restrictions of use
 
