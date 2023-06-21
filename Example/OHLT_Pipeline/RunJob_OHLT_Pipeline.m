@@ -25,15 +25,16 @@ jobid = 'OHLT_Pipeline';
 % Library functions
 currmfile = mfilename('fullpath');
 currPath = currmfile(1:end-length(mfilename()));
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'ZY_OHTL_pul_funs']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'mode_decomp_funs']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'FD_soil_models_funs']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'export_fun']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'bundle_reduction_funs']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'JMartiModelFun']);
-addpath(['/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/' 'JMartiModelFun']);
-addpath(fullfile('/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/','JMartiModelFun','functions'));
-addpath(fullfile('/home/amauri/Documents/_ResearchProjects/11_OHLToolbox_v61/','JMartiModelFun','vfit3'));
+WORKDIR = 'YOUR/PATH/GOES/HERE';
+addpath([WORKDIR 'ZY_OHTL_pul_funs']);
+addpath([WORKDIR 'mode_decomp_funs']);
+addpath([WORKDIR 'FD_soil_models_funs']);
+addpath([WORKDIR 'export_fun']);
+addpath([WORKDIR 'bundle_reduction_funs']);
+addpath([WORKDIR 'JMartiModelFun']);
+addpath([WORKDIR 'JMartiModelFun']);
+addpath(fullfile(WORKDIR,'JMartiModelFun','functions'));
+addpath(fullfile(WORKDIR,'JMartiModelFun','vfit3'));
 %
 % Frequency range
 f = transpose(logspace(1,6,100));
