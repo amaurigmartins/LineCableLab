@@ -40,10 +40,10 @@ The OHLToolbox has been actively maintained and improved by Theofilos Papadopoul
 
 OHLToolbox uses external tools that must be downloaded from the corresponding sources and placed in the appropriate directories, listed below:
 
-- VFIT3 - Fast Relaxed Vector Fitting, developed by Gustavsen et al. Available: https://www.sintef.no/globalassets/project/vectfit/vfit3.zip. Unzip the file into the folder 'JMartiModelFun/vfit3'.
+- vfit3 - Fast Relaxed Vector Fitting, developed by Gustavsen et al. Available: https://www.sintef.no/globalassets/project/vectfit/vfit3.zip. Unzip the file into the folder 'JMartiModelFun/vfit3'.
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'.
 - mpmath - A Python library for arbitrary-precision floating-point arithmetic, developed by Fredrik Johansson. Available: https://mpmath.org/. Installation details below.
-- Bodefit - Bode Fitting process by E. S. Bañuelos-Cabral. Available: https://www.intechopen.com/chapters/57667. Deploy the files to the folder 'JMartiModelFun/functions'.
+- Bodefit - Bode process program, developed by E. S. Bañuelos-Cabral et al. Available: https://www.intechopen.com/chapters/57667. Deploy the file 'Bode_process.m' to the folder 'JMartiModelFun/functions'.
 
 The vector fitting toolbox is used to create the JMarti line models from the modal parameters, if requested by the user. In case the VF does not converge to a stable solution (real poles only), the Bodefit is used as alternative, at the cost of accuracy. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain. The mpmath library is used to accuratelly compute Bessel function terms for large arguments.  
 
