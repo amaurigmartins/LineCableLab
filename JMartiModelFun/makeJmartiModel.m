@@ -10,8 +10,8 @@ s = 1j*w; % Complex Frequency
 f = f.';
 
 % Raw impedance and admittance matrices
-Z=permute(eval([jobid '_data.Z']),[3 1 2]);
-Y=permute(eval([jobid '_data.Y']),[3 1 2]);
+Z=permute(Z,[3 1 2]);
+Y=permute(Y,[3 1 2]);
 
 % Frequency-variant transform matrix from OHLT
 ord=size(Z,2);
