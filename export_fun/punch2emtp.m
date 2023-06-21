@@ -1,5 +1,3 @@
-Z=eval([jobid '_data.Z']);
-Y=eval([jobid '_data.Y']);
 
 if size(f,1) ~= 1
 f=f';
