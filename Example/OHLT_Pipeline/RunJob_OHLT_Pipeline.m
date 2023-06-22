@@ -11,11 +11,11 @@ clc;
 format longEng;
 %
 % Flags and options
-ZYprnt = boolean(1); 
-Modprnt = boolean(1); 
-ZYsave = boolean(1); 
-export2EMTP = boolean(1); 
-export2PCH = boolean(1); 
+ZYprnt = logical(1); 
+Modprnt = logical(1); 
+ZYsave = logical(1); 
+export2EMTP = logical(1); 
+export2PCH = logical(1); 
 FD_flag = 0; 
 decmp_flag = 9; 
 global pythoncall; pythoncall = 'python3';
@@ -54,25 +54,11 @@ mode_decomp_fun(Ztot_Wise,Ytot_Wise,f,freq_siz,Nph,decmp_flag,sigma_g_total,erg_
 toc
 %
 % Save files
-OHLT_Pipeline_data.Z = Ztot_Wise;
-OHLT_Pipeline_data.Y = Ytot_Wise;
-OHLT_Pipeline_data.Zch_mod = Zch_mod;
-OHLT_Pipeline_data.Ych_mod = Ych_mod;
-OHLT_Pipeline_data.Zch = Zch;
-OHLT_Pipeline_data.Ych = Ych;
-OHLT_Pipeline_data.g_dis = g_dis;
-OHLT_Pipeline_data.a_dis = a_dis;
-OHLT_Pipeline_data.vel_dis = vel_dis;
-OHLT_Pipeline_data.Ti_dis = Ti_dis;
-OHLT_Pipeline_data.Z_dis = Z_dis;
-OHLT_Pipeline_data.Y_dis = Y_dis;
-OHLT_Pipeline_data.sigma_g_total = sigma_g_total;
-OHLT_Pipeline_data.erg_total = erg_total;
 if (export2EMTP); punch2emtp; end
 if (export2PCH); makeJmartiModel; end
 if ZYsave
     fname = fullfile(currPath,'OHLT_Pipeline_output.mat');
-    save(fname,'OHLT_Pipeline_data');
+    save(fname,'Z','Y','Zch_mod','Ych_mod','Zch','Ych','g_dis','a_dis','vel_dis','Ti_dis','Z_dis','Y_dis','sigma_g_total','erg_total','f');
     FolderName = fullfile(currPath,'plots');   
     mkdir(FolderName)
     FigList = findobj(allchild(0), 'flat', 'Type', 'figure');
