@@ -56,8 +56,8 @@ Note about Bessel corrections: when calculating the internal impedances of tubul
 
 The toolbox incorporates several impedance and admittance formulas, under different assumptions to represent the imperfect earth in the line models. For a compreheensive analysis, please refer to the following scientific publications:
 
-- [!Closed-form expressions for the analysis of wave propagation in overhead distribution lines](https://www.mdpi.com/1996-1073/13/17/4519)
-- [!A generalized model for the calculation of the impedances and admittances of overhead power lines above stratified earth](https://www.mdpi.com/1996-1073/13/17/4519](https://www.sciencedirect.com/science/article/pii/S0378779610000684?via%3Dihub)
+- [Closed-form expressions for the analysis of wave propagation in overhead distribution lines](https://www.mdpi.com/1996-1073/13/17/4519)
+- [A generalized model for the calculation of the impedances and admittances of overhead power lines above stratified earth](https://www.sciencedirect.com/science/article/pii/S0378779610000684?via%3Dihub)
 
 
 ### Restrictions of use
