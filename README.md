@@ -44,12 +44,21 @@ OHLToolbox uses external tools that must be downloaded from the corresponding so
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'.
 - mpmath - A Python library for arbitrary-precision floating-point arithmetic, developed by Fredrik Johansson. Available: https://mpmath.org/. Installation details below.
 - Bodefit - Bode process program, developed by E. S. Bañuelos-Cabral et al. Available: https://www.intechopen.com/chapters/57667. Deploy the file 'Bode_process.m' to the folder 'JMartiModelFun/functions'.
+- Carson's integral - Closed-form solution proposed by T. P. Theodoulidis. Available: https://www.mathworks.com/matlabcentral/fileexchange/50134-carson-s-integral. The files are packaged in the toolbox and no further action is required. 
+  
 
 The vector fitting toolbox is used to create the JMarti line models from the modal parameters, if requested by the user. In case the VF does not converge to a stable solution (real poles only), the Bodefit is used as alternative, at the cost of accuracy. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain. The mpmath library is used to accuratelly compute Bessel function terms for large arguments.  
-
 These codes are properties of the respective authors, with all due credits given. Observe any restrictions and licensing/usage requirements in the websites above.
 
 Note about Bessel corrections: when calculating the internal impedances of tubular conductors ("pipes"), the native Bessel functions implemented in Matlab may run into overflow issues, yielding +Inf or -Inf results. This is a well-known behavior of besseli() and besselk(), and is due to some floating-point precision shenanigans when the argument of the function is a large number. As a dirty workaround, it is used an external call to a Python script that runs skin effect calculations outside of MATLAB. You need to install the mpmath library described above using pip or the method of your preference, and also to inform the full path to your Python interpreter (.exe or binary file) under the tab 'Computation settings' in the GUI. This is not mandatory, but it may come necessary if you work with hollow tubular conductors.
+
+### On the computational methods implemented in OHLToolbox
+
+The toolbox incorporates several impedance and admittance formulas, under different assumptions to represent the imperfect earth in the line models. For a compreheensive analysis, please refer to the following scientific publications:
+
+- [!Closed-form expressions for the analysis of wave propagation in overhead distribution lines](https://www.mdpi.com/1996-1073/13/17/4519)
+- [!A generalized model for the calculation of the impedances and admittances of overhead power lines above stratified earth](https://www.mdpi.com/1996-1073/13/17/4519](https://www.sciencedirect.com/science/article/pii/S0378779610000684?via%3Dihub)
+
 
 ### Restrictions of use
 
