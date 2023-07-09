@@ -1,0 +1,32 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: OHLToolbox
+message: ' Toolbox in MATLAB for modelling of overhead and underground transmission lines '
+type: software
+authors:
+  - given-names: Theofilos
+    family-names: Papadopoulos
+    email: thpapa@gmail.com
+    affiliation: Democritus University of Thrace
+    orcid: 'https://orcid.org/0000-0001-6384-1964'
+  - given-names: Andreas
+    family-names: Chrysochos
+    affiliation: Cablel Hellenic Cables Group
+    email: anchryso@gmail.com
+    orcid: 'https://orcid.org/0000-0002-5712-3859'
+  - given-names: Amauri
+    family-names: Martins-Britto
+    email: amaurigmartins@gmail.com
+    orcid: 'https://orcid.org/0000-0002-2691-9061'
+    affiliation: University of Brasília
+repository-code: 'https://github.com/amaurigmartins/OHLToolbox'
+url: >-
+  https://www.mathworks.com/matlabcentral/fileexchange/130914-ohltoolbox
+abstract: >-
+  Toolbox in MATLAB for modelling of overhead and
+  underground transmission lines (per-unit-length
+  parameters, propagation characteristics, frequency scan,
+  transient simulations).
+version: 6.1.3
