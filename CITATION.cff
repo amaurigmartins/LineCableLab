@@ -3,6 +3,11 @@ title: OHLToolbox
 message: ' Toolbox in MATLAB for modelling of overhead and underground transmission lines '
 type: software
 authors:
+  - given-names: Amauri
+    family-names: Martins-Britto
+    email: amaurigmartins@gmail.com
+    orcid: 'https://orcid.org/0000-0002-2691-9061'
+    affiliation: University of Brasília
   - given-names: Theofilos
     family-names: Papadopoulos
     email: thpapa@gmail.com
@@ -13,17 +18,12 @@ authors:
     affiliation: Cablel Hellenic Cables Group
     email: anchryso@gmail.com
     orcid: 'https://orcid.org/0000-0002-5712-3859'
-  - given-names: Amauri
-    family-names: Martins-Britto
-    email: amaurigmartins@gmail.com
-    orcid: 'https://orcid.org/0000-0002-2691-9061'
-    affiliation: University of Brasília
-identifiers:
   - type: doi
     value: 10.3390/en13174519
     description: >-
       Closed-form expressions for the analysis of wave
       propagation in overhead distribution lines.
+identifiers: 
   - type: doi
     value: 10.1109/tpwrd.2013.2284504
     description: >-
@@ -45,3 +45,4 @@ abstract: >-
   parameters, propagation characteristics, frequency scan,
   transient simulations).
 version: 6.1.3
+date-released: '2023-06-26'
