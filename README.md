@@ -64,8 +64,10 @@ The toolbox incorporates several impedance and admittance formulas, under differ
 
 We appreciate the interest in our work and we invite the interested users to use our codes as necessary, as long as they are not embedded in any commercial software, which is **strictly prohibited**. However, if you use the OHLToolbox as a part of scientific research, we kindly ask you to refer to our published papers:
 
-- Papadopoulos, Theofilos, et al. "Transient Induced Voltages on aboveground Pipelines Parallel to Overhead Transmission Lines." Electric Power Systems Research, IPST 2023, Elsevier BV, June 2023.
+- Papadopoulos, Theofilos, et al. "Transient Induced Voltages on aboveground Pipelines Parallel to Overhead Transmission Lines," Electric Power Systems Research, IPST 2023, Elsevier BV, June 2023.
 
-- Chrysochos, Andreas I., et al. “Robust Calculation of Frequency-Dependent Transmission-Line Transformation Matrices Using the Levenberg–Marquardt Method.” IEEE Transactions on Power Delivery, vol. 29, no. 4, Institute of Electrical and Electronics Engineers (IEEE), Aug. 2014, pp. 1621–29, doi:10.1109/tpwrd.2013.2284504.
+- T. A. Papadopoulos, A. I. Chrysochos, C. K. Traianos, and G. Papagiannis, “Closed-Form Expressions for the Analysis of Wave Propagation in Overhead Distribution Lines,” Energies, vol. 13, no. 17, p. 4519, Sep. 2020, doi: 10.3390/en13174519.
 
-- Martins-Britto, Amauri G., et al. “Influence of Lossy Ground on High-Frequency Induced Voltages on Aboveground Pipelines by Nearby Overhead Transmission Lines.” IEEE Transactions on Electromagnetic Compatibility, vol. 64, no. 6, Institute of Electrical and Electronics Engineers (IEEE), Dec. 2022, pp. 2273–82, doi:10.1109/temc.2022.3201874.
+- A. I. Chrysochos, T. A. Papadopoulos and G. K. Papagiannis, "Robust Calculation of Frequency-Dependent Transmission-Line Transformation Matrices Using the Levenberg–Marquardt Method," in IEEE Transactions on Power Delivery, vol. 29, no. 4, pp. 1621-1629, Aug. 2014, doi: 10.1109/TPWRD.2013.2284504.
+
+- A. G. Martins-Britto, T. A. Papadopoulos, Z. G. Datsios, A. I. Chrysochos and G. K. Papagiannis, "Influence of Lossy Ground on High-Frequency Induced Voltages on Aboveground Pipelines by Nearby Overhead Transmission Lines," in IEEE Transactions on Electromagnetic Compatibility, vol. 64, no. 6, pp. 2273-2282, Dec. 2022, doi: 10.1109/TEMC.2022.3201874.
