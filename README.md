@@ -64,7 +64,7 @@ The toolbox incorporates several impedance and admittance formulas, under differ
 
 We appreciate the interest in our work and we invite the interested users to use our codes as necessary, as long as they are not embedded in any commercial software, which is **strictly prohibited**. However, if you use the OHLToolbox as a part of scientific research, we kindly ask you to refer to our published papers:
 
-- Papadopoulos, Theofilos, et al. "Transient Induced Voltages on aboveground Pipelines Parallel to Overhead Transmission Lines," Electric Power Systems Research, IPST 2023, Elsevier BV, June 2023.
+- T.A. Papadopoulos, Z.G. Datsios, A.I. Chrysochos, A.G. Martins-Britto, G.K. Papagiannis, "Transient induced voltages on aboveground pipelines parallel to overhead transmission lines," Electric Power Systems Research, 109631, ISSN 0378-7796, Jun 2023, doi: 10.1016/j.epsr.2023.109631.
 
 - T. A. Papadopoulos, A. I. Chrysochos, C. K. Traianos, and G. Papagiannis, “Closed-Form Expressions for the Analysis of Wave Propagation in Overhead Distribution Lines,” Energies, vol. 13, no. 17, p. 4519, Sep. 2020, doi: 10.3390/en13174519.
 
