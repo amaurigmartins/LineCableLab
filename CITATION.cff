@@ -20,22 +20,21 @@ authors:
     orcid: 'https://orcid.org/0000-0002-5712-3859'
 identifiers:
   - type: doi
+    value: 10.1016/j.epsr.2023.109631
+    description: >-
+      Transient induced voltages on aboveground pipelines parallel to overhead transmission lines.
+  - type: doi
     value: 10.3390/en13174519
     description: >-
-      Closed-form expressions for the analysis of wave
-      propagation in overhead distribution lines.
+      Closed-form expressions for the analysis of wave propagation in overhead distribution lines.
   - type: doi
     value: 10.1109/tpwrd.2013.2284504
     description: >-
-      Robust Calculation of Frequency-Dependent
-      Transmission-Line Transformation Matrices Using the
-      Levenberg–Marquardt Method.
+      Robust Calculation of Frequency-Dependent Transmission-Line Transformation Matrices Using the Levenberg–Marquardt Method.
   - type: doi
     value: 10.1109/temc.2022.3201874
     description: >-
-      Influence of Lossy Ground on High-Frequency Induced
-      Voltages on Aboveground Pipelines by Nearby Overhead
-      Transmission Lines.
+      Influence of Lossy Ground on High-Frequency Induced Voltages on Aboveground Pipelines by Nearby Overhead Transmission Lines.
 repository-code: 'https://github.com/amaurigmartins/OHLToolbox'
 url: >-
   https://www.mathworks.com/matlabcentral/fileexchange/130914-ohltoolbox
