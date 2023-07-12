@@ -34,7 +34,7 @@ The columns under the header 'OHL cross section & conductor data' are described 
 
 ### Acknowledgements
 
-The OHLToolbox has been actively maintained and improved by Theofilos Papadopoulos (thpapa@gmail.com), Andreas Chrysochos (anchryso@gmail.com) and Amauri Martins-Britto (amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of the external contributors, namely: Caio Moraes (implemented the original bundle reduction codes) and Jaimis Leon (provided invaluable insights that enabled us to troubleshoot the VF solution when building the PCH file).
+The OHLToolbox has been actively maintained and improved by [Theofilos Papadopoulos](mailto:thpapa@gmail.com), [Andreas Chrysochos](mailto:anchryso@gmail.com)   and [Amauri Martins-Britto](mailto:amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of the external contributors, namely: Caio Moraes (implemented the original bundle reduction codes) and Jaimis Leon (provided invaluable insights that enabled us to troubleshoot the VF solution when building the PCH file).
 
 ### Important information
 
@@ -54,7 +54,7 @@ Note about Bessel corrections: when calculating the internal impedances of tubul
 
 ### On the computational methods implemented in OHLToolbox
 
-The toolbox incorporates several impedance and admittance formulas, under different assumptions to represent the imperfect earth in the line models. For a compreheensive analysis, please refer to the following scientific publications:
+The toolbox incorporates several impedance and admittance formulas, under different assumptions to represent the imperfect earth in the line models. For a comprehensive analysis, please refer to the following scientific publications:
 
 - [Closed-form expressions for the analysis of wave propagation in overhead distribution lines](https://www.mdpi.com/1996-1073/13/17/4519)
 - [A generalized model for the calculation of the impedances and admittances of overhead power lines above stratified earth](https://www.sciencedirect.com/science/article/pii/S0378779610000684?via%3Dihub)
