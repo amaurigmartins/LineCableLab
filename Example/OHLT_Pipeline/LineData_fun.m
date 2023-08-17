@@ -31,7 +31,7 @@ Geom = reorderGeoMatrix(Geom);
 % Distances calculations
 [d]=distance_fun(Ncon,Geom);
 % Earth electric parameters
-soil.erg = e0*3.000000;
+soil.erg = 3.000000; % this is the RELATIVE epsilon
 soil.m_g = m0*1.000000;
 soil.sigma_g = 1/1000.000000;
 end
