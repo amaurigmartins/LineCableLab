@@ -93,6 +93,8 @@ Ztot_Sunde2La=zeros(Nph,Nph,siz);
 
 Zin_test=zeros(ord,ord,siz);
 Zg_Carson_mat=zeros(ord,ord,siz);
+Zs2la=zeros(ord,ord);
+Zm2la=zeros(ord,ord);
 
 %% Series impedances
 for k=1:siz
@@ -106,6 +108,7 @@ for k=1:siz
 
     Zin=Z_skin_mat_fun_ct(ord,rad_ex,rad_in,sigma_w,mrw,omega,Geom);
     Zin_test(:,:,k)=Zin;
+
 
 
     if all(h>0) % all conductors are aboveground
@@ -215,7 +218,7 @@ for k=1:siz
         Ztot_Sunde(:,:,k) = bundleReduction(ph_order,Z_Sunde);
         Ztot_Wise(:,:,k) = bundleReduction(ph_order,Z_Wise);
         Ztot_Kik(:,:,k) = bundleReduction(ph_order,Z_kik);
-        Ztot_Sunde2La(:,:,k) = bundleReduction(ph_order,Z_Sunde2La);
+        if num_layers==2;Ztot_Sunde2La(:,:,k) = bundleReduction(ph_order,Z_Sunde2La);end
 
     elseif all(h<0) % all conductors are underground
         global kxe;if isempty(kxe);kxe='k1';end;

@@ -82,6 +82,8 @@ Ytot_OvUnd=zeros(Nph,Nph,siz);
 Ytot_Kik=zeros(Nph,Nph,siz);
 Ytot_Sunde2La=zeros(Nph,Nph,siz);
 Pin_test=zeros(ord,ord,siz);
+Ps2la=zeros(ord,ord);
+Pm2la=zeros(ord,ord);
 
 %% Shunt admittance
 for k=1:siz
@@ -152,21 +154,21 @@ for k=1:siz
     L_Q_mat=Ps_pet+Pm_pet+Pin_mat;
     L_Q_wise=Ps_wise+Pm_wise+Pin_mat;
     L_Q_kik=Ps_kik+Pm_kik+(Pin_mat./(2*pi*e0));
-    L_Q_Sunde2La=Ps2la+Pm2la+(Pin_mat./(2*pi*e0));
+    if num_layers==2;L_Q_Sunde2La=Ps2la+Pm2la+(Pin_mat./(2*pi*e0));end
     
     % Bundle reduction
     L_Q_imag_mat = bundleReduction(ph_order,L_Q_imag_mat);
     L_Q_mat = bundleReduction(ph_order,L_Q_mat);
     L_Q_wise = bundleReduction(ph_order,L_Q_wise);
     L_Q_kik = bundleReduction(ph_order,L_Q_kik);
-    L_Q_Sunde2La = bundleReduction(ph_order,L_Q_Sunde2La);
+    if num_layers==2;L_Q_Sunde2La = bundleReduction(ph_order,L_Q_Sunde2La);end
     
     % Total Admittance Matrices
     Ytot_Imag(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_imag_mat);
     Ytot_Pet(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_mat);
     Ytot_Wise(:,:,k)=1i.*omega.*e0.*2.*pi.*n1_tetragwno.*inv(L_Q_wise);
     Ytot_Kik(:,:,k)=1i.*omega.*inv(L_Q_kik);
-    Ytot_Sunde2La(:,:,k)=1i.*omega.*inv(L_Q_Sunde2La);
+    if num_layers==2;Ytot_Sunde2La(:,:,k)=1i.*omega.*inv(L_Q_Sunde2La);end
 
     elseif all(h<0) % all conductors are underground
         global kxe;if isempty(kxe);kxe='k1';end;
@@ -207,5 +209,5 @@ end
 
 if (ZYsave)
 fname = fullfile(pwd, 'Y_pul_output.mat');
-save(fname,'Ytot_Pet', 'Ytot_Imag', 'Ytot_Wise', 'f', 'Ytot_Papad', 'Ytot_OvUnd', 'Ytot_Kik','Ytot_Sunde2La');
+save(fname,'Ytot_Pet', 'Ytot_Imag', 'Ytot_Wise', 'Ytot_Papad', 'Ytot_OvUnd', 'Ytot_Kik','Ytot_Sunde2La');
 end
