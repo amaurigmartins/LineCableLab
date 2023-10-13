@@ -77,27 +77,36 @@ opts.cmplx_ss = 1;   % crie um modelo de espaço de estado complexo
 opts.spy1 = 0;       % sem plotagem para o primeiro estágio do VF
 opts.spy2 = 0;       % criar gráfico de magnitude para ajuste de f(s)
 
-for k = 1 : numel(Npoles)
-    f = traceYc.'; % renomeando o traço de Yc e realizando sua transposta - 1 x Namostras
-    s = s(:).'; % realizando a transposta de s - 1 x Namostras
+f = traceYc.'; % renomeando o traço de Yc e realizando sua transposta - 1 x Namostras
+s = s(:).'; % realizando a transposta de s - 1 x Namostras
 
-    poles = linspace( frequency(1), frequency(end), Npoles(k) ); % polos iniciais - 1 x Namostras
+% for k = 1 : numel(Npoles)
+% 
+%     poles = linspace( frequency(1), frequency(end), Npoles(k) ); % polos iniciais - 1 x Namostras
+% 
+%     for j = 1:10 % número de iterações
+%         weight = ones(1,numel(s)); % peso - 1 x Namostras
+%         [SERtrYc,poles,~,fit,~] = vectfit3(f, s, poles, weight, opts); % função do VF elaborada por Gustavsen
+%     end
+%     fittedPoles = poles; % polos resultantes de Yc
+% end
 
-    for j = 1:10 % número de iterações
-        weight = ones(1,numel(s)); % peso - 1 x Namostras
-        [SERtrYc,poles,~,fit,~] = vectfit3(f, s, poles, weight, opts); % função do VF elaborada por Gustavsen
-    end
-    fittedPoles = poles; % polos resultantes de Yc
+fit_data = rationalfit(frequency.',f,'NPoles',Npoles,'TendsToZero',false);
+if ispassive(fit_data)
+    fittedPoles=fit_data.A.';
+    [ffit,freq] = freqresp(fit_data,frequency);
+else
+    error('Resulting fitted traceYc is not passive.')
 end
 
-if ZYprnt
-    figure(1);
-    % Plotagem mostrando que o traço de Yc e o fitting do traço de Yc obtidos pela função são iguais
 
+if ZYprnt
+    fig=1;
+    figure(fig);
     semilogx(frequency,abs(traceYc),'-b', 'linewidth', 3); hold on
-    semilogx(frequency,abs(fit),'--r', 'linewidth', 3)
+    semilogx(freq,abs(ffit),'--r', 'linewidth', 3)
     legend('trace Yc', 'Fit trace Yc', 'location', 'north' )
-    ylabel('trace Yc')
+    ylabel('Magnitude')
     xlabel('Frequency [Hz]')
     grid on
 end
@@ -126,166 +135,34 @@ for k = 1 : numel(Npoles)
 end
 
 if ZYprnt
-    % Plotagem de comparação entre Yc calculada no programa parâmetros e Yc aproximada pelo VF
-    figure(2); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(rYc(1,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(2,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(3,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(4,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(5,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(1,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(2,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(3,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(4,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(5,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{1,1}', 'Yc_{1,2}', 'Yc_{1,3}', 'Yc_{1,4}', 'Yc_{1,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Yc')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(rYc(1,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(2,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(3,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(4,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(5,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(1,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(2,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(3,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(4,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(5,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{1,1}', 'Yc_{1,2}', 'Yc_{1,3}', 'Yc_{1,4}', 'Yc_{1,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Yc')
-    xlabel('Frequência (Hz)')
-    grid on
 
-    figure(3); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(rYc(6,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(7,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(8,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(9,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(10,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(6,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(7,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(8,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(9,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(10,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{2,1}', 'Yc_{2,2}', 'Yc_{2,3}', 'Yc_{2,4}', 'Yc_{2,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Yc')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(rYc(6,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(7,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(8,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(9,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(10,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(6,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(7,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(8,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(9,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(10,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{2,1}', 'Yc_{2,2}', 'Yc_{2,3}', 'Yc_{2,4}', 'Yc_{2,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Yc')
-    xlabel('Frequência (Hz)')
-    grid on
+    linewidth = 3;
+    approxColor = ':r';
+    for i = 1:ord
+        for j = 1:ord
+            fig_idx=i*j+fig;
+            data = squeeze(rYc(i*j, :));
+            approxData = squeeze(Ycapprox(i*j, :));
+            figure(fig_idx); clf;
+            for subp = 1:2
+                if subp == 1
+                    subplot(2, 1, subp)
+                    semilogx(frequency, real(data), 'linewidth', linewidth, 'DisplayName', sprintf('real Yc_{%d,%d}', i, j)); hold all;
+                    semilogx(frequency, real(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                    legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
 
-    figure(4); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(rYc(11,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(12,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(13,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(14,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(15,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(11,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(12,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(13,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(14,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(15,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{3,1}', 'Yc_{3,2}', 'Yc_{3,3}', 'Yc_{3,4}', 'Yc_{3,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Yc')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(rYc(11,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(12,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(13,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(14,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(15,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(11,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(12,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(13,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(14,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(15,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{3,1}', 'Yc_{3,2}', 'Yc_{3,3}', 'Yc_{3,4}', 'Yc_{3,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Yc')
-    xlabel('Frequência (Hz)')
-    grid on
+                else
+                    subplot(2, 1, subp)
+                    semilogx(frequency, imag(data), 'linewidth', linewidth, 'DisplayName', sprintf('imag Yc_{%d,%d}', i, j)); hold all;
+                    semilogx(frequency, imag(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                    legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
 
-    figure(5); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(rYc(16,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(17,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(18,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(19,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(20,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(16,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(17,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(18,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(19,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(20,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{4,1}', 'Yc_{4,2}', 'Yc_{4,3}', 'Yc_{4,4}', 'Yc_{4,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Yc')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(rYc(16,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(17,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(18,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(19,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(20,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(16,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(17,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(18,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(19,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(20,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{4,1}', 'Yc_{4,2}', 'Yc_{4,3}', 'Yc_{4,4}', 'Yc_{4,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Yc')
-    xlabel('Frequência (Hz)')
-    grid on
+                end
+            end
+        end
+    end
+fig=fig+ord*ord;
 
-    figure(6); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(rYc(21,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(22,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(23,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(24,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(rYc(25,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(21,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(22,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(23,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(24,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Ycapprox(25,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{5,1}', 'Yc_{5,2}', 'Yc_{5,3}', 'Yc_{5,4}', 'Yc_{5,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Yc')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(rYc(21,:).'), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(22,:).'), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(23,:).'), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(24,:).'), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(rYc(25,:).'), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(21,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(22,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(23,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(24,:).'), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Ycapprox(25,:).'), ':r', 'linewidth', 3); hold on
-    legend('Yc_{5,1}', 'Yc_{5,2}', 'Yc_{5,3}', 'Yc_{5,4}', 'Yc_{5,5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Yc')
-    xlabel('Frequência (Hz)')
-    grid on
 end
 
 %% Calculando Pj com tau otimizado
@@ -312,7 +189,8 @@ opts.passive = 0; % - usado no VF wrapper
 
 % ERR = .1/100; % tolerância do erro
 for m = 1:ord
-    [~, ~, ~, ~, ~, ~, ~, tau_opt, ~, fun] = findoptimtau(frequency,vel(:,m),Aj(:,m),line_length,ERR,opts); % função que faz o VF da função de propagação considerando o tau ótimo, nesse caso uso para obter o Pj com tau otimizado
+    [tau_opt, fun] = findoptimtau(frequency,vel(:,m),Aj(:,m),line_length,ERR,opts); % função que faz o VF da função de propagação considerando o tau ótimo, nesse caso uso para obter o Pj com tau otimizado
+%     [~, ~, ~, ~, ~, ~, ~, tau_opt, ~, fun] = findoptimtau(frequency,vel(:,m),Aj(:,m),line_length,ERR,opts); % função que faz o VF da função de propagação considerando o tau ótimo, nesse caso uso para obter o Pj com tau otimizado
 
     fitOHLT_H(m).tau_opt = tau_opt; % tau otimizado
     fitOHLT_H(m).fun = fun; % Pj = H.*exp(1i.*2.*pi.*f.*tau) -  eq. 3.22 dissertação zanon;
@@ -338,58 +216,71 @@ clear opts
 opts.relax = 1;      % use ajuste vetorial com restrição de não trivialidade relaxada
 opts.stable = 1;     % aplicar pólos estáveis
 opts.asymp = 1;      % fitting com D=0, E=0
-opts.skip_pole = 0;  % pule o cálculo dos polos
-opts.skip_res = 0;   % não pule o cálculo dos resíduos
+opts.skip_pole = 0;  % nao pule o cálculo dos polos
+opts.skip_res = 0;   % nao pule o cálculo dos resíduos
 opts.cmplx_ss = 1;   % crie um modelo de espaço de estado complexo
 opts.spy1 = 0;       % sem plotagem para o primeiro estágio do VF
 opts.spy2 = 0;       % criar gráfico de magnitude para ajuste de f(s)
 
-for k = 1 : numel(Npoles)
-    s = s(:).'; % realizando a transposta de s - 1 x Namostras
-    Pjj = P_j; % renomeando P_j Nfases x Namostras
+% for k = 1 : numel(Npoles)
+%     s = s(:).'; % realizando a transposta de s - 1 x Namostras
+%     Pjj = P_j; % renomeando P_j Nfases x Namostras
+% 
+%     poles = linspace( frequency(1), frequency(end), Npoles(k) ); % polos iniciais - 1 x Namostras
+% 
+%     for j = 1:10 % número de iterações
+%         weight = ones(1,numel(s)); % peso - 1 x Namostras
+%         [SERPj,poles,~,Pjapprox,~] = vectfit3(Pjj, s, poles, weight, opts); % função do VF elaborada por Gustavsen
+%     end
+%     polesPj = poles; % polos resultantes de Yc
+% end
 
-    poles = linspace( frequency(1), frequency(end), Npoles(k) ); % polos iniciais - 1 x Namostras
+fit_data = rationalfit(frequency.',P_j.','NPoles',Npoles,'TendsToZero',true);
+foundpassive=false;
+for i=1:length(fit_data)
+    [ffit,freq] = freqresp(fit_data(i),frequency);
+    Pjapprox(i,:)=ffit;
 
-    for j = 1:10 % número de iterações
-        weight = ones(1,numel(s)); % peso - 1 x Namostras
-        [SERPj,poles,~,Pjapprox,~] = vectfit3(Pjj, s, poles, weight, opts); % função do VF elaborada por Gustavsen
+    if ispassive(fit_data(i))
+        polesPj=fit_data(i).A.';
+        passivemode=i;
+        foundpassive=true;
     end
-    polesPj = poles; % polos resultantes de Yc
 end
 
+if ~foundpassive
+    error('Resulting fitted P_j is not passive.')
+end
+
+
+
 if ZYprnt
-    % Plotagem de comparação entre Pj e Pj aproximada pelo VF
-    figure(7); clf;
-    subplot(2,1,1)
-    semilogx(frequency, real(Pjj(1,:)), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjj(2,:)), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjj(3,:)), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjj(4,:)), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjj(5,:)), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjapprox(1,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjapprox(2,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjapprox(3,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjapprox(4,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, real(Pjapprox(5,:)), ':r', 'linewidth', 3); hold on
-    legend('Pj_{modo1}', 'Pj_{modo2}', 'Pj_{modo3}', 'Pj_{modo4}', 'Pj_{modo5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Real Pj')
-    xlabel('Frequência (Hz)')
-    grid on
-    subplot(2,1,2)
-    semilogx(frequency, imag(Pjj(1,:)), '-k', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjj(2,:)), '-b', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjj(3,:)), '-g', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjj(4,:)), '-c', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjj(5,:)), '-m', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjapprox(1,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjapprox(2,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjapprox(3,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjapprox(4,:)), ':r', 'linewidth', 3); hold on
-    semilogx(frequency, imag(Pjapprox(5,:)), ':r', 'linewidth', 3); hold on
-    legend('Pj_{modo1}', 'Pj_{modo2}', 'Pj_{modo3}', 'Pj_{modo4}', 'Pj_{modo5}', ['Ajustado - ' num2str(Npoles) ' polos'], 'location', 'north' )
-    ylabel('Imaginário Pj')
-    xlabel('Frequência (Hz)')
-    grid on
+
+    linewidth = 3;
+    approxColor = ':r';
+    for i = 1:ord
+        fig_idx=i+fig;
+        data = P_j(i,:);
+        approxData = Pjapprox(i,:);
+        figure(fig_idx); clf;
+        for subp = 1:2
+            if subp == 1
+                subplot(2, 1, subp)
+                semilogx(frequency, real(data), 'linewidth', linewidth, 'DisplayName', sprintf('real Pj_{mode %d}', i)); hold all;
+                semilogx(frequency, real(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
+
+            else
+                subplot(2, 1, subp)
+                semilogx(frequency, imag(data), 'linewidth', linewidth, 'DisplayName', sprintf('imag Pj_{mode %d}', i)); hold all;
+                semilogx(frequency, imag(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
+
+            end
+        end
+    end
+fig=fig+ord;
+
 end
 
 %% Calculando os resíduos de DjPj
@@ -430,155 +321,32 @@ for o = 1:ord
 
             if ZYprnt
 
-                figure(10); clf;
-                subplot(2,1,1)
-                semilogx(frequency, real(rDjPj(1,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(2,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(3,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(4,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(5,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(1,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(2,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(3,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(4,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(5,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Real de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-                subplot(2,1,2)
-                semilogx(frequency, imag(rDjPj(1,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(2,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(3,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(4,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(5,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(1,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(2,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(3,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(4,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(5,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Imaginário de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
+                linewidth = 3;
+                approxColor = ':r';
+                for i = 1:ord
+                    for j = 1:ord
+                        fig_idx=o*i*j+fig;
+                        data = squeeze(rDjPj(i*j, :));
+                        approxData = squeeze(Happrox(i*j, :));
+                        figure(fig_idx); clf;
+                        for subp = 1:2
+                            if subp == 1
+                                subplot(2, 1, subp)
+                                semilogx(frequency, real(data), 'linewidth', linewidth, 'DisplayName', sprintf('real DjPj_{%d}, mode %d', i*j, o)); hold all;
+                                semilogx(frequency, real(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                                legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
 
-                figure(11); clf;
-                subplot(2,1,1)
-                semilogx(frequency, real(rDjPj(6,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(7,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(8,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(9,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(10,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(6,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(7,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(8,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(9,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(10,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Real de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-                subplot(2,1,2)
-                semilogx(frequency, imag(rDjPj(6,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(7,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(8,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(9,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(10,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(6,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(7,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(8,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(9,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(10,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Imaginário de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
+                            else
+                                subplot(2, 1, subp)
+                                semilogx(frequency, imag(data), 'linewidth', linewidth, 'DisplayName', sprintf('imag DjPj_{%d}, mode %d', i*j, o)); hold all;
+                                semilogx(frequency, imag(approxData), approxColor, 'linewidth', linewidth, 'DisplayName', sprintf('Fit - %d poles', Npoles)); hold all;
+                                legend('-DynamicLegend');xlabel('Frequency [Hz]');ylabel('Magnitude');grid on;
 
-                figure(12); clf;
-                subplot(2,1,1)
-                semilogx(frequency, real(rDjPj(11,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(12,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(13,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(14,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(15,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(11,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(12,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(13,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(14,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(15,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Real de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-                subplot(2,1,2)
-                semilogx(frequency, imag(rDjPj(11,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(12,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(13,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(14,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(15,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(11,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(12,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(13,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(14,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(15,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Imaginário de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
+                            end
+                        end
+                    end
+                end
 
-                figure(13); clf;
-                subplot(2,1,1)
-                semilogx(frequency, real(rDjPj(16,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(17,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(18,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(19,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(20,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(16,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(17,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(18,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(19,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(20,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Real de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-                subplot(2,1,2)
-                semilogx(frequency, imag(rDjPj(16,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(17,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(18,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(19,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(20,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(16,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(17,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(18,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(19,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(20,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Imaginário de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-
-                figure(14); clf;
-                subplot(2,1,1)
-                semilogx(frequency, real(rDjPj(21,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(22,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(23,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(24,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, real(rDjPj(25,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(21,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(22,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(23,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(24,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, real(Happrox(25,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Real de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
-                subplot(2,1,2)
-                semilogx(frequency, imag(rDjPj(21,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(22,:)), '-b', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(23,:)), '-g', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(24,:)), '-c', 'linewidth', 3); hold on
-                semilogx(frequency, imag(rDjPj(25,:)), '-k', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(21,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(22,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(23,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(24,:)), ':r', 'linewidth', 3); hold on
-                semilogx(frequency, imag(Happrox(25,:)), ':r', 'linewidth', 3); hold on
-                ylabel('Imaginário de DjPj')
-                xlabel('Frequência (Hz)')
-                grid on
             end
 
         end
@@ -655,10 +423,10 @@ for k=1:1:num_files
 end
 end
 
-function [rmserr, pol, res, ks, NORD, ffit, tau_mps, tau_opt, tau, fun] = findoptimtau(f,vel,H,line_length,ERR,opts)
+% function [rmserr, pol, res, ks, NORD, ffit, tau_mps, tau_opt, tau, fun] = findoptimtau(f,vel,H,line_length,ERR,opts)
+function [tau_opt, fun] = findoptimtau(f,vel,H,line_length,ERR,opts)
 j=length(f)-1;
 
-% [ff, H] = fitnextrap(f,H);
 ff=f;
 
 w=2*pi*ff;
@@ -695,7 +463,6 @@ tau_b=(line_length/vel(j));
 
 tmin=.8*tau_a;
 tmax=1.2*tau_b;
-tau=tau_b;
 
 % DEBUGME
 % dt=abs(tmin-tmax)/100;
@@ -710,31 +477,42 @@ tau=tau_b;
 
 options = optimset('Display','none', 'TolX',1e-6);
 tau_opt=fminbnd(@(x)fcalc(H,ff,x,ERR,opts),tmin,tmax,options);
-opts.NORD=20;
-opts.Niter=20;
+fun = H.*exp(1i.*2.*pi.*ff.*tau_opt);
+% opts.NORD=20;
+% opts.Niter=20;
 
 
-while 1
+% while 1
 
-    tau_opt=fminbnd(@(x)fcalc(H,ff,x,ERR,opts),tmin,tmax,options);
-    %     tau_opt=tau_b;
-    [rmserr, pol, res, ks, NORD, ffit, fun]=fcalc(H, ff, tau_opt, ERR, opts);
+% tau_opt=fminbnd(@(x)fcalc(H,ff,x,ERR,opts),tmin,tmax,options);
+%     tau_opt=tau_b;
+%[rmserr, pol, res, ks, NORD, ffit, fun]=fcalc(H, ff, tau_opt, ERR, opts);
 
-    if max(imag(pol))  ~= 0
-        opts.NORD = opts.NORD-1;
-    else
-        break
-    end
+%     if max(imag(pol))  ~= 0
+%         opts.NORD = opts.NORD-1;
+%     else
+%         break
+%     end
+% end
+
 end
 
-end
 
-
-function [out, pol, res, ks, NORD, ffit, fun] = fcalc(H, f, tau, ERR, opts)
+function [out] = fcalc(H, f, tau, ERR, opts)
 fun = H.*exp(1i.*2.*pi.*f.*tau);
-[pol, res, ks, NORD, ffit, err] = vectfit_wrapper(fun,f,ERR,opts);
+[fit_data,err] = rationalfit(f.',fun.','NPoles',20,'TendsToZero',true);
+
+% [pol, res, ks, NORD, ffit, err] = vectfit_wrapper(fun,f,ERR,opts);
 out=err;
-% pol
+
 end
 
+% function [out, pol, res, ks, NORD, ffit, fun] = fcalc(H, f, tau, ERR, opts)
+% fun = H.*exp(1i.*2.*pi.*f.*tau);
+% [fit_data,err] = rationalfit(f.',fun.','NPoles',20,'TendsToZero',true);
+% 
+% % [pol, res, ks, NORD, ffit, err] = vectfit_wrapper(fun,f,ERR,opts);
+% out=err;
+% 
+% end
 
