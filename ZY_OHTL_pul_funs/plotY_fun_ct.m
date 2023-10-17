@@ -1,4 +1,4 @@
-function [] = plotY_fun_ct(f,ord,Ytot_Imag,Ytot_Pet,Ytot_Wise, Ytot_under, Ytot_over_under,jobid)
+function [] = plotY_fun_ct(f,ord,Ytot_Imag,Ytot_Pet,Ytot_Wise, Ytot_under, Ytot_over_under,Ytot_Kik,Ytot_Sunde2La,jobid)
 
 %% Plot results
 % Self admittance (Y11)
@@ -26,6 +26,12 @@ if ~all(Ytot_Wise==0)
     o=o+1;
 end
 
+if ~all(Ytot_Kik==0)
+    loglog(f,squeeze(abs(Ytot_Kik(1,1,:))),'LineWidth',2);hold all
+    lgd{o} = 'Kikuchi';
+    o=o+1;
+end
+
 if ~all(Ytot_under==0)
     loglog(f,squeeze(abs(Ytot_under(1,1,:))),'LineWidth',2);hold all
     lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -35,6 +41,13 @@ end
 if ~all(Ytot_over_under==0)
     loglog(f,squeeze(abs(Ytot_over_under(1,1,:))),'LineWidth',2);hold all
     lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+    o=o+1;
+end
+
+if ~all(Ytot_Sunde2La==0)
+    loglog(f,squeeze(abs(Ytot_Sunde2La(1,1,:))),'LineWidth',2);hold all
+    lgd{o} = ['Sunde 2-layered'];
+    o=o+1;
 end
 
 xlabel('Frequency [Hz]')
@@ -64,6 +77,12 @@ if ~all(Ytot_Wise==0)
     o=o+1;
 end
 
+if ~all(Ytot_Kik==0)
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Kik(1,1,:))))),'LineWidth',2);hold all
+    lgd{o} = 'Kikuchi';
+    o=o+1;
+end
+
 if ~all(Ytot_under==0)
     loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_under(1,1,:))))),'LineWidth',2);hold all
     lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -73,6 +92,13 @@ end
 if ~all(Ytot_over_under==0)
     loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_over_under(1,1,:))))),'LineWidth',2);hold all
     lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+    o=o+1;
+end
+
+if ~all(Ytot_Sunde2La==0)
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Sunde2La(1,1,:))))),'LineWidth',2);hold all
+    lgd{o} = ['Sunde 2-layered'];
+    o=o+1;
 end
 
 xlabel('Frequency [Hz]')
@@ -113,6 +139,13 @@ while (number-1>0)
         o=o+1;
     end
 
+    if ~all(Ytot_Kik==0)
+        loglog(f,squeeze(abs(Ytot_Kik(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = 'Kikuchi';
+        o=o+1;
+    end
+
+
     if ~all(Ytot_under==0)
         loglog(f,squeeze(abs(Ytot_under(1,number,:))),'LineWidth',2);hold all
         lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -122,6 +155,13 @@ while (number-1>0)
     if ~all(Ytot_over_under==0)
         loglog(f,squeeze(abs(Ytot_over_under(1,number,:))),'LineWidth',2);hold all
         lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+
+    if ~all(Ytot_Sunde2La==0)
+        loglog(f,squeeze(abs(Ytot_Sunde2La(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = ['Sunde 2-layered'];
+        o=o+1;
     end
 
 
@@ -152,6 +192,13 @@ while (number-1>0)
         o=o+1;
     end
 
+    if ~all(Ytot_Kik==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Kik(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = 'Kikuchi';
+        o=o+1;
+    end
+
+
     if ~all(Ytot_under==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_under(1,number,:))))),'LineWidth',2);hold all
         lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -161,6 +208,13 @@ while (number-1>0)
     if ~all(Ytot_over_under==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_over_under(1,number,:))))),'LineWidth',2);hold all
         lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+
+    if ~all(Ytot_Sunde2La==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Sunde2La(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = ['Sunde 2-layered'];
+        o=o+1;
     end
 
     xlabel('Frequency [Hz]')

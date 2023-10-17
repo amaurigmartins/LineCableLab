@@ -1,4 +1,4 @@
-function [] = plotZ_fun_ct(f,ord,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_under,Ztot_over_under,jobid)
+function [] = plotZ_fun_ct(f,ord,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_under,Ztot_over_under,Ztot_Kik,Ztot_Sunde2La,jobid)
 
 %% Plot results
 % Self impedance (Z11)
@@ -54,6 +54,12 @@ if ~all(Ztot_Wise==0)
     o=o+1;
 end
 
+if ~all(Ztot_Kik==0)
+    loglog(f,squeeze(abs(Ztot_Kik(1,1,:))),'LineWidth',2);hold all
+    lgd{o} = 'Kikuchi';
+    o=o+1;
+end
+
 if ~all(Ztot_under==0)
     loglog(f,squeeze(abs(Ztot_under(1,1,:))),'LineWidth',2);hold all
     lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -63,6 +69,13 @@ end
 if ~all(Ztot_over_under==0)
     loglog(f,squeeze(abs(Ztot_over_under(1,1,:))),'LineWidth',2);hold all
     lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+    o=o+1;
+end
+
+if ~all(Ztot_Sunde2La==0)
+    loglog(f,squeeze(abs(Ztot_Sunde2La(1,1,:))),'LineWidth',2);hold all
+    lgd{o} = ['Sunde 2-layered'];
+    o=o+1;
 end
 
 %loglog(f,squeeze(abs(Ztot_Carson(1,1,:))), ...
@@ -127,8 +140,14 @@ if ~all(Ztot_Semlyen==0)
 end
 
 if ~all(Ztot_Wise==0)
-    loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Carson(1,1,:))))),'LineWidth',2);hold all
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Wise(1,1,:))))),'LineWidth',2);hold all
     lgd{o} = 'Wise';
+    o=o+1;
+end
+
+if ~all(Ztot_Kik==0)
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Kik(1,1,:))))),'LineWidth',2);hold all
+    lgd{o} = 'Kikuchi';
     o=o+1;
 end
 
@@ -141,6 +160,13 @@ end
 if ~all(Ztot_over_under==0)
     loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_over_under(1,1,:))))),'LineWidth',2);hold all
     lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+    o=o+1;
+end
+
+if ~all(Ztot_Sunde2La==0)
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Sunde2La(1,1,:))))),'LineWidth',2);hold all
+    lgd{o} = ['Sunde 2-layered'];
+    o=o+1;
 end
 
 %loglog(f,rad2deg(squeeze(angle(Ztot_Carson(1,1,:)))), ...
@@ -222,6 +248,12 @@ while (number-1>0)
         o=o+1;
     end
 
+    if ~all(Ztot_Kik==0)
+        loglog(f,squeeze(abs(Ztot_Kik(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = 'Kikuchi';
+        o=o+1;
+    end
+
     if ~all(Ztot_under==0)
         loglog(f,squeeze(abs(Ztot_under(1,number,:))),'LineWidth',2);hold all
         lgd{o} = ['Papadopoulos' char(10) '(underground)'];
@@ -231,6 +263,13 @@ while (number-1>0)
     if ~all(Ztot_over_under==0)
         loglog(f,squeeze(abs(Ztot_over_under(1,number,:))),'LineWidth',2);hold all
         lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+
+    if ~all(Ztot_Sunde2La==0)
+        loglog(f,squeeze(abs(Ztot_Sunde2La(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = ['Sunde 2-layered'];
+        o=o+1;
     end
 
     xlabel('Frequency [Hz]')
@@ -285,8 +324,14 @@ while (number-1>0)
     end
 
     if ~all(Ztot_Wise==0)
-        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Carson(1,number,:))))),'LineWidth',2);hold all
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Wise(1,number,:))))),'LineWidth',2);hold all
         lgd{o} = 'Wise';
+        o=o+1;
+    end
+
+    if ~all(Ztot_Kik==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Kik(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = 'Kikuchi';
         o=o+1;
     end
 
@@ -299,6 +344,13 @@ while (number-1>0)
     if ~all(Ztot_over_under==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_over_under(1,number,:))))),'LineWidth',2);hold all
         lgd{o} = ['New formulas (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+
+    if ~all(Ztot_Sunde2La==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Sunde2La(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = ['Sunde 2-layered'];
+        o=o+1;
     end
 
     xlabel('Frequency [Hz]')
