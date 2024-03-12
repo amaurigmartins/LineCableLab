@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-title: OHLToolbox
+title: LineCableLab
 message: ' Toolbox in MATLAB for modelling of overhead and underground transmission lines '
 type: software
 authors:
@@ -19,6 +19,10 @@ authors:
     email: anchryso@gmail.com
     orcid: 'https://orcid.org/0000-0002-5712-3859'
 identifiers:
+  - type: doi
+    value: 10.1109/TEMC.2024.3376971
+    description: >-
+      Transient Electromagnetic Interference between Overhead and Underground Conductors.
   - type: doi
     value: 10.1016/j.epsr.2023.109631
     description: >-
@@ -43,5 +47,5 @@ abstract: >-
   underground transmission lines (per-unit-length
   parameters, propagation characteristics, frequency scan,
   transient simulations).
-version: 6.1.3
-date-released: '2023-06-26'
+version: 6.2
+date-released: '2024-03-12'
