@@ -1,10 +1,7 @@
-function [] = makeJMartiModel(f,Z,Y,Ti_dis,g_dis,Zch_mod,line_length,ERR,tol)
+function [] = makeJMartiModel(f,Z,Y,Ti_dis,g_dis,Zch_mod,line_length,ERR,tol,jobid,currPath)
 
-ZYprnt=false;
-useBodeFit=true;
-
-% General parameters
-f_Ti=1e6; % Frequency chosen for JMarti model
+ZYprnt=true;
+useBodeFit=false;
 
 if size(f,1) == 1
     f=f.';
@@ -25,13 +22,29 @@ end
 % Frequency-variant transform matrix from OHLT
 ord=size(Z,2);
 Ti=list2sqmat(Ti_dis,ord,freq_siz);
+[H_mod,~,~,~,~]=calc_prop_function(Ti,g_dis,line_length,ord,freq_siz,f); %REAL LINE H, Zch_mod = REAL LINE ZCH
+
+% % Run optimization to find the best frequency sample for T
+% best_err_Zc=9999;
+% best_err_H=9999;
+% for k=1:freq_siz
+% f_Ti=f(k); % Frequency chosen for JMarti model
+% Ti_test=Ti(:,:,k);
+% T_test=real(Ti_test); %is this really necessary?
+% [Zch_test,~,~,~]=calc_char_imped_admit(T_test,Z,Y,ord,freq_siz);
+% [H_test,~,~,~,~]=calc_prop_function(T_test,g_dis,line_length,ord,freq_siz,f); %it works!!!
+% err_Zc=norm(Zch_test-Zch_mod);
+% err_H=norm(H_test-H_mod);
+% if err_Zc<best_err_Zc
+% T=T_test;
+% end
+% end
 
 % Now let's pick the corresponding matrix for a specific frequency @ f_Ti
+f_Ti=1e6;
 interplM2freq = @(M) squeeze(interp1(f,M,f_Ti)); %use interpolation to handle the case where the frequency sample is missing
 T=interplM2freq(Ti);
 T=real(Ti); %is this really necessary?
-
-% Run optimization to find the best frequency sample for T
 
 % Recompute Zc and H using modified T and g
 modif_T=sqmat2list(T,ord,freq_siz);
@@ -157,7 +170,7 @@ if ZYprnt
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%DEBUGME
     for m=1:ord
         figure
-        semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(Zch_m_OHLT(:,m)),'-.')
+        semilogx(f,abs(Zch_src(:,m)));hold all; semilogx(f,abs(fitOHLT_Zc(m).ffit),'-.')
         legend('Const+real T @ chosen freq', 'Var Ti')
         title(sprintf('Zc mode #%d',m))
         axis tight
@@ -166,7 +179,7 @@ if ZYprnt
         grid on
         legend
 
-        figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(H_m_OHLT(:,m)),'-.')
+        figure;semilogx(f,abs(H_src(:,m)));hold all; semilogx(f,abs(fitOHLT_H(m).ffit),'-.')
         legend('Const+real T @ chosen freq', 'Var Ti')
         title(sprintf('H mode #%d',m))
         axis tight

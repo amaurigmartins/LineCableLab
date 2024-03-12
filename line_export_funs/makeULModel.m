@@ -1,4 +1,4 @@
-function [] = makeULModel(Z,Y,f,line_length,ERR,Npoles)
+function [] = makeULModel(Z,Y,f,line_length,ERR,Npoles,jobid,currPath)
 
 ZYprnt=false;
 
@@ -92,13 +92,12 @@ s = s(:).'; % realizando a transposta de s - 1 x Namostras
 % end
 
 fit_data = rationalfit(frequency.',f,'NPoles',Npoles,'TendsToZero',false);
-if ispassive(fit_data)
-    fittedPoles=fit_data.A.';
-    [ffit,freq] = freqresp(fit_data,frequency);
-else
-    error('Resulting fitted traceYc is not passive.')
-end
+% [ffit,freq] = freqresp(fit_data,frequency);
+fittedPoles=fit_data.A.';
 
+if ~ispassive(fit_data)
+    warning('Resulting fitted traceYc is not passive. Results might be numerically unstable or inaccurate.')
+end
 
 if ZYprnt
     fig=1;
@@ -240,17 +239,20 @@ foundpassive=false;
 for i=1:length(fit_data)
     [ffit,freq] = freqresp(fit_data(i),frequency);
     Pjapprox(i,:)=ffit;
+    polesPj=fit_data(i).A.';
 
     if ispassive(fit_data(i))
-        polesPj=fit_data(i).A.';
         passivemode=i;
         foundpassive=true;
+    else
+        warning('Resulting P_j fit for mode %d is not passive. Results might become a dumpster fire.',i)
+        foundpassive=false;
     end
+    
+    if foundpassive;polesPj=fit_data(passivemode).A.';end
+
 end
 
-if ~foundpassive
-    error('Resulting fitted P_j is not passive.')
-end
 
 
 
@@ -372,7 +374,7 @@ rYc = reshape(SERYc.C, size(SERYc.C,1)*size(SERYc.C,2), 1); % reorganiza as dime
 rCij = reshape(Cij, size(Cij,1)*size(Cij,2), size(Cij,3)); % reorganiza as dimensões de Cij para que fique nfases.nfases.npolos x nmodos
 rresiduos = reshape(rCij, size(rCij,1)*size(rCij,2), 1); % reorganiza as dimensões de SERYc.C para que fique nfases.nfases.npolos.modos x 1
 
-filename='fitULM000001.txt';
+filename = fullfile(currPath,['fitULM.dat']);
 
 fid = fopen(filename,'wt');
 fprintf(fid,'%d\n',size(Yc,1)); %numero de fases
@@ -461,8 +463,8 @@ tau_a=line_length/3e8;
 tau_b=(line_length/vel(j));
 
 
-tmin=.8*tau_a;
-tmax=1.2*tau_b;
+tmin=.8*abs(tau_a);
+tmax=1.2*abs(tau_b);
 
 % DEBUGME
 % dt=abs(tmin-tmax)/100;
