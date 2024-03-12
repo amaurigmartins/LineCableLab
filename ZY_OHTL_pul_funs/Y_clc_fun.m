@@ -200,7 +200,7 @@ for k=1:siz
         global kxm;if isempty(kxm);kxm=0;end;
         global Pm_flag;if isempty(Pm_flag);Pm_flag=true;end;
         if Pm_flag
-            Pm_new=P_new_mut_(h,d,e_g ,m_g,sigma_g,f,ord,kxm,1); % mutual coefficients in the mixed configuration
+            Pm_new=P_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm,1); % mutual coefficients in the mixed configuration
         else
             Pm_new=zeros(ord,ord);
         end
