@@ -41,7 +41,7 @@ identifiers:
       Influence of Lossy Ground on High-Frequency Induced Voltages on Aboveground Pipelines by Nearby Overhead Transmission Lines.
 repository-code: 'https://github.com/amaurigmartins/OHLToolbox'
 url: >-
-  https://www.mathworks.com/matlabcentral/fileexchange/130914-ohltoolbox
+  https://www.mathworks.com/matlabcentral/fileexchange/130914-linecablelab
 abstract: >-
   Toolbox in MATLAB for modelling of overhead and
   underground transmission lines (per-unit-length
