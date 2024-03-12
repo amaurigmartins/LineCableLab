@@ -52,7 +52,7 @@ end
 
 if ~all(Ytot_Xue==0)
     loglog(f,squeeze(abs(Ytot_Xue(con,con,:))),'LineWidth',2);hold all
-    lgd{o} = ['Xue'];
+    lgd{o} = ['Xue (underground)'];
     o=o+1;
 end
 
@@ -109,7 +109,7 @@ end
 
 if ~all(Ytot_Xue==0)
     loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Xue(con,con,:))))),'LineWidth',2);hold all
-    lgd{o} = ['Xue'];
+    lgd{o} = ['Xue (underground)'];
     o=o+1;
 end
 
@@ -178,7 +178,7 @@ while (number-1>0)
 
     if ~all(Ytot_Xue==0)
         loglog(f,squeeze(abs(Ytot_Xue(1,number,:))),'LineWidth',2);hold all
-        lgd{o} = ['Xue'];
+        % lgd{o} = ['Xue (underground)'];
         o=o+1;
     end
 
@@ -237,7 +237,7 @@ while (number-1>0)
 
     if ~all(Ytot_Xue==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ytot_Xue(1,number,:))))),'LineWidth',2);hold all
-        lgd{o} = ['Xue'];
+        lgd{o} = ['Xue (underground)'];
         o=o+1;
     end
 

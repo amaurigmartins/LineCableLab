@@ -80,7 +80,7 @@ end
 
 if ~all(Ztot_Xue==0)
     loglog(f,squeeze(abs(Ztot_Xue(1,1,:))),'LineWidth',2);hold all
-    lgd{o} = ['Xue'];
+    lgd{o} = ['Xue (underground)'];
     o=o+1;
 end
 
@@ -184,7 +184,7 @@ end
 
 if ~all(Ztot_Xue==0)
     loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Xue(1,1,:))))),'LineWidth',2);hold all
-    lgd{o} = ['Xue'];
+    lgd{o} = ['Xue (underground)'];
     o=o+1;
 end
 
@@ -305,7 +305,7 @@ while (number-1>0)
     
     if ~all(Ztot_Xue==0)
         loglog(f,squeeze(abs(Ztot_Xue(1,number,:))),'LineWidth',2);hold all
-        lgd{o} = ['Xue'];
+        lgd{o} = ['Xue (underground)'];
         o=o+1;
     end
 
@@ -402,7 +402,7 @@ while (number-1>0)
     
     if ~all(Ztot_Xue==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Xue(1,number,:))))),'LineWidth',2);hold all
-        lgd{o} = ['Xue'];
+        lgd{o} = ['Xue (underground)'];
         o=o+1;
     end
 
