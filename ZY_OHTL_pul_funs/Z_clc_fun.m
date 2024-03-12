@@ -1,4 +1,4 @@
-function [Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_Papad,Ztot_OvUnd,Ztot_Kik,Ztot_Sunde2La,Nph] = Z_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
+function [Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_Papad,Ztot_OvUnd,Ztot_Kik,Ztot_Sunde2La,Ztot_OvUndPol,Ztot_Xue,Nph] = Z_clc_fun(f_total,ord,ZYprnt,FD_flag,siz,soil,h,d,Geom,ZYsave,jobid)
 %% Variables
 e0=8.854187817e-12;  % Farads/meters
 % m0=4*pi*1e-7;        % Henry's/meters
@@ -88,10 +88,13 @@ Ztot_Semlyen=zeros(Nph,Nph,siz);
 Ztot_AlDe=zeros(Nph,Nph,siz);
 Ztot_Papad=zeros(Nph,Nph,siz);
 Ztot_OvUnd=zeros(Nph,Nph,siz);
+Ztot_OvUndPol=zeros(Nph,Nph,siz);
 Ztot_Kik=zeros(Nph,Nph,siz);
 Ztot_Sunde2La=zeros(Nph,Nph,siz);
+Ztot_Xue=zeros(Nph,Nph,siz);
 
 Zin_test=zeros(ord,ord,siz);
+Zg_test=zeros(ord,ord,siz);
 Zg_Carson_mat=zeros(ord,ord,siz);
 Zs2la=zeros(ord,ord);
 Zm2la=zeros(ord,ord);
@@ -208,6 +211,8 @@ for k=1:siz
         Z_Sunde2La=Zin+Zg_Sunde2La;
         Z_Semlyen=Zin+Zpg+Zg_Sem;
 
+        Zg_test(:,:,k)=Zg_Sunde2La;
+
         % Bundle reduction matrices
         Ztot_Carson(:,:,k) = bundleReduction(ph_order,Z_Carson);
         Ztot_AlDe(:,:,k) = bundleReduction(ph_order,Z_AlDe);
@@ -227,8 +232,15 @@ for k=1:siz
         Zm_papad=Z_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe);
         Ztot_Papad(:,:,k)=Zs_papad+Zm_papad;
 
+        Zs_xue=Z_xue_slf(h,cab_ex,e_g,sigma_g,f,ord);
+        Zm_xue=Z_xue_mut(h,d,e_g,sigma_g,f,ord);
+        Ztot_Xue(:,:,k)=Zs_xue+Zm_xue;
+
         Ztot_Papad(:,:,k)=Zin_test(:,:,k)+Ztot_Papad(:,:,k);
+        Ztot_Xue(:,:,k)=Zin_test(:,:,k)+Ztot_Xue(:,:,k);
+
         Ztot_Papad(:,:,k) = bundleReduction(ph_order,Ztot_Papad(:,:,k));
+        Ztot_Xue(:,:,k) = bundleReduction(ph_order,Ztot_Xue(:,:,k));
     
     else % a mixed overhead-underground setup. Need to choose carefully the self impedance formula
         
@@ -240,9 +252,14 @@ for k=1:siz
         Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
         global kxm;if isempty(kxm);kxm=0;end;
         Zm_new=Z_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual impedances in the mixed configuration
+        Zm_pol=Z_pol_mut(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
         Ztot_OvUnd(:,:,k)=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_new;
         Ztot_OvUnd(:,:,k)=Zin_test(:,:,k)+Ztot_OvUnd(:,:,k);
         Ztot_OvUnd(:,:,k) = bundleReduction(ph_order,Ztot_OvUnd(:,:,k));
+
+        Ztot_OvUndPol(:,:,k)=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_pol;
+        Ztot_OvUndPol(:,:,k)=Zin_test(:,:,k)+Ztot_OvUndPol(:,:,k);
+        Ztot_OvUndPol(:,:,k) = bundleReduction(ph_order,Ztot_OvUndPol(:,:,k));
 
 
     end
@@ -251,10 +268,10 @@ for k=1:siz
 end
 %% Plot parameters
 if (ZYprnt)
-    plotZ_fun_ct(f_total,Nph,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_Papad,Ztot_OvUnd,Ztot_Kik,Ztot_Sunde2La,jobid);
+    plotZ_fun_ct(f_total,Nph,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_Papad,Ztot_OvUnd,Ztot_Kik,Ztot_Sunde2La,Ztot_OvUndPol,Ztot_Xue,jobid);
 end
 
 if (ZYsave)
     fname = fullfile(pwd,'Z_pul_output.mat');
-    save(fname,'Ztot_Carson', 'Ztot_Noda', 'Ztot_Deri', 'Ztot_AlDe', 'Ztot_Sunde', 'Ztot_Pettersson', 'Ztot_Semlyen', 'Ztot_Wise','Ztot_Papad','Ztot_OvUnd','Ztot_Kik','Ztot_Sunde2La' );
+    save(fname,'Ztot_Carson', 'Ztot_Noda', 'Ztot_Deri', 'Ztot_AlDe', 'Ztot_Sunde', 'Ztot_Pettersson', 'Ztot_Semlyen', 'Ztot_Wise','Ztot_Papad','Ztot_OvUnd','Ztot_Kik','Ztot_Sunde2La','Ztot_OvUndPol','Ztot_Xue');
 end

@@ -1,8 +1,8 @@
-function [] = plotZ_fun_ct(f,ord,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_under,Ztot_over_under,Ztot_Kik,Ztot_Sunde2La,jobid)
+function [] = plotZ_fun_ct(f,ord,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_under,Ztot_over_under,Ztot_Kik,Ztot_Sunde2La,Ztot_OvUndPol,Ztot_Xue,jobid)
 
 %% Plot results
 % Self impedance (Z11)
-set_plot_params()
+% set_plot_params()
 figure('Name', ['SelfImpZ11_' jobid])
 o=1;
 subplot(2,1,1)
@@ -77,6 +77,19 @@ if ~all(Ztot_Sunde2La==0)
     lgd{o} = ['Sunde 2-layered'];
     o=o+1;
 end
+
+if ~all(Ztot_Xue==0)
+    loglog(f,squeeze(abs(Ztot_Xue(1,1,:))),'LineWidth',2);hold all
+    lgd{o} = ['Xue'];
+    o=o+1;
+end
+
+
+% if ~all(Ztot_OvUndPol==0)
+%     loglog(f,squeeze(abs(Ztot_OvUndPol(1,1,:))),'LineWidth',2);hold all
+%     lgd{o} = ['Pollaczek (mixed' char(10) 'overhead-underground)'];
+%     o=o+1;
+% end
 
 %loglog(f,squeeze(abs(Ztot_Carson(1,1,:))), ...
 %    f,squeeze(abs(Ztot_Noda(1,1,:))), ...
@@ -169,6 +182,18 @@ if ~all(Ztot_Sunde2La==0)
     o=o+1;
 end
 
+if ~all(Ztot_Xue==0)
+    loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Xue(1,1,:))))),'LineWidth',2);hold all
+    lgd{o} = ['Xue'];
+    o=o+1;
+end
+
+
+% if ~all(Ztot_OvUndPol==0)
+%     loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_OvUndPol(1,1,:))))),'LineWidth',2);hold all
+%     lgd{o} = ['Kikuchi (mixed' char(10) 'overhead-underground)'];
+%     o=o+1;
+% end
 %loglog(f,rad2deg(squeeze(angle(Ztot_Carson(1,1,:)))), ...
 %    f,rad2deg(squeeze(angle(Ztot_Noda(1,1,:)))), ...
 %    f,rad2deg(squeeze(angle(Ztot_Deri(1,1,:)))), ...
@@ -190,7 +215,7 @@ grid on
 number=ord;
 
 counter=2;
-set_plot_params()
+% set_plot_params()
 figure('Name', ['MutualImpZ12_' jobid])
 
 
@@ -271,6 +296,21 @@ while (number-1>0)
         lgd{o} = ['Sunde 2-layered'];
         o=o+1;
     end
+    
+    if ~all(Ztot_OvUndPol==0)
+        loglog(f,squeeze(abs(Ztot_OvUndPol(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = ['Pollaczek (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+    
+    if ~all(Ztot_Xue==0)
+        loglog(f,squeeze(abs(Ztot_Xue(1,number,:))),'LineWidth',2);hold all
+        lgd{o} = ['Xue'];
+        o=o+1;
+    end
+
+    
+
 
     xlabel('Frequency [Hz]')
     ylabel('Magnitude [\Omega/m]')
@@ -350,6 +390,19 @@ while (number-1>0)
     if ~all(Ztot_Sunde2La==0)
         loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Sunde2La(1,number,:))))),'LineWidth',2);hold all
         lgd{o} = ['Sunde 2-layered'];
+        o=o+1;
+    end
+
+    
+    if ~all(Ztot_OvUndPol==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_OvUndPol(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = ['Pollaczek (mixed' char(10) 'overhead-underground)'];
+        o=o+1;
+    end
+    
+    if ~all(Ztot_Xue==0)
+        loglog(f,rad2deg(unwrap(squeeze(angle(Ztot_Xue(1,number,:))))),'LineWidth',2);hold all
+        lgd{o} = ['Xue'];
         o=o+1;
     end
 
