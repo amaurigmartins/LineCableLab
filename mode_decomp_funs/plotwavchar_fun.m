@@ -35,7 +35,7 @@ legend(lgd);
 grid on
 
 if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not constant
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['AtnConst_PhaseVel_EarthResis_' tag])
     
     subplot(2,1,1)
@@ -66,7 +66,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     legend(lgd);
     grid on
     
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['AtnConst_PhaseVel_EarthPerm_' tag])
     
     subplot(2,1,1)
@@ -101,7 +101,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
    
     
     
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['AtnConst_PhaseVel_ComplexEarthResis_' tag])
     
     subplot(2,1,1)
@@ -134,7 +134,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     
 end
 
-set_plot_params()
+% set_plot_params()
 figure('Name', ['CharImped_' tag])
 
 subplot(2,1,1)
@@ -163,7 +163,7 @@ legend(lgd);
 grid on
 
 if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not constant
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['CharImpedEarthResis_' tag])
     
     subplot(2,1,1)
@@ -193,7 +193,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     legend(lgd);
     grid on
     
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['CharImpedEarthPerm_' tag])
     
     subplot(2,1,1)
@@ -225,7 +225,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     
  
     
-    set_plot_params()
+    % set_plot_params()
     figure('Name', ['CharImpedComplexEarthResis_' tag])
     
     subplot(2,1,1)
@@ -258,7 +258,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
 end
 
 %[sk col k_scaling w_corr h_corr k_width_height fnt_scaling
-set_plot_params([1 2 2 .8 .6 1 .7])
+% set_plot_params([1 2 2 .8 .6 1 .7])
 figure('Name', ['TransfMat_' tag])
 %set_plot_params(.75,2.5,1.15) % a lot of trial n error to get this almost right
 for k=1:ord
@@ -290,4 +290,7 @@ for k=1:ord
     xlabel('Frequency [Hz]')
     if k==1;title('Transformation matrix angle');end
     hold off
+end
+
+
 end
