@@ -18,6 +18,7 @@ end
 
 param=mparam.*radius_ex;
 param2=mparam.*radius_in;
+
 Zin_tmp1=mparam./(2*pi*radius_ex.*sigma_w);
 Zin_tmp2=sym(besseli(0,param).*besselk(1,param2)+besselk(0,param).*besseli(1,param2));
 D=sym(besseli(1,param).*besselk(1,param2)-besselk(1,param).*besseli(1,param2));
@@ -33,5 +34,17 @@ if isnan(zin)
         zin=0;
     end
 end
+
+w1=mparam.*radius_ex;
+w2=mparam.*radius_in;
+z_non_scaled = Zin_tmp1 * (besseli(0, w1) * besselk(1, w2) + besseli(1, w2) * besselk(0, w1)) / ...
+    (besseli(1, w2) * besselk(1, w1) + besseli(1, w1) * besselk(1, w2));
+
+s1 = exp(abs(real(w1)) - w2);
+s2 = exp(abs(real(w2)) - w1);
+sc = s1/s2;
+
+z_scaled = Zin_tmp1 * (sc * besseli(0, w1, 1) * besselk(1, w2, 1) + besseli(1, w2, 1) * besselk(0, w1, 1)) / (besseli(1, w2, 1) * besselk(1, w1, 1) + sc * besseli(1, w1, 1) * besselk(1, w2, 1));
+zin = z_scaled;
 
 end

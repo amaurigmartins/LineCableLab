@@ -37,6 +37,7 @@ a_0=@(lambda,omega) sqrt(lambda.^2+gamma_0(omega).^2+k_x(omega).^2);
 a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 
 Pg_mutual=zeros(con,con);
+TOL=1e-3;
 
 % Mutual potential coefficient
 for x=1:1:con
@@ -44,8 +45,22 @@ for x=1:1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
+            if abs(h2-h1)<TOL; h2=h2+TOL;end
 
             if (h1 < 0 && h2 <0)
+                % dd=d(x,y);
+                % 
+                % Dij=sqrt(dd^2+(h1+h2)^2);
+                % dij=sqrt(dd^2+(h1-h2)^2);
+                % F=@(lambda,omega) 2*mu0*exp(a_1(lambda,omega)*(h1+h2))/(a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1);
+                % G=@(lambda,omega) 2*mu0*mu1*a_1(lambda,omega)*(gamma_1(omega)^2-gamma_0(omega)^2)*exp(a_1(lambda,omega)*(h1+h2)) / ...
+                %     ((a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1)*(a_1(lambda,omega)*gamma_0(omega)^2*mu1+a_0(lambda,omega)*gamma_1(omega)^2*mu0));
+                % yy=@(lambda,omega) (F(lambda,omega)+G(lambda,omega))*cos(lambda*dd);
+                % yfun=@(lambda) sum([0 yy(lambda,w)],'omitnan');
+                % 
+                % Qm=integral(yfun,0,Inf,'ArrayValued',true);
+                % Pg_mutual(x,y)=(1i*w/(sigma1+1i*w*eps1))*(log(Dij/dij)+Qm);
+
 
                 yy=@(a0,a1,gamma0,gamma1,hi,hj,lambda,mu0,mu1,omega,y) ...
                     (1.0./gamma1.^2.*mu1.*omega.*exp(-a1.*abs(hi-hj+1e-3)).*cos(lambda.*y) ...
@@ -59,8 +74,9 @@ for x=1:1:con
                 yfun=@(lambda) yfun(lambda,w);
 
                 Qm=integral(yfun,0,Inf,'ArrayValued',true);
+                Pg_mutual(x,y)=(1i*w*Qm);
 
-                Pg_mutual(x,y)=1i*w*Qm;
+                
 
             end
         end

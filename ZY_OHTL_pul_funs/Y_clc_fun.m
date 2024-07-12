@@ -206,15 +206,29 @@ for k=1:siz
         end
         Ptot_OvUnd(:,:,k)=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_new+(Pin_mat./(2*pi*e0));
         Ptot_OvUnd(:,:,k) = bundleReduction(ph_order,Ptot_OvUnd(:,:,k));
-
         Ytot_OvUnd(:,:,k)=1i.*omega.*inv(Ptot_OvUnd(:,:,k));
-
+        
+        Ptot_OvUndClassicalTL(:,:,k)=Ps_papad+Pm_papad+Ps_kik+Pm_kik+(Pin_mat./(2*pi*e0));
+        Ptot_OvUndClassicalTL(:,:,k) = bundleReduction(ph_order,Ptot_OvUndClassicalTL(:,:,k));
+        Ytot_OvUndClassicalTL(:,:,k)=1i.*omega.*inv(Ptot_OvUndClassicalTL(:,:,k));
 
     end
 end
 
+% Plot stuff
+Y_pul.Ytot_Imag=Ytot_Imag;
+Y_pul.Ytot_Pet=Ytot_Pet;
+Y_pul.Ytot_Wise=Ytot_Wise;
+Y_pul.Ytot_Papad=Ytot_Papad;
+Y_pul.Ytot_OvUnd=Ytot_OvUnd;
+Y_pul.Ytot_Kik=Ytot_Kik;
+Y_pul.Ytot_Sunde2La=Ytot_Sunde2La;
+Y_pul.Ytot_Xue=Ytot_Xue;
+Y_pul.Ytot_OvUndClassicalTL=Ytot_OvUndClassicalTL;
+
+
 if (ZYprnt)
-    plotY_fun_ct(f_total,Nph,Ytot_Imag,Ytot_Pet,Ytot_Wise,Ytot_Papad,Ytot_OvUnd,Ytot_Kik,Ytot_Sunde2La,Ytot_Xue,jobid)
+    plotY_fun_ct(f_total,Nph,Y_pul,jobid)
 end
 
 if (ZYsave)

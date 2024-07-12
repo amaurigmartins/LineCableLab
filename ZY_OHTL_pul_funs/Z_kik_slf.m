@@ -37,6 +37,7 @@ a_0=@(lambda,omega) sqrt(lambda.^2+gamma_0(omega).^2+k_x(omega).^2);
 a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 
 Zg_self=zeros(con,con);
+TOL=1e-3;
 
 for k=1:1:con
 
@@ -44,7 +45,7 @@ for k=1:1:con
 
         % Self Impedance
         zz=@(a0,a1,hi,hj,lambda,mu0,mu1,omega,y) ...
-            (mu0.*omega.*exp(-a0.*abs(hi-hj+1e-3)).*cos(lambda.*y).*5.0e-1i) ...
+            (mu0.*omega.*exp(-a0.*abs(hi-hj+TOL)).*cos(lambda.*y).*5.0e-1i) ...
             ./(a0.*pi)-(mu0.*omega.*exp(-a0.*(hi+hj)).*cos(lambda.*y) ...
             .*(a1.*mu0-a0.*mu1.*sign(hi)).*5.0e-1i)./(a0.*pi.*(a0.*mu1+a1.*mu0));
 

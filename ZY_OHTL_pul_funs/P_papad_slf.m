@@ -37,13 +37,29 @@ a_0=@(lambda,omega) sqrt(lambda.^2+gamma_0(omega).^2+k_x(omega).^2);
 a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 
 Pg_self=zeros(con,con);
+TOL=1e-3;
 
 for k=1:1:con
 
     if h(1,k) < 0
+        % h1=h(1,k);
+        % h2=h(1,k);
+        % dd=r(k);
+        % 
+        % Dij=sqrt(dd^2+(h1+h2)^2);
+        % dij=sqrt(dd^2+(h1-h2)^2);
+        % F=@(lambda,omega) 2*mu0*exp(a_1(lambda,omega)*(h1+h2))/(a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1);
+        % G=@(lambda,omega) 2*mu0*mu1*a_1(lambda,omega)*(gamma_1(omega)^2-gamma_0(omega)^2)*exp(a_1(lambda,omega)*(h1+h2)) / ...
+        %     ((a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1)*(a_1(lambda,omega)*gamma_0(omega)^2*mu1+a_0(lambda,omega)*gamma_1(omega)^2*mu0));
+        % yy=@(lambda,omega) (F(lambda,omega)+G(lambda,omega))*cos(lambda*dd);
+        % yfun=@(lambda) sum([0 yy(lambda,w)],'omitnan');
+        % 
+        % Qs=integral(yfun,0,Inf,'ArrayValued',true);
+        % Pg_self(k,k)=(1i*w/(sigma1+1i*w*eps1))*(log(Dij/dij)+Qs);
+
         % Self potential coefficient
         yy=@(a0,a1,gamma0,gamma1,hi,hj,lambda,mu0,mu1,omega,y) ...
-            (1.0./gamma1.^2.*mu1.*omega.*exp(-a1.*abs(hi-hj+1e-3)).*cos(lambda.*y) ...
+            (1.0./gamma1.^2.*mu1.*omega.*exp(-a1.*abs(hi-hj+TOL)).*cos(lambda.*y) ...
             .*5.0e-1i)./(a1.*pi)-(1.0./gamma1.^2.*mu1.*omega.*exp(a1.*(hi+hj)) ...
             .*cos(lambda.*y).*(a0.*mu1+a1.*mu0.*sign(hi)).*5.0e-1i) ...
             ./(a1.*pi.*(a0.*mu1+a1.*mu0))+(a1.*1.0./gamma1.^2.*mu0.*mu1.^2.*omega.*exp(a1.*(hi+hj)) ...
@@ -52,9 +68,9 @@ for k=1:1:con
 
         yfun=@(lambda,omega) sum([0 yy(a_0(lambda,omega),a_1(lambda,omega),gamma_0(omega),gamma_1(omega),h(1,k),h(1,k),lambda,mu0,mu1,omega,r(k))],'omitnan');
         yfun=@(lambda) yfun(lambda,w);
-
         Qs=integral(yfun,0,Inf,'ArrayValued',true);
-        Pg_self(k,k)=1i*w*Qs;
+        Pg_self(k,k)=(1i*w*Qs);
+        
     end
 
 end

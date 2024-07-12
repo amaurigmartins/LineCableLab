@@ -244,6 +244,7 @@ for k=1:siz
     
     else % a mixed overhead-underground setup. Need to choose carefully the self impedance formula
         
+        % Martins-Papadopoulos-Chrysochos formulation
         global kxe;if isempty(kxe);kxe=0;end;
         Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors
         Zm_papad=Z_papad_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
@@ -252,12 +253,17 @@ for k=1:siz
         Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
         global kxm;if isempty(kxm);kxm=0;end;
         Zm_new=Z_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual impedances in the mixed configuration
-        Zm_pol=Z_pol_mut(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
         Ztot_OvUnd(:,:,k)=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_new;
         Ztot_OvUnd(:,:,k)=Zin_test(:,:,k)+Ztot_OvUnd(:,:,k);
         Ztot_OvUnd(:,:,k) = bundleReduction(ph_order,Ztot_OvUnd(:,:,k));
-
-        Ztot_OvUndPol(:,:,k)=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_pol;
+        
+        % Carson + Pollackzek
+        Zm_pol_ovund=Z_pol_mut(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
+        Zs_pol_und=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors - Pollackzek's result is attained by setting e_g=0
+        Zm_pol_und=Z_papad_mut(h,d,e_g ,0*m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
+        Zs_pol_ov=Z_kik_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors - Carson's result is attained by setting e_g=0
+        Zm_pol_ov=Z_kik_mut(h,d,0*e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+        Ztot_OvUndPol(:,:,k)=Zs_pol_und+Zm_pol_und+Zs_pol_ov+Zm_pol_ov+Zm_pol_ovund;
         Ztot_OvUndPol(:,:,k)=Zin_test(:,:,k)+Ztot_OvUndPol(:,:,k);
         Ztot_OvUndPol(:,:,k) = bundleReduction(ph_order,Ztot_OvUndPol(:,:,k));
 
@@ -267,8 +273,24 @@ for k=1:siz
 
 end
 %% Plot parameters
+
+Z_pul.Ztot_Carson=Ztot_Carson;
+Z_pul.Ztot_Noda=Ztot_Noda;
+Z_pul.Ztot_Deri=Ztot_Deri;
+Z_pul.Ztot_Sunde=Ztot_Sunde;
+Z_pul.Ztot_Pettersson=Ztot_Pettersson;
+Z_pul.Ztot_Wise=Ztot_Wise;
+Z_pul.Ztot_Semlyen=Ztot_Semlyen;
+Z_pul.Ztot_AlDe=Ztot_AlDe;
+Z_pul.Ztot_Papad=Ztot_Papad;
+Z_pul.Ztot_OvUnd=Ztot_OvUnd;
+Z_pul.Ztot_OvUndPol=Ztot_OvUndPol;
+Z_pul.Ztot_Kik=Ztot_Kik;
+Z_pul.Ztot_Sunde2La=Ztot_Sunde2La;
+Z_pul.Ztot_Xue=Ztot_Xue;
+
 if (ZYprnt)
-    plotZ_fun_ct(f_total,Nph,Ztot_Carson,Ztot_Noda,Ztot_Deri,Ztot_AlDe,Ztot_Sunde,Ztot_Pettersson,Ztot_Semlyen,Ztot_Wise,Ztot_Papad,Ztot_OvUnd,Ztot_Kik,Ztot_Sunde2La,Ztot_OvUndPol,Ztot_Xue,jobid);
+    plotZ_fun_ct(f_total,Nph,Z_pul,jobid);
 end
 
 if (ZYsave)

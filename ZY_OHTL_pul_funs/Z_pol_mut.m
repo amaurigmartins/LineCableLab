@@ -25,11 +25,13 @@ for x=1:1:con
         if x~=y
             h1=max([h(1,x) h(1,y)]);
             h2=min([h(1,x) h(1,y)]);
-            yy=d(x,y);
-            F=@(s) exp(-h1.*abs(s)+h2.*sqrt(s.^2+m.^2))./(sqrt(s.^2+m.^2)+abs(s));%to keep consistent with Ametani's paper  10.1109/TEMC.2009.2019953
-            zfun=@(s) sum([0 F(s)*cos(s*yy)],'omitnan');
-            Jm=integral(zfun,0,Inf,'ArrayValued',true);
-            Zg_mutual(x,y)=(1i*w*mu0/pi)*Jm;
+            if sign(h1)~=sign(h2)
+                yy=d(x,y);
+                F=@(s) exp(-h1.*abs(s)+h2.*sqrt(s.^2+m.^2))./(sqrt(s.^2+m.^2)+abs(s));%to keep consistent with Ametani's paper  10.1109/TEMC.2009.2019953
+                zfun=@(s) sum([0 F(s)*cos(s*yy)],'omitnan');
+                Jm=integral(zfun,0,Inf,'ArrayValued',true);
+                Zg_mutual(x,y)=(1i*w*mu0/pi)*Jm;
+            end
 
         end
     end
