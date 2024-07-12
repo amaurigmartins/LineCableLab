@@ -1,6 +1,6 @@
 function [] = makeULModel(Z,Y,f,line_length,ERR,Npoles,jobid,currPath)
 
-ZYprnt=false;
+ZYprnt=true;
 
 transp=@(x) x.';
 
@@ -92,7 +92,7 @@ s = s(:).'; % realizando a transposta de s - 1 x Namostras
 % end
 
 fit_data = rationalfit(frequency.',f,'NPoles',Npoles,'TendsToZero',false);
-% [ffit,freq] = freqresp(fit_data,frequency);
+[ffit,freq] = freqresp(fit_data,frequency);
 fittedPoles=fit_data.A.';
 
 if ~ispassive(fit_data)
@@ -103,7 +103,7 @@ if ZYprnt
     fig=1;
     figure(fig);
     semilogx(frequency,abs(traceYc),'-b', 'linewidth', 3); hold on
-    semilogx(freq,abs(ffit),'--r', 'linewidth', 3)
+    semilogx(frequency,abs(ffit),'--r', 'linewidth', 3)
     legend('trace Yc', 'Fit trace Yc', 'location', 'north' )
     ylabel('Magnitude')
     xlabel('Frequency [Hz]')
@@ -374,7 +374,7 @@ rYc = reshape(SERYc.C, size(SERYc.C,1)*size(SERYc.C,2), 1); % reorganiza as dime
 rCij = reshape(Cij, size(Cij,1)*size(Cij,2), size(Cij,3)); % reorganiza as dimensões de Cij para que fique nfases.nfases.npolos x nmodos
 rresiduos = reshape(rCij, size(rCij,1)*size(rCij,2), 1); % reorganiza as dimensões de SERYc.C para que fique nfases.nfases.npolos.modos x 1
 
-filename = fullfile(currPath,['fitULM.dat']);
+filename = fullfile(currPath,[jobid '_fitULM2.dat']);
 
 fid = fopen(filename,'wt');
 fprintf(fid,'%d\n',size(Yc,1)); %numero de fases

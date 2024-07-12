@@ -1,4 +1,4 @@
-function [] = makeATPXML(f,Z,Y)
+function [] = makeATPXML(f,Z,Y,jobid,currPath)
 
 Zprint=Z;
 Yprint=Y;
@@ -10,7 +10,7 @@ length=1; %1 meter because TOOLBOX output: Z [Ohm/m] | Y [Mho/m]
 ATP='G+Bi';
 
 %XML Printing
-filename='ZY_ATP.xml';
+filename = fullfile(currPath,[jobid '_ZYATP.xml']);
 fid = fopen(filename,'wt');
 
 %Header

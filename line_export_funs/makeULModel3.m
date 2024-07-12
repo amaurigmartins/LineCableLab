@@ -1,5 +1,11 @@
 function [] = makeULModel3(Z,Y,f,line_length,optsRW,jobid,currPath)
 
+if ~isfield(optsRW,'plot1');optsRW.plot1=false;end;
+if ~isfield(optsRW,'plot2');optsRW.plot2=false;end;
+if ~isfield(optsRW,'Niter');optsRW.Niter = [20 50];end;
+if ~isfield(optsRW,'TendsToZero');optsRW.TendsToZero = true;end;
+if ~isfield(optsRW,'Npoles');optsRW.Npoles = [2 20];end;
+
 % Fit_print= false;    %Flag for plot for all fits
 transp=@(x) x.';
 
