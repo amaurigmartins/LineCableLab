@@ -31,7 +31,7 @@ hold off
 xlabel('Frequency [Hz]')
 ylabel('\upsilon [m/s]')
 title('Phase velocity')
-legend(lgd);
+% legend(lgd);
 grid on
 
 if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not constant
@@ -63,7 +63,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     ylabel('\upsilon [m/s]')
     title('Phase velocity')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
     % set_plot_params()
@@ -94,7 +94,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     ylabel('\upsilon [m/s]')
     title('Phase velocity')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
     
@@ -129,7 +129,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     ylabel('\upsilon [m/s]')
     title('Phase velocity')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
 end
@@ -159,7 +159,7 @@ end
 hold off
 xlabel('Frequency [Hz]')
 ylabel('Angle [deg]')
-legend(lgd);
+% legend(lgd);
 grid on
 
 if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not constant
@@ -190,7 +190,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     xlabel('Earth resistivity [\Omega.m]')
     ylabel('Angle [deg]')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
     % set_plot_params()
@@ -220,7 +220,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     xlabel('Relative earth permittivity [p.u.]')
     ylabel('Angle [deg]')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
  
@@ -252,7 +252,7 @@ if ~all(sigma_g_total == sigma_g_total(1)) % only plot this if sigma is not cons
     xlabel('abs(1/(\sigma + j \omega \epsilon)) [\Omega.m]')
     ylabel('Angle [deg]')
     axis tight
-    legend(lgd);
+    % legend(lgd);
     grid on
     
 end
@@ -269,7 +269,7 @@ for k=1:ord
         hold all
         if o==1;lgd{o} = strcat('mode # ',num2str(o));end
     end
-    legend(lgd);
+    if k==1; legend(lgd); end
     grid on
     xlabel('Frequency [Hz]')
     if k==1;title('Transformation matrix magnitude');end
