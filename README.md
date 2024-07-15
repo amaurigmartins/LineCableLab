@@ -34,7 +34,7 @@ The columns under the header 'OHL cross section & conductor data' are described 
 
 ### Acknowledgements
 
-The LineCableLab has been actively maintained and improved by [Theofilos Papadopoulos](mailto:thpapa@gmail.com), [Andreas Chrysochos](mailto:anchryso@gmail.com)   and [Amauri Martins-Britto](mailto:amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of the external contributors, namely: Caio Moraes (implemented the original bundle reduction codes), Jaimis Leon (provided invaluable insights that enabled us to troubleshoot the VF solution when building the PCH file) and Tainá Pascoalato (the one who actually figured it out how to properly vector-fit the line parameters for ATP-ULM).
+The LineCableLab has been actively maintained and improved by [Theofilos Papadopoulos](mailto:thpapa@gmail.com), [Andreas Chrysochos](mailto:anchryso@gmail.com)   and [Amauri Martins-Britto](mailto:amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of all external contributors. Due to the dynamic and open nature of this project, it became unmanageable to keep an exhaustive list, so we decided to let GitHub handle it via issues list, pull requests and/or commit history. You all are real badasses!
 
 ### Important information
 
