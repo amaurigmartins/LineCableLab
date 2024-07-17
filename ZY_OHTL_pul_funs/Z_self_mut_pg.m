@@ -10,8 +10,8 @@ e0=8.854187817e-12;
 Zpg_mat=zeros(con,con);
 
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=1:con
         if x==y
        
             % Self Impedance
@@ -19,7 +19,6 @@ for x=1:1:con
             Zpg_mat(x,y)=1i*omega.*m0./(2*pi).*term_self;
        
         else
-
 
             % Mutual Impedance
             d1=sqrt(d(x,y).^2+(h(1,x)-h(1,y)).^2);

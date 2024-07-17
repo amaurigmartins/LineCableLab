@@ -20,14 +20,15 @@ e0=8.854187817e-12;
 Ypg_mut=zeros(con,con);
 
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             % Mutual Impedance
             d2=sqrt(d(x,y).^2+(h(1,x)+h(1,y)).^2);
             d1=sqrt(d(x,y).^2+(h(1,x)-h(1,y)).^2);
 
             Ypg_mut(x,y)=log(d2./d1);
+            Ypg_mut(y,x)=Ypg_mut(x,y);
         end
     end
 end

@@ -22,13 +22,14 @@ b=sqrt(1i*omega*m0*sigma_g+omega.^2*(e0*m0-e_g*m0));
 Zg_mutual=zeros(con,con);
 
 % Mutual Impedance
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             dp=sqrt((h(1,x)+h(1,y)+2./b).^2+d(x,y).^2);
             d2=sqrt(d(x,y).^2+(h(1,x)+h(1,y)).^2);
             term=log(dp./d2);
             Zg_mutual(x,y)=1i*omega.*m0./(2*pi).*term;
+            Zg_mutual(y,x)=Zg_mutual(x,y);
         end
     end
 end

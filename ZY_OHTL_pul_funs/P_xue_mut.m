@@ -27,8 +27,8 @@ u1=@(lambda) sqrt(lambda^2-ke^2);
 Pg_mutual=zeros(con,con);
 
 % Mutual potential coefficient
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
@@ -45,6 +45,7 @@ for x=1:1:con
             Qm=integral(yfun,0,Inf,'ArrayValued',true);
 
             Pg_mutual(x,y)=(1i*w/(2*pi*(sigma1+1i*w*eps1)))*(K+Qm);
+            Pg_mutual(y,x)=Pg_mutual(x,y);
 
         end
     end

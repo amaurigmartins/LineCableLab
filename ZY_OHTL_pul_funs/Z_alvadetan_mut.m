@@ -18,8 +18,8 @@ m0=4*pi*1e-7;
 p=1./sqrt(1i*omega.*m_g*sigma_g);
 Zg_mutual=zeros(con,con);
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
          if x~=y
              
             beta=d(x,y)./(height(1,x)+height(1,y));
@@ -34,6 +34,7 @@ for x=1:1:con
             term2=-1/48*(1./par12+1./par13);
             Jm=term1+term2;
             Zg_mutual(x,y)=1i*omega.*m0./(pi).*Jm;
+            Zg_mutual(y,x)=Zg_mutual(x,y);
 
          end
     end

@@ -20,8 +20,8 @@ m=sqrt(1i.*w.*mu0.*sigma1);
 Zg_mutual=zeros(con,con);
 
 % Mutual Impedance
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             h1=max([h(1,x) h(1,y)]);
             h2=min([h(1,x) h(1,y)]);
@@ -31,6 +31,7 @@ for x=1:1:con
                 zfun=@(s) sum([0 F(s)*cos(s*yy)],'omitnan');
                 Jm=integral(zfun,0,Inf,'ArrayValued',true);
                 Zg_mutual(x,y)=(1i*w*mu0/pi)*Jm;
+                Zg_mutual(y,x)=Zg_mutual(x,y);
             end
 
         end

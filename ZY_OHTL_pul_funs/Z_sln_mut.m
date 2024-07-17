@@ -18,8 +18,8 @@ function [Zg_mutual]=Z_sln_mut(h,d,e_g,m_g,sigma_g,omega,con)
 
 Zg_mutual=zeros(con,con);
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             ter1ar_mut=(h(1,x)+h(1,y));
             ter1par_mut=pi*(d(x,y)^2+(h(1,x)+h(1,y))^2);
@@ -30,6 +30,7 @@ for x=1:1:con
             ter2_mut=sqrt(ter2ar_mut./ter2par_mut);
 
             Zg_mutual(x,y)=ter1_mut.*ter2_mut;
+            Zg_mutual(y,x)=Zg_mutual(x,y);
         end
     end
 end

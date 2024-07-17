@@ -23,8 +23,8 @@ gama_g = sqrt(1i*omega*m0*(sigma_g + 1i*omega*e_g));
 
 Pg_mutual=zeros(con,con);
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             
             h1=h(1,x);
@@ -37,6 +37,7 @@ for x=1:1:con
             Qm = integral(y_lambda,0,Inf,'ArrayValued',true);
             
             Pg_mutual(x,y)=Qm;
+            Pg_mutual(y,x)=Pg_mutual(x,y);
         end
     end
 end

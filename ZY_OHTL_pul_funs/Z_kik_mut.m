@@ -40,8 +40,8 @@ Zg_mutual=zeros(con,con);
 TOL=1e-3;
 
 % Mutual Impedance
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y = x+1:con % Only iterate over the upper triangle
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
@@ -60,6 +60,7 @@ for x=1:1:con
                 Jm=integral(zfun,0,Inf,'ArrayValued',true);
 
                 Zg_mutual(x,y)=Jm;
+                Zg_mutual(y,x)=Jm; % Thank the gods for reciprocity theorem
 
             end
         end

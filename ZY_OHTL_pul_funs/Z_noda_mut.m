@@ -1,4 +1,4 @@
-function [Zg_self]=Z_noda_mut(h,e_g,sigma_g,omega,d,con)
+function [Zg_mut]=Z_noda_mut(h,e_g,sigma_g,omega,d,con)
 % Function for the Self Earth Impedance by Noda's Approximate
 % Formula
 
@@ -15,8 +15,8 @@ function [Zg_self]=Z_noda_mut(h,e_g,sigma_g,omega,d,con)
 m0=4*pi*1e-7;
 Zg_self=zeros(con,con);
 
-for x=1:1:con
-   for y=1:1:con
+for x=1:con
+   for y=x+1:con
        if x~=y
             D1=sqrt((h(1,x)-h(1,y))^2+d(x,y)^2);
             H=h(1,x)+h(1,y);
@@ -35,7 +35,8 @@ for x=1:1:con
             term1=A*log(sqrt((H+2*a*p).^2+d(x,y)^2)/D1);
             term2=(1-A)*log(sqrt((H+2*beta*p).^2+d(x,y)^2)/D1);
 
-            Zg_self(x,y)=1i*omega.*m0/(2*pi).*(term1+term2);
+            Zg_mut(x,y)=1i*omega.*m0/(2*pi).*(term1+term2);
+            Zg_mut(y,x)=Zg_mut(x,y);
        end
    end
 end

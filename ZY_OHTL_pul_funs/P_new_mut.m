@@ -40,8 +40,8 @@ a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 Pg_mutual=zeros(con,con);
 TOL=1e-3;
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
@@ -64,6 +64,7 @@ for x=1:1:con
 %             dij = sqrt((h1-h2)^2+d(x,y)^2);
 %             Dij = sqrt((h1+h2)^2+d(x,y)^2);
 %             Pg_mutual(x,y) = 1/(2*pi*eps0)*(log(Dij/dij));
+              Pg_mutual(y,x)= Pg_mutual(x,y);
         end
     end
 end

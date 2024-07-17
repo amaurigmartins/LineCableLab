@@ -26,8 +26,8 @@ e0=8.8541878176e-12;
 Z12=zeros(ord,ord);
 CI=zeros(ord,ord);
 
-for x=1:1:ord
-    for y=1:1:ord
+for x=1:ord
+    for y=x+1:ord
        
        if x~=y 
         k=sqrt(1i*omega*m0.*(con+1i*omega*e0*er));
@@ -41,6 +41,7 @@ for x=1:1:ord
              (pi/2./u2).*(StruveH1Y1(u2)-2/pi./u2);
         %
         Z12(x,y) = 1i.*omega*m0/(2*pi)*(log(d2/d1)+CI(x,y));
+        Z12(y,x)=Z12(x,y);
        end
     end
 end

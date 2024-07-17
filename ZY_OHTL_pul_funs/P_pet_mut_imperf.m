@@ -23,8 +23,8 @@ n2=sqrt((1i.*omega*e_g+sigma_g)./(1i.*omega.*e0));
 n1=1;
 n=n2./n1;
 
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
 
             d2=sqrt(d(x,y).^2+(h(1,x)+h(1,y)).^2);
@@ -43,6 +43,7 @@ for x=1:1:con
                 mut_term1=2./(n.^2+1);
 
                 Yg_mut(x,y)=mut_term1.*mut_term2;
+                Yg_mut(y,x)=Yg_mut(x,y);
         end
     end
 end

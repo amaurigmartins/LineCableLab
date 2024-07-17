@@ -1,4 +1,4 @@
-function [Zg_mutual]=Z_pol_mut(h,d,eps1,mu1,sigma1,f,con)
+function [Zg_mutual]=Z_pol_mut_Tsiam(h,d,eps1,mu1,sigma1,f,con)
 
 % Function for the Mutual Earth Impedance with overhead-underground
 % arrangement using Pollaczek formula (Tsiamitros eq. 45)
@@ -29,8 +29,8 @@ a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 Zg_mutual=zeros(con,con);
 
 % Mutual Impedance
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
 
             h1=h(1,x);
@@ -53,6 +53,7 @@ for x=1:1:con
             Jm=integral(zfun,0,Inf,'ArrayValued',true);
 
             Zg_mutual(x,y)=Jm;
+            Zg_mutual(y,x)=Zg_mutual(x,y);
 
         end
     end

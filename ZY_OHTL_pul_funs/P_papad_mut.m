@@ -40,8 +40,8 @@ Pg_mutual=zeros(con,con);
 TOL=1e-3;
 
 % Mutual potential coefficient
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
@@ -75,6 +75,7 @@ for x=1:1:con
 
                 Qm=integral(yfun,0,Inf,'ArrayValued',true);
                 Pg_mutual(x,y)=(1i*w*Qm);
+                Pg_mutual(y,x)=Pg_mutual(x,y);
 
                 
 

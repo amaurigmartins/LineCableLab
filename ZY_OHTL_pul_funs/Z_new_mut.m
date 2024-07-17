@@ -40,8 +40,8 @@ a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 Zg_mutual=zeros(con,con);
 
 % Mutual Impedance
-for x=1:1:con
-    for y=1:1:con
+for x=1:con
+    for y=x+1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
@@ -63,6 +63,7 @@ for x=1:1:con
             Jm=integral(zfun,0,Inf,'ArrayValued',true);
 
             Zg_mutual(x,y)=Jm;
+            Zg_mutual(y,x)=Zg_mutual(x,y);
 
         end
     end
