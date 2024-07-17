@@ -1,4 +1,6 @@
-function [v]=td_sim(ord,f,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length,time_cl_brkr,samples,e,data_t_sim,time_sim,amp,sim_flag)
+function [v]=td_sim(ord,f,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length,time_cl_brkr,samples,e,data_t_sim,time_sim,amp,sim_flag,tag,NLTprnt)
+if nargin == 18; NLTprnt=true;end
+
 %% Build Circuit Struct - Fitting (4B)
 %[gamma,Z,Y,Ti,Ys,Yr]=do_spline(ord,freq,f,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis);
 [gamma,Z,Y,Ti,Ys,Yr]=do_pchip(ord,freq,f,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis);
@@ -6,7 +8,7 @@ function [v]=td_sim(ord,f,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length
 Ybranch=zeros(max(size(f)),(2*ord)^2); % (num_files x (2*ord)^2)   
 
 for o=1:1:max(size(f))
-    %Ybranch_dis=get_Ybranch(ord,length,Ti(o,:),Ys(o,:),Yr(o,:),gamma(o,:),Z(o,:)); % Function get_Ybranch - Calculates the admittance matrix at each frequency sample - (1 x (2*ord)^2)
+    % Ybranch_dis=get_Ybranch(ord,length,Ti(o,:),Ys(o,:),Yr(o,:),gamma(o,:),Z(o,:)); % Function get_Ybranch - Calculates the admittance matrix at each frequency sample - (1 x (2*ord)^2)
     Ybranch_dis=get_Ybranch_scaled(ord,length,Ti(o,:),Ys(o,:),Yr(o,:),gamma(o,:),Z(o,:)); % Function get_Ybranch - Calculates the admittance matrix at each frequency sample - (1 x (2*ord)^2)
 
     Ybranch(o,:)=Ybranch_dis; % Store all Ybranch_dis at each given frequency - (num_files x (2*ord)^2)
@@ -49,13 +51,24 @@ end
 
 
 %% Inverse FD - Time Domain Calculation (8)
-v=tm_dmn_clc(V,f,e,data_t_sim,c,ord); % Function tm_dmn_clc - Calculate node voltages fo S and R ends at TD - (2*max(size(f)) x 2*ord)=(samples x 2*ord)
+v=tm_dmn_clc(V,f,e,data_t_sim,c,ord); % Function tm_dmn_clc - Calculate node voltages for S and R ends at TD - (2*max(size(f)) x 2*ord)=(samples x 2*ord)
 
 supr_zero=find(data_t_sim==time_cl_brkr);
 
-for o=1:1:2*ord
-    v(1:supr_zero,o)=0;
-    figure(o)
-    plot(data_t_sim,v(:,o));
-    %plot(data_t_sim(1:100001),v(1:100001,o));
+if NLTprnt
+    for i=1:ord
+        plottitle{i}=sprintf('Phase #%d - Sending terminal',i);
+        plottitle{i+ord}=sprintf('Phase #%d - Receiving terminal',i);
+    end
+
+    for o=1:2*ord
+        v(1:supr_zero,o)=0;
+        figure('Name', ['TDSim' num2str(o) '_' tag])
+        plot(data_t_sim,v(:,o),'LineWidth',2);
+        title(plottitle{o});
+        xlabel('Time [s]')
+        ylabel('Magnitude [pu]')
+        grid on
+        if sim_flag==4; xlim([0 50e-6]); end;
+    end
 end
