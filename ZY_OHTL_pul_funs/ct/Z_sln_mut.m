@@ -9,8 +9,8 @@ m0=4*pi*1e-7;
 
 Zg_sln_mutual=zeros(num,num);
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=1:num
         if x==y
            Zg_sln_mutual(x,y)=0;
         else

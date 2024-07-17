@@ -13,8 +13,8 @@ b=sqrt(1i*omega*m0*sigma_g+omega.^2*(e0*m0-e_g*m0));
 
 Zg_pet_mutual=zeros(num,num);
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=x+1:num
        if x==y
          Zg_pet_mutual(x,y)=0;
        else
@@ -24,6 +24,7 @@ for x=1:1:num
 
 
           Zg_pet_mutual(x,y)=1i*omega.*m0./(2*pi).*term;
+          Zg_pet_mutual(y,x)=Zg_pet_mutual(x,y);
        end
      end
 end

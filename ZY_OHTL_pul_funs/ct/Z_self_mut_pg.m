@@ -13,8 +13,8 @@ Zpg_mat=zeros(num,num);
 
 
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=1:num
         if x==y
              % Self Impedance
              term_self=log((2*h(1,y))./r);

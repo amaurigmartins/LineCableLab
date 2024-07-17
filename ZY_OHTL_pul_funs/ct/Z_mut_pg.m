@@ -9,14 +9,15 @@ Zpg_mut=zeros(num,num);
 
 
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=x+1:num
         if x~=y
              % Mutual Impedance
              d1=sqrt(d(x,y).^2+((h(1,x)-h(1,y)).^2));
              d2=sqrt(d(x,y).^2+((h(1,x)+h(1,y)).^2));
              term_mut=log(d2./d1);
              Zpg_mut(x,y)=j*omega.*m0./(2*pi).*term_mut;
+             Zpg_mut(y,x)=Zpg_mut(x,y);
         else
             Zpg_mut(x,y)=0;
         end

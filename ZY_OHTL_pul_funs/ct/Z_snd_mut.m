@@ -12,8 +12,8 @@ gamma_g=sqrt(1i*omega.*m_g.*(sigma_g+1i*omega.*e_g));
 Zg_mutual=zeros(num,num);
 
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=1:num
         if x==y 
             
             ar_mut=1;

@@ -12,8 +12,8 @@ p=1./sqrt(j*omega.*m_g*sigma_g);
 Zg_der_mutual=zeros(num,num);
 % Mutual Impedance
 
-for x=1:1:num
-    for y=1:1:num
+for x=1:num
+    for y=x+1:num
         if x==y
             Zg_der_mutual(x,y)=0;
         else
@@ -22,6 +22,7 @@ for x=1:1:num
             terpar_mut=sqrt((h(1,x)+h(1,y))^2+d(x,y)^2);
 
             Zg_der_mutual(x,y)=j*omega.*m_g./(2*pi).*log(terar_mut./terpar_mut);
+            Zg_der_mutual(y,x)=Zg_der_mutual(x,y);
          
         end
      end
