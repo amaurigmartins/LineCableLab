@@ -1,4 +1,7 @@
-function [out] = list2sqmat(Ti,ord,freq_siz)
+function [out] = list2sqmat(Ti,ord,freq_siz, reorderM)
+
+if nargin == 3; reorderM=true; end
+
 % Converts the lists from the toolbox into square matrices. Frequency is
 % switched to represent the 1st-dimension.
 
@@ -15,5 +18,10 @@ for k=1:1:freq_siz
     end
 end
 
-out=permute(T_temp,[3 1 2]);
+if reorderM
+    out=permute(T_temp,[3 1 2]);
+else
+    out=T_temp;
+end
+
 end
