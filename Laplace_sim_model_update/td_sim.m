@@ -1,5 +1,5 @@
-function [v]=td_sim(ord,f,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length,time_cl_brkr,samples,e,data_t_sim,time_sim,amp,sim_flag,tag,NLTprnt)
-if nargin == 18; NLTprnt=true;end
+function [v]=td_sim(ord,f,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length,time_cl_brkr,samples,e,data_t_sim,time_sim,amp,sim_flag)
+
 
 %% Build Circuit Struct - Fitting (4B)
 %[gamma,Z,Y,Ti,Ys,Yr]=do_spline(ord,freq,f,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis);
@@ -39,7 +39,8 @@ elseif sim_flag == 5
 elseif sim_flag == 6
     % f) 3ph Source, flag=6
     [vo1,vo2,vo3,Vo1,Vo2,Vo3,c]=src_3ph(amp,time_cl_brkr,data_t_sim,e,samples,f,time_sim); % Function src_3ph with FFT or NLT!!
-    V=calc_Vnode(ord,f,Ybranch,Vo1); % Function calc_Vnode - Calculate node voltages fo S and R ends at FD  - (2*ord x max(size(f)))
+    V=calc_Vnode_3ph(ord,f,Ybranch,Vo1,Vo2,Vo3);
+    %V=calc_Vnode(ord,f,Ybranch,Vo1); % Function calc_Vnode - Calculate node voltages fo S and R ends at FD  - (2*ord x max(size(f)))
 elseif sim_flag > 70
     % g) Lighting Current Source, flag=7
     [io1,Io1,c]=src_custom_curr(time_sim,samples,e,data_t_sim,sim_flag);
@@ -53,22 +54,22 @@ end
 %% Inverse FD - Time Domain Calculation (8)
 v=tm_dmn_clc(V,f,e,data_t_sim,c,ord); % Function tm_dmn_clc - Calculate node voltages for S and R ends at TD - (2*max(size(f)) x 2*ord)=(samples x 2*ord)
 
-supr_zero=find(data_t_sim==time_cl_brkr);
+% supr_zero=find(data_t_sim==time_cl_brkr);
 
-if NLTprnt
-    for i=1:ord
-        plottitle{i}=sprintf('Phase #%d - Sending terminal',i);
-        plottitle{i+ord}=sprintf('Phase #%d - Receiving terminal',i);
-    end
-
-    for o=1:2*ord
-        v(1:supr_zero,o)=0;
-        figure('Name', ['TDSim' num2str(o) '_' tag])
-        plot(data_t_sim,v(:,o),'LineWidth',2);
-        title(plottitle{o});
-        xlabel('Time [s]')
-        ylabel('Magnitude [pu]')
-        grid on
-        if sim_flag==4; xlim([0 50e-6]); end;
-    end
-end
+% if NLTprnt
+%     for i=1:ord
+%         plottitle{i}=sprintf('Phase #%d - Sending terminal',i);
+%         plottitle{i+ord}=sprintf('Phase #%d - Receiving terminal',i);
+%     end
+% 
+%     for o=1:2*ord
+%         v(1:supr_zero,o)=0;
+%         figure('Name', ['TDSim' num2str(o) '_' tag])
+%         plot(data_t_sim,v(:,o),'LineWidth',2);
+%         title(plottitle{o});
+%         xlabel('Time [s]')
+%         ylabel('Magnitude [pu]')
+%         grid on
+%         if sim_flag==4; xlim([0 50e-6]); end;
+%     end
+% end

@@ -13,8 +13,10 @@ o2=amp*(cos(2*pi*f*data_t_sim-(2*pi/3))); % Cosine of phase b
 o3=amp*(cos(2*pi*f*data_t_sim+(2*pi/3))); % Cosine of phase c
 
 vo1=[zeros(1,int32(t_cl*e)),o1(int32(t_cl*e+1):samples)]; % "Choked" cosine of phase a - int32: Signed 32-bit integer from -2,147,483,648 to 2,147,483,647
-vo2=o2;
-vo3=o3;
+%vo2=o2;
+%vo3=o3;
+vo2=[zeros(1,int32(t_cl*e)),o2(int32(t_cl*e+1):samples)];
+vo3=[zeros(1,int32(t_cl*e)),o3(int32(t_cl*e+1):samples)];
 
 Cn=exp(-c*data_t_sim)*(1/e);
 

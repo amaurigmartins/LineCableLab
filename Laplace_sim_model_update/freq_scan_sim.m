@@ -1,6 +1,4 @@
-function [V]=freq_scan_sim(ord,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length_line,tag,NLTprnt)
-
-if nargin == 10; NLTprnt=true;end
+function [V]=freq_scan_sim(ord,freq,gamma_dis,Z_dis,Y_dis,Ti_dis,Ys_dis,Yr_dis,length_line)
 
 Vo1=ones(1,max(size(freq)));
 
@@ -22,21 +20,21 @@ end
 V=calc_Vnode(ord,freq,Ybranch,Vo1); % Function calc_Vnode - Calculate node voltages fo S and R ends at FD  - (2*ord x max(size(f)))
 
 %% Plot voltage spectrum
-if NLTprnt
-    Vmag=abs(V);
-
-    for i=1:ord
-        plottitle{i}=sprintf('Phase #%d - Sending terminal',i);
-        plottitle{i+ord}=sprintf('Phase #%d - Receiving terminal',i);
-    end
-
-    for o=1:2*ord
-        figure('Name', ['FreqScan' num2str(o) '_' tag])
-        figure(o)
-        semilogx(freq,Vmag(o,:),'LineWidth',2);
-        xlabel('Frequency [Hz]')
-        ylabel('Magnitude [pu]')
-        title(plottitle{o});
-        grid on
-    end
-end
+% if NLTprnt
+%     Vmag=abs(V);
+% 
+%     for i=1:ord
+%         plottitle{i}=sprintf('Phase #%d - Sending terminal',i);
+%         plottitle{i+ord}=sprintf('Phase #%d - Receiving terminal',i);
+%     end
+% 
+%     for o=1:2*ord
+%         figure('Name', ['FreqScan' num2str(o) '_' tag])
+%         figure(o)
+%         semilogx(freq,Vmag(o,:),'LineWidth',2);
+%         xlabel('Frequency [Hz]')
+%         ylabel('Magnitude [pu]')
+%         title(plottitle{o});
+%         grid on
+%     end
+% end
