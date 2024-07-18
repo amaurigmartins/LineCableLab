@@ -1,7 +1,6 @@
 function [] = plotwavchar_fun(freq,ord,a,vel,Zch_mod,Ti,tag)
 
 
-
 %% Plot attenuation and velocity
 vel=abs(vel);
 figure('Name', ['AtnConst_PhaseVel_' tag])
