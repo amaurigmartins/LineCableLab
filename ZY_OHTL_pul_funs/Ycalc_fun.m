@@ -1,6 +1,6 @@
-function [out] = Ycalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,opts)
+function [out] = Ycalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,jobid,currPath,opts)
 
-if nargin == 7; opts=struct();end
+if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
 if isstruct(opts)
@@ -274,8 +274,24 @@ for k=1:siz
         end
     end
 
-end
-% end of main loop
+end % of main loop
 
+%% TESTME
+if useFormula('CYZ')
+    fname=fullfile(currPath,[jobid '.cyz']);
+    if isfile(fname)
+        [w,~ , CYZ] = get_ZY_from_cyz(fname);
+        if size(CYZ,1) ~= Nph; error('The supplied LineCable_Data file has a different number of phases than the current model. Comparing oranges to potatoes eh?'); end
+        CYZ = interp_matrix(CYZ, w, omega_total);
+        out(o).VarName='Ytot_CYZ';
+        out(o).Label='LineCable_Data';
+        out(o).Values=CYZ;
+        o=o+1;
+    else
+        disp('No valid CYZ file found in the job directory. Skipping...');
+    end
 end
+
+
+end % of main function
 
