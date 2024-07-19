@@ -416,7 +416,7 @@ tmin=1*abs(tau_mps);
 tmax=1*abs(line_length/vel(end));
 
 if tmin >= tmax
-    tmin = 0.99*tmin;
+    tmin = 0.95*tmin;
 end
 
 options = optimset('Display','none', 'TolX',1e-6);
