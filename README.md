@@ -34,7 +34,7 @@ The columns under the header 'Line cross section & conductor data' are described
 
 ### Acknowledgements
 
-The LineCableLab has been actively maintained and improved by [Theofilos Papadopoulos](mailto:thpapa@gmail.com), [Andreas Chrysochos](mailto:anchryso@gmail.com)   and [Amauri Martins-Britto](mailto:amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of all external contributors. Due to the dynamic and open nature of this project, it became unmanageable to keep an exhaustive list, so we decided to let GitHub handle it via issues reports, pull requests and/or commit history. You all are real badasses!
+LineCableLab has been actively maintained and improved by [Theofilos Papadopoulos](mailto:thpapa@gmail.com), [Andreas Chrysochos](mailto:anchryso@gmail.com)   and [Amauri Martins-Britto](mailto:amaurigmartins@gmail.com). The authors acknowledge and wish to thank for the efforts of all external contributors. Due to the dynamic and open nature of this project, it became unmanageable to keep an exhaustive list, so we decided to let GitHub handle it via issues reports, pull requests and/or commit history. You all are real badasses!
 
 ### Important information
 
