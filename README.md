@@ -1,6 +1,6 @@
-[![View OHLToolbox on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/130914-linecablelab) [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/fileexchange/v1?id=130914) 
+[![View LineCableLab on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://www.mathworks.com/matlabcentral/fileexchange/130914-linecablelab) [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/fileexchange/v1?id=130914) 
 
-# LineCableLab (formerly OHLToolbox)
+# LineCableLab (formerly LineCableLab)
 
 Toolbox in MATLAB for modelling of overhead and underground transmission lines (per-unit-length parameters, propagation characteristics, frequency scan, transient simulations).
 
@@ -38,7 +38,7 @@ The LineCableLab has been actively maintained and improved by [Theofilos Papadop
 
 ### Important information
 
-OHLToolbox uses external tools that must be downloaded from the corresponding sources and placed in the appropriate directories, listed below:
+LineCableLab uses external tools that must be downloaded from the corresponding sources and placed in the appropriate directories, listed below:
 
 - vfit3 - Fast Relaxed Vector Fitting, developed by Gustavsen et al. Available: https://www.sintef.no/globalassets/project/vectfit/vfit3.zip. Unzip the file into the folder 'JMartiModelFun/vfit3'. The vector fitting toolbox is used to create the ULM and JMarti line models from the modal parameters, if requested by the user.
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain.
