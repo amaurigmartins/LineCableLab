@@ -1,1 +1,1 @@
-Not meant for mortal eyes.
+Beware, mortal.
