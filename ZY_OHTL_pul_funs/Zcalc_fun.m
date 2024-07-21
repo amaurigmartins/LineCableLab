@@ -3,15 +3,19 @@ function [out] = Zcalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,jobid,currPath,opts)
 if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
+fieldNames=fieldnames(opts);
+fieldNames = fieldNames(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+
 if isstruct(opts)
     fieldValues = struct2cell(opts);
+    fieldValues = fieldValues(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
 else
     fieldValues={};
 end
 
 % Ensure all field values are logicals
     if ~isempty(fieldValues) && any(~cellfun(@islogical, fieldValues))
-        error('All fields in the options structure must be logical values. Come on, it''s not that hard.');
+        error('All fields in the formula options must be logical values. Come on, it''s not that hard.');
     end
 
 % Check if all fields are false
@@ -360,8 +364,8 @@ for k=1:siz
 end % of main loop
 
 %% TESTME
-if useFormula('CYZ')
-    fname=fullfile(currPath,[jobid '.cyz']);
+if useFormula('ImportCYZ')
+    fname=opts.CYZfile;
     if isfile(fname)
         [w, CYZ, ~] = get_ZY_from_cyz(fname);
         if size(CYZ,1) ~= Nph; error('The supplied LineCable_Data file has a different number of phases than the current model. Comparing oranges to potatoes eh?'); end
@@ -375,6 +379,20 @@ if useFormula('CYZ')
     end
 end
 
+if useFormula('ImportMAT')
+    fname=opts.MATfile;
+    if isfile(fname)
+        [ff, Zmat, ~, varlbl] = get_ZY_from_mat(fname);
+        if size(Zmat,1) ~= Nph; error('The supplied MAT-file has a different number of phases than the current model. Comparing oranges to apples eh?'); end
+        Zmat = interp_matrix(Zmat, ff, f_total);
+        out(o).VarName='Ztot_MAT';
+        out(o).Label=varlbl;
+        out(o).Values=Zmat;
+        o=o+1;
+    else
+        disp('No valid MAT-file file found in the job directory. Skipping...');
+    end
+end
 
 end % of main function
 
