@@ -451,6 +451,19 @@ if tmin >= tmax
     tmin = 0.95*tmin;
 end
 
+%%TESTME
+%tmin=min([abs(tau_mps) abs(line_length/vel(end)]);
+%tmax=max([abs(tau_mps) abs(line_length/vel(end)]);
+
+% if tmin >= tmax
+%     tmin = 0.95*tmax;
+% end
+
+% tau_a=line_length/3e8;
+% tau_b=(line_length/vel(j));
+% tmin=.8*tau_a;
+% tmax=1.2*tau_b;
+
 options = optimset('Display','none', 'TolX',1e-6);
 tau_opt=fminbnd(@(x)fcalc(H,f,x,optsRW),tmin,tmax,options);
 Aj_shifted = H.*exp(1i.*2.*pi.*f.*tau_opt);
