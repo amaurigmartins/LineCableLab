@@ -1,22 +1,22 @@
-function [out] = Zcalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,jobid,currPath,opts)
+function [out] = Zcalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,currPath,jobid,opts)
 
 if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
 fieldNames=fieldnames(opts);
-fieldNames = fieldNames(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
 
 if isstruct(opts)
     fieldValues = struct2cell(opts);
-    fieldValues = fieldValues(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+    fieldValues = fieldValues(idx);
 else
     fieldValues={};
 end
 
 % Ensure all field values are logicals
-    if ~isempty(fieldValues) && any(~cellfun(@islogical, fieldValues))
-        error('All fields in the formula options must be logical values. Come on, it''s not that hard.');
-    end
+if ~isempty(fieldValues) && any(~cellfun(@islogical, fieldValues))
+    error('All fields in the formula options must be logical values. Come on, it''s not that hard.');
+end
 
 % Check if all fields are false
 allFalse = all(~[fieldValues{:}]);
@@ -53,6 +53,8 @@ rad_in=Geom(:,4); % internal radius of conductor
 rad_ex=Geom(:,5); % external radius of conductor
 sigma_w=1./Geom(:,6); %conductivity of conductor
 mrw=Geom(:,7); % relative permeability of conductor
+% erw=Geom(:,10); % relative permittivity of insulation
+% dc=cab_ex-rad_ex; % coating thickness
 
 % Compute the actual parameters
 o=1; % counter for the number of outputs
@@ -62,7 +64,7 @@ for k=1:siz
     sigma_g=soilFD.sigma_g_total(k);
     m_g=soilFD.m_g(end);
     e_g=soilFD.e_g_total(k);
-    
+
     %%%% Internal impedance of the conductor
     Zin=Z_skin_mat_fun_ct(ord,rad_ex,rad_in,sigma_w,mrw,omega,Geom);
 
@@ -110,7 +112,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Deri
     if useFormula('Deri')
         if k==1; Ztot_Deri=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -148,7 +150,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Sunde (uniform soil)
     if useFormula('Sunde')
         if k==1; Ztot_Sunde=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -167,11 +169,11 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Semlyen
     if useFormula('Semlyen')
         if k==1; Ztot_Semlyen=zeros(Nph,Nph,siz); end % Prelocate matrix
-         % Self Impedances
+        % Self Impedances
         Zs_semlyen=Z_sln_slf(h,e_g,m_g,sigma_g,omega,ord);
         % Mutual Impedances
         Zm_semlyen=Z_sln_mut(h,d,e_g,m_g,sigma_g,omega,ord);
@@ -186,11 +188,11 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Pettersson
     if useFormula('Pettersson')
         if k==1; Ztot_Pettersson=zeros(Nph,Nph,siz); end % Prelocate matrix
-         % Self Impedances
+        % Self Impedances
         Zs_pet=Z_pet_slf(h,e_g,m_g,sigma_g,omega,ord);
         % Mutual Impedances
         Zm_pet=Z_pet_mut(h,d,e_g,m_g,sigma_g,omega,ord);
@@ -209,7 +211,7 @@ for k=1:siz
     %%%% Wise
     if useFormula('Wise')
         if k==1; Ztot_Wise=zeros(Nph,Nph,siz); end % Prelocate matrix
-         % Self Impedances
+        % Self Impedances
         Zs_wise=Z_wise_slf(h,e_g,m_g,sigma_g,omega,ord);
         % Mutual Impedances
         Zm_wise=Z_wise_mut(h,d,e_g,m_g,sigma_g,omega,ord);
@@ -229,7 +231,7 @@ for k=1:siz
     if useFormula('Kikuchi')
         if k==1; Ztot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
         global kxa;if isempty(kxa);kxa='k0';end;
-         % Self Impedances
+        % Self Impedances
         Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
         % Mutual Impedances
         Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
@@ -245,23 +247,24 @@ for k=1:siz
         end
     end
 
-    %%%% Sunde (2-layered soil)
-    if useFormula('Sunde2Layers')
-        if k==1; Ztot_Sunde2La=zeros(Nph,Nph,siz); end % Prelocate matrix
+    %%%% Nakagawa (2-layered soil)
+    if useFormula('Naka2Layers')
+        if k==1; Ztot_Naka2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         sigma_g_la=soilFD.sigma_g_total(1,:);
         e_g_la=soilFD.e_g_total(1,:);
-        global kxa;if isempty(kxa);kxa='k0';end;
+        %0 for sunde, k0 for nakagawa %%%%%%%%%%%%%%%%%%% CHECK ME
+        global kxa;if isempty(kxa);kxa='k0';end; 
         t=-soilFD.layer(1).t;
         Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
         Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
         % Total matrices
-        Zg_Sunde2La=Zs2la+Zm2la;
-        Z_Sunde2La=Zin+Zg_Sunde2La;
-        Ztot_Sunde2La(:,:,k) = bundleReduction(ph_order,Z_Sunde2La);
+        Zg_Naka2La=Zs2la+Zm2la;
+        Z_Naka2La=Zin+Zg_Naka2La;
+        Ztot_Naka2La(:,:,k) = bundleReduction(ph_order,Z_Naka2La);
         if k==siz
-            out(o).VarName='Ztot_Sunde2La';
-            out(o).Label='Sunde (2-layers)';
-            out(o).Values=Ztot_Sunde2La;
+            out(o).VarName='Ztot_Naka2La';
+            out(o).Label='Nakagawa (overhead, 2-layers)';
+            out(o).Values=Ztot_Naka2La;
             o=o+1;
         end
     end
@@ -283,7 +286,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Pollaczek (underground)
     if useFormula('Pollaczek')
         if k==1; Ztot_Pol=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -301,7 +304,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Xue (underground)
     if useFormula('Xue')
         if k==1; Ztot_Xue=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -318,7 +321,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Martins-Papadopoulos-Chrysochos (overhead-underground)
     if useFormula('OverUnder')
         if k==1; Ztot_OverUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -341,7 +344,7 @@ for k=1:siz
             o=o+1;
         end
     end
-    
+
     %%%% Carson-Pollaczek (overhead-underground)
     if useFormula('CarsonPol')
         if k==1; Ztot_CarsonPol=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -358,6 +361,31 @@ for k=1:siz
             out(o).VarName='Ztot_CarsonPol';
             out(o).Label='Carson-Pollaczek (overhead-underground)';
             out(o).Values=Ztot_CarsonPol;
+            o=o+1;
+        end
+    end
+
+    %%%% FEMM solver
+    if useFormula('FEMM')
+
+        foldername=fullfile(currPath,'femm_files');
+        if isfolder(foldername)
+            rmdir(foldername, 's');
+        end
+        mkdir(foldername)
+
+        basename=fullfile(foldername,...
+                sprintf('femmZ_%s_f%d',jobid,k));
+
+        if k==1; Ztot_FEMM=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % Self and Mutual Impedances, seems to include skin effects
+        Z_FEMM = Z_femm_slf_mut(Geom,soilFD,k,f,ord,basename);
+        Ztot_FEMM(:,:,k) = bundleReduction(ph_order,Z_FEMM);
+        % Store outputs
+        if k==siz
+            out(o).VarName='Ztot_FEMM';
+            out(o).Label='FEMM';
+            out(o).Values=Ztot_FEMM;
             o=o+1;
         end
     end

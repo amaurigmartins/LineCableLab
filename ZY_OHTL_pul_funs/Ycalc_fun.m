@@ -1,16 +1,21 @@
-function [out] = Ycalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,jobid,currPath,opts)
+function [out] = Ycalc_fun(f_total,ord,Nph,soilFD,h,d,Geom,currPath,jobid,opts)
 
 if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
 fieldNames=fieldnames(opts);
-fieldNames = fieldNames(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
 
 if isstruct(opts)
     fieldValues = struct2cell(opts);
-    fieldValues = fieldValues(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+    fieldValues = fieldValues(idx);
 else
     fieldValues={};
+end
+
+% Ensure all field values are logicals
+if ~isempty(fieldValues) && any(~cellfun(@islogical, fieldValues))
+    error('All fields in the formula options must be logical values. Come on, it''s not that hard.');
 end
 
 % Check if all fields are false
@@ -153,9 +158,9 @@ for k=1:siz
         end
     end
     
-    %%%% Sunde (2-layered soil)
-    if useFormula('Sunde2Layers')
-        if k==1; Ytot_Sunde2La=zeros(Nph,Nph,siz); end % Prelocate matrix
+    %%%% Papadopoulos (2-layered soil)
+    if useFormula('Papad2Layers')
+        if k==1; Ytot_Papad2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         sigma_g_la=soilFD.sigma_g_total(1,:);
         e_g_la=soilFD.e_g_total(1,:);
         global kxa;if isempty(kxa);kxa='k0';end;
@@ -165,14 +170,14 @@ for k=1:siz
         % Mutual
         Pm2la=P_ohl_mut_2lay(h,d,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
         % Total matrices
-        Pg_Sunde2La=Ps2la+Pm2la;
-        P_Sunde2La=Pin+Pg_Sunde2La;
-        Ptot_Sunde2La = bundleReduction(ph_order,P_Sunde2La);
-        Ytot_Sunde2La(:,:,k)=1i.*omega.*inv(Ptot_Sunde2La);
+        Pg_Papad2La=Ps2la+Pm2la;
+        P_Papad2La=Pin+Pg_Papad2La;
+        Ptot_Papad2La = bundleReduction(ph_order,P_Papad2La);
+        Ytot_Papad2La(:,:,k)=1i.*omega.*inv(Ptot_Papad2La);
         if k==siz
-            out(o).VarName='Ytot_Sunde2La';
-            out(o).Label='Sunde (2-layers)';
-            out(o).Values=Ytot_Sunde2La;
+            out(o).VarName='Ytot_Papad2La';
+            out(o).Label='Papadopoulos (overhead, 2-layers)';
+            out(o).Values=Ytot_Papad2La;
             o=o+1;
         end
     end
@@ -269,6 +274,31 @@ for k=1:siz
             out(o).VarName='Ytot_OverUnderClassicalTL';
             out(o).Label='Martins-Papadopoulos-Chrysochos (classical TL)';
             out(o).Values=Ytot_OverUnderClassicalTL;
+            o=o+1;
+        end
+    end
+
+    %%%% FEMM solver
+    if useFormula('FEMM')
+
+        foldername=fullfile(currPath,'femm_files');
+        if isfolder(foldername)
+            rmdir(foldername, 's');
+        end
+        mkdir(foldername)
+
+        basename=fullfile(foldername,...
+                sprintf('femmY_%s_f%d',jobid,k));
+
+        if k==1; Ytot_FEMM=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % Self and Mutual Admittances, seems to account for insulation
+        Y_FEMM = Y_femm_slf_mut(Geom,soilFD,k,f,ord,basename);
+        Ytot_FEMM(:,:,k) = bundleReduction(ph_order,Y_FEMM);
+        % Store outputs
+        if k==siz
+            out(o).VarName='Ytot_FEMM';
+            out(o).Label='FEMM';
+            out(o).Values=Ytot_FEMM;
             o=o+1;
         end
     end
