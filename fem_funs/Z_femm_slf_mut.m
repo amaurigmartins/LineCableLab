@@ -66,7 +66,7 @@ for i=1:con
     end
     
     %% Position objects in the 2D grid space
-    L=50e3; % domain size
+    L=20e3; % domain size
     
     % Air layer
     mi_addblocklabel(0,L/2);
@@ -263,17 +263,6 @@ for i=1:con
                 pause(retryDelay);
             end
         end
-
-        % while true
-        %     if i==j
-        %         vals = mo_getcircuitproperties(sprintf('cond%d_source',j));
-        %     else
-        %         vals = mo_getcircuitproperties(sprintf('cond%d_target',j));
-        %     end
-        %     if numel(vals)>1
-        %         break
-        %     end
-        % end
         Z(i,j)= vals(2); % 2 is the voltage drop which is equal to J/sigma
         if i~=j;Z(j,i)=Z(i,j);end %symmetry is beautiful
     end

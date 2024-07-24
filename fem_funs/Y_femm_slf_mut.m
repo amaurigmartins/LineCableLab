@@ -67,7 +67,7 @@ for i=1:con
     end
     
     %% Position objects in the 2D grid space
-    L=50e3; % domain size
+    L=20e3; % domain size
     
     % Air layer
     ci_addblocklabel(0,L/2);
@@ -114,15 +114,15 @@ for i=1:con
             ci_clearselected;
             ci_selectarcsegment(x_c-(r_ext+r_in)/2,y_c-r_ext);
             ci_selectarcsegment(x_c-(r_ext+r_in)/2,y_c+r_ext);
-            ci_setarcsegmentprop(0, 0, 0, 0, sprintf('cond%d_source',j));
+            ci_setarcsegmentprop(.1, 0, 0, 0, sprintf('cond%d_source',j));
             %ci_setarcsegmentprop(maxsegdeg, "propname", hide, group, "inconductor") 
         else
             ci_setblockprop(sprintf('cond%d_core',j),0.001,0,0);
             ci_clearselected;
-            ci_seteditmode('arcsegments')
+            %ci_seteditmode('arcsegments')
             ci_selectarcsegment(x_c-(r_ext+r_in)/2,y_c-r_ext);
             ci_selectarcsegment(x_c-(r_ext+r_in)/2,y_c+r_ext);
-            ci_setarcsegmentprop(1, 0, 0, 0, sprintf('cond%d_target',j));
+            ci_setarcsegmentprop(.1, 0, 0, 0, sprintf('cond%d_target',j));
         end
         
         % draw insulation
@@ -135,6 +135,9 @@ for i=1:con
             ci_selectlabel(x_c-(r_ins+r_ext)/2,y_c);
             ci_setblockprop(sprintf('cond%d_insu',j),0.001,0,0);
             ci_clearselected
+            ci_selectarcsegment(x_c-(r_ext+r_ins)/2,y_c-r_ins);
+            ci_selectarcsegment(x_c-(r_ext+r_ins)/2,y_c+r_ins);
+            ci_setarcsegmentprop(.1, 0, 0, 0, 0);
         end
     end
     
@@ -246,16 +249,6 @@ for i=1:con
             end
         end
 
-        % while true
-        %     if i==j
-        %         vals = co_getconductorproperties(sprintf('cond%d_source',j));
-        %     else
-        %         vals = co_getconductorproperties(sprintf('cond%d_target',j));
-        %     end
-        %     if numel(vals)>1
-        %         break
-        %     end
-        % end
         Y(i,j)= vals(2); 
         if i~=j;Y(j,i)=Y(i,j);end %symmetry is beautiful
     end
