@@ -36,7 +36,7 @@ The columns under the header 'Line cross-section & conductor data' are described
 
 ### Loading from custom MAT-files
 
-To load pul parameters from your own MAT-file, store the workspace variables as `Z` (NxNxNs array), `Y` (NxNxNs array) and `f` (Ns), where N is the number of phases and Ns is the number of frequency samples. An optional extra variable is possible, namely `label` (char), which is the string used to identify the data in the rendered plots. If none is supplied, legend entries in the plots will read as 'Imported from MAT-file'.
+To load pul parameters from your own MAT-file, store the workspace variables as `Z` (NxNxNs array), `Y` (NxNxNs array) and `f` (1xNs vector), where N is the number of phases and Ns is the number of frequency samples. An optional extra variable is possible, namely `label` (char), which is the string used to identify the data in the rendered plots. If none is supplied, legend entries in the plots will read as 'Imported from MAT-file'.
 
 ### Running an external process to compute pul parameters
 
