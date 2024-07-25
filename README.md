@@ -30,9 +30,9 @@ The columns under the header 'Line cross-section & conductor data' are described
 - 5 column -   **ExtRadius**: external radius of each conductor in meters.
 - 6 column -   **CondResist**: resistivity of the conductor in ohms-meter.
 - 7 column -   **CondPerm**: relative permeability of the conductor in pu.
-- 8 column -   **InsulRadius**: external radius of insulation in meters. Set to NaN if bare conductor.
-- 9 column -   **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
-- 10 column -  **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
+- 8 column -   **InsulRadius**: external radius of insulation in meters. Set to `nan` if bare conductor.
+- 9 column -   **InsulPerm**: relative permeability of insulation in pu. Set to `nan` if bare conductor.
+- 10 column -  **InsulPermit**: relative permittivity of insulation in pu. Set to `nan` if bare conductor.
 
 ### Loading custom parameters from MAT-files
 
