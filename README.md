@@ -60,7 +60,7 @@ allY_pul(o).Label='My custom Y formula';
 allY_pul(o).Values=myCustomY;
 ```
 
-To recover these results as defaults for futher calculations (e.g. propagation characteristics, fitting of line models), modify the corresponding lines accordingly: 
+To recover these results as defaults for futher calculations (e.g. propagation characteristics, fitting of line models), modify the corresponding lines accordingly in the main run job script: 
 
 ```matlab
 % Modal decomposition
