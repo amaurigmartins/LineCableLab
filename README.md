@@ -17,7 +17,7 @@ Toolbox in MATLAB for modelling of overhead and underground transmission lines (
 
 ### Basic instructions
 
-The use of the toolbox is quite self-explanatory. Launch the file 'linecablelab.mlapp' from MATLAB workspace and input the necessary information. You can save your design by clicking 'Save input session' or recover an existing design by clicking 'Load input session'. 
+The use of the toolbox is quite self-explanatory. Launch the file `linecablelab.mlapp` from MATLAB workspace and input the necessary information. You can save your design by clicking 'Save input session' or recover an existing design by clicking 'Load input session'. 
 
 You will be prompted to specify a JobID and this is **mandatory**. The JobID is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named JobID inside the working directory. Inside this folder you will find two files: `LineData_fun.m` and `RunJob_JobID.m`. Call the run job script and that's it. Note that the GUI does not actually perform any calculations, it is only a wrapper to the main function call.
 
