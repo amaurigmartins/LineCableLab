@@ -43,6 +43,9 @@ To load pul parameters from your own MAT-file, store the workspace variables as 
 In order to enable a user-defined computation process, check the corresponding box in the '⚗️ Experiments' tab and specify a MATLAB script file. This script must return Z and Y as NxNxNs arrays, where N is the number of phases and Ns is the number of frequency samples. For a seamless integration, these outcomes should be appended to the  `allZ_pul` and `allY_pul` variables. A sample snippet is provided below:
 
 ```matlab
+% Sample script: myCustomZY.m
+% Specify this file in the 'Experiments' tab.
+
 %% This is where the fun begins
 for k=1:freq_siz % variable freq_siz is already defined in the execution context
   myCustomZ(:,:,k) = ... % do your magic here, note that the frequency is the third dimension
