@@ -39,7 +39,7 @@ identifiers:
     value: 10.1109/temc.2022.3201874
     description: >-
       Influence of Lossy Ground on High-Frequency Induced Voltages on Aboveground Pipelines by Nearby Overhead Transmission Lines.
-repository-code: 'https://github.com/amaurigmartins/OHLToolbox'
+repository-code: 'https://github.com/amaurigmartins/LineCableLab'
 url: >-
   https://www.mathworks.com/matlabcentral/fileexchange/130914-linecablelab
 abstract: >-
@@ -47,5 +47,5 @@ abstract: >-
   underground transmission lines (per-unit-length
   parameters, propagation characteristics, frequency scan,
   transient simulations).
-version: 6.2
-date-released: '2024-03-12'
+version: 7.0
+date-released: '2024-07-25'
