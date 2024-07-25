@@ -34,7 +34,7 @@ The columns under the header 'Line cross-section & conductor data' are described
 - 9 column -   **InsulPerm**: relative permeability of insulation in pu. Set to NaN if bare conductor.
 - 10 column -  **InsulPermit**: relative permittivity of insulation in pu. Set to NaN if bare conductor.
 
-### Loading from custom MAT-files
+### Loading custom parameters from MAT-files
 
 To load pul parameters from your own MAT-file, store the workspace variables as `Z` (NxNxNs array), `Y` (NxNxNs array) and `f` (1xNs vector), where N is the number of phases and Ns is the number of frequency samples. An optional extra variable is possible, namely `label` (char), which is the string used to identify the data in the rendered plots. If none is supplied, legend entries in the plots will read as 'Imported from MAT-file'.
 
