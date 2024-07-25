@@ -45,7 +45,7 @@ In order to enable a user-defined computation process, check the corresponding b
 ```matlab
 %% This is where the fun begins
 for k=1:freq_siz % variable freq_siz is already defined in the execution context
-  myCustomZ(:,:,k) = ... % do your magic here, note that the frequency is the third dimension of the array
+  myCustomZ(:,:,k) = ... % do your magic here, note that the frequency is the third dimension
   myCustomY(:,:,k) = ...
 end
 
