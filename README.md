@@ -44,7 +44,7 @@ In order to enable a user-defined computation process, check the corresponding b
 
 ```matlab
 % Sample script: myCustomZY.m
-% Specify this file in the 'Experiments' tab.
+% This file should be specified in the 'Experiments' tab.
 
 %% This is where the fun begins
 for k=1:freq_siz % variable freq_siz is already defined in the execution context
