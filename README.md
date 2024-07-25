@@ -46,12 +46,26 @@ In order to enable a user-defined computation process, check the corresponding b
 %% This is where the fun begins
 for k=1:freq_siz % variable freq_siz is already defined in the execution context
   myCustomZ(:,:,k) = ... % do your magic here, note that the frequency is the third dimension of the array
+  myCustomY(:,:,k) = ...
 end
 
 o=findElementByField(allZ_pul, 'VarName', 'myCustomZ'); % find myCustomZ in the allZ_pul struct
 allZ_pul(o).VarName='myCustomZ';
 allZ_pul(o).Label='My custom Z formula';
 allZ_pul(o).Values=myCustomZ;
+
+o=findElementByField(allY_pul, 'VarName', 'myCustomY'); % find myCustomY in the allY_pul struct
+allY_pul(o).VarName='myCustomY';
+allY_pul(o).Label='My custom Y formula';
+allY_pul(o).Values=myCustomY;
+```
+
+To recover these results as defaults for futher calculations (e.g. propagation characteristics, fitting of line models), modify the corresponding lines accordingly: 
+
+```matlab
+% Modal decomposition
+Z=selectZ('myCustomZ');
+Y=selectY('myCustomY');
 ```
 
 ### Acknowledgements
