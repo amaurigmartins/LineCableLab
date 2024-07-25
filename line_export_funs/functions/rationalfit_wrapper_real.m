@@ -15,7 +15,12 @@ while rmserr > errtgt
 
     numpol=NpolesMin+i;
 
-    [fit_data,errdB] = rationalfit(freq.',fun,'NPoles',numpol,'TendsToZero',opts.TendsToZero,'IterationLimit',opts.Niter);      
+    [fit_data,errdB] = rationalfit(freq.',fun,'NPoles',numpol,'TendsToZero',opts.TendsToZero,'IterationLimit',opts.Niter);
+    if i == 0
+        if ~isreal(fit_data(1,1).A)
+            error('Rationalfit failed to fit without complex poles. No PCH file will be written.');
+        end
+    end
     rmserr = 10^(errdB/20);
     h_rmserr(i+1,1) = rmserr;
     h_fit_data(i+1,1) = {fit_data};
