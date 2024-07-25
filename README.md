@@ -6,11 +6,13 @@ Toolbox in MATLAB for modelling of overhead and underground transmission lines (
 
 ### Highlight of the main features
 
-- LineCableLab is distributed with a GUI designed to aid data entry. You can save your projects in matfiles and recover them for later use.
+- LineCableLab is distributed with a GUI designed to aid data entry. You can save your projects in MAT-files and recover them for later use.
 - Several impedance and admittance formulas, frequency-dependent soil models and modal decomposition techniques are available.
-- It is possible to work with overhead, underground and mixed overhead-underground conductor arrangements.
+- It is possible to work with overhead, underground and mixed overhead-underground conductor arrangements, using analytical formulations or finite element method (requires external solver).
+- It is possible to include your own computation methods, via scripting or MAT-files, or to import models from EMTP® LineCable_Data (CYZ files). These pul parameters can be refactored into new line models via advanced modal decomposition and vector fitting techniques.
 - Parameters are computed for any number of phases with any number of conductors per phase, with or without Kron elimination. 
-- You can export the computed data as a XML file compatible with ATPDraw 7.5, ATP-ULM (De Conti et al.) fitULM.dat file, also available in ATPDraw 7.5, or to a EMTP-compliant matfile to be used with the LineCable_Data routine available in the EMTP® software.
+- You can export the computed data as a XML file compatible with ATPDraw 7.5 (ZY matrices), ATP-ULM 3.2 (De Conti et al.) fitULM.dat file, also available in ATPDraw 7.5, or to a EMTP-compliant MAT-file to be used with the LineCable_Data routine available in the EMTP® software.
+- You can save the line cross-section directly to ATPDraw as a Cable Constants object (XML file).
 - Time-domain transient simulations using the Laplace transform, with several energization sources available.
 
 ### Basic instructions
@@ -23,7 +25,7 @@ The columns under the header 'Line cross-section & conductor data' are described
 
 - 1 column - **PhaseNum**: number of phase (set to 0 for Kron reduction, map to the same phase for bundled conductors).
 - 2 column - **Horiz**: y position of each conductor in meters.
-- 3 column - **Vert**: z position of each conductor in meters.
+- 3 column - **Vert**: z position of each conductor in meters. Use negative values for underground conductors.
 - 4 column - **IntRadius**: internal radius of each conductor in meters.
 - 5 column - **ExtRadius**: external radius of each conductor in meters.
 - 6 column - **CondResist**: resistivity of the conductor in ohms-meter.
@@ -44,7 +46,7 @@ LineCableLab uses external tools that must be downloaded from the corresponding 
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder 'mode_decomp_funs'. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain.
 - Bodefit - Bode process program, developed by E. S. Bañuelos-Cabral et al. Available: https://www.intechopen.com/chapters/57667. Deploy the file 'Bode_process.m' to the folder 'JMartiModelFun/functions'. In case the VF does not converge to a stable solution (real poles only), the Bodefit is used as alternative, at the cost of accuracy.
 - Carson's integral - Closed-form solution proposed by T. P. Theodoulidis. Available: https://www.mathworks.com/matlabcentral/fileexchange/50134-carson-s-integral. The files are packaged in the toolbox and no further action is required.
-- FEMM - Finite Element Method Magnetics, by David Meeker. Available: https://www.femm.info/wiki/HomePage. For finite element computations. Install the program regularly and specify the path to the 'mfiles' folder in the 'Experiments' tab.
+- FEMM - Finite Element Method Magnetics, developed by David Meeker. Available: https://www.femm.info/wiki/HomePage. For finite element computations. Install the program regularly and specify the path to the 'mfiles' folder under the 'Experiments' tab.
   
 These codes are properties of the respective authors, with all due credits given. Observe any restrictions and licensing/usage requirements in the corresponding websites.
 
@@ -59,7 +61,7 @@ The toolbox incorporates several impedance and admittance formulas, under differ
 
 ### Restrictions of use
 
-We appreciate the interest in our work and we invite the interested users to use our codes as necessary, as long as they are not embedded in any commercial software, which is **strictly prohibited**. However, if you use LineCableLab as a part of scientific research, we kindly ask you to refer to our published papers:
+We appreciate the interest in our work and we invite the interested users to use our codes as necessary, as long as they are not embedded in any commercial software, which is **strictly prohibited**. However, if you use LineCableLab as a part of scientific research, we kindly ask you to refer to one of our published papers:
 
 - A. G. Martins-Britto, T. A. Papadopoulos and A. I. Chrysochos, "Transient Electromagnetic Interference between Overhead and Underground Conductors," in IEEE Transactions on Electromagnetic Compatibility, Mar. 2024, doi: 10.1109/TEMC.2024.3376971.
   
