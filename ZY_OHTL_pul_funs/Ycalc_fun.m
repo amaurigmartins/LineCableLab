@@ -313,7 +313,7 @@ if useFormula('ImportCYZ')
         if size(CYZ,1) ~= Nph; error('The supplied LineCable_Data file has a different number of phases than the current model. Comparing oranges to potatoes eh?'); end
         CYZ = interp_matrix(CYZ, w, omega_total);
         out(o).VarName='Ytot_CYZ';
-        out(o).Label='LineCable_Data';
+        out(o).Label='LineCableData';
         out(o).Values=CYZ;
         o=o+1;
     else
