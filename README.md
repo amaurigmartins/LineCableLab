@@ -19,7 +19,7 @@ Toolbox in MATLAB for modelling of overhead and underground transmission lines (
 
 The use of the toolbox is quite self-explanatory. Launch the file `linecablelab.mlapp` from MATLAB workspace and input the necessary information. You can save your design by clicking 'Save input session' or recover an existing design by clicking 'Load input session'. 
 
-You will be prompted to specify a JobID and this is **mandatory**. The JobID is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named JobID inside the working directory. Inside this folder you will find two files: `LineData_fun.m` and `RunJob_JobID.m`. Call the run job script and that's it. Note that the GUI does not actually perform any calculations, it is only a wrapper to the main function call.
+You will be prompted to specify a `JobID` and this is **mandatory**. The `JobID` is a text string which will be used to identify all the output files and folders. When you are satisfied with the data entry, hit the button 'Start'. This will create a subfolder named `JobID` inside the working directory. Inside this folder you will find two files: `LineData_fun.m` and `RunJob_JobID.m`. Call the run job script and that's it. Note that the GUI does not actually perform any calculations, it is only a wrapper to the main function call.
 
 The columns under the header 'Line cross-section & conductor data' are described as follows:
 
@@ -52,6 +52,7 @@ for k=1:freq_siz % variable freq_siz is already defined in the execution context
   myCustomY(:,:,k) = ...
 end
 
+% Note: function findElementByField() is supplied with the toolbox.
 o=findElementByField(allZ_pul, 'VarName', 'myCustomZ'); % find myCustomZ in the allZ_pul struct
 allZ_pul(o).VarName='myCustomZ';
 allZ_pul(o).Label='My custom Z formula';
@@ -63,7 +64,7 @@ allY_pul(o).Label='My custom Y formula';
 allY_pul(o).Values=myCustomY;
 ```
 
-To recover these results as defaults for futher calculations (e.g. propagation characteristics, fitting of line models), modify the corresponding lines accordingly in the main run job script: 
+To recover these results as defaults for subsequent calculations (e.g. propagation characteristics, fitting of line models etc.), modify the corresponding lines accordingly in the main run job script: 
 
 ```matlab
 % Modal decomposition
@@ -87,7 +88,7 @@ LineCableLab uses external tools that must be downloaded from the corresponding 
 - Eigenshuffle - Consistently sorted eigenvalue and eigenvector sequences, developed by John D'Errico. Available: https://www.mathworks.com/matlabcentral/fileexchange/22885-eigenshuffle. Unzip the file into the folder `mode_decomp_funs`. The Eigenshuffle code is used as an additional method to perform the modal decomposition avoiding switchovers in the frequency-domain.
 - Bodefit - Bode process program, developed by E. S. Bañuelos-Cabral et al. Available: https://www.intechopen.com/chapters/57667. Deploy the file `Bode_process.m` to the folder `JMartiModelFun/functions`. In case the VF does not converge to a stable solution (real poles only) for JMarti, the Bodefit is used as alternative, at the cost of accuracy.
 - Carson's integral - Closed-form solution proposed by T. P. Theodoulidis. Available: https://www.mathworks.com/matlabcentral/fileexchange/50134-carson-s-integral. The files are packaged in the toolbox and no further action is required.
-- FEMM - Finite Element Method Magnetics, developed by David Meeker. Available: https://www.femm.info/wiki/HomePage. For finite element computations. Install the program regularly and specify the path to the `mfiles` folder under the '⚗️ Experiments' tab.
+- FEMM - Finite Element Method Magnetics, developed by David Meeker. Available: https://www.femm.info/wiki/HomePage. For finite element computations. Install the program normally and specify the path to the `mfiles` folder under the '⚗️ Experiments' tab.
   
 These codes are properties of the respective authors, with all due credits given. Observe any restrictions and licensing/usage requirements in the corresponding websites.
 
