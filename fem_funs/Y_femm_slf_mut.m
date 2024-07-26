@@ -1,24 +1,21 @@
 function [Y]=Y_femm_slf_mut(Geom,soilFD,k,freq,con,basename)
 
 Y = zeros(con,con);
-
+L=5e3; % domain size
 try; closefemm; end
 
 for i=1:con
     %% Open a FEMM instance
     fclose('all');
     
-    try; closefemm; end
     fname=sprintf('%s_c%d.fec',basename,i);
-
-
     global HandleToFEMM;
-    openfemm;
+    openfemm(1);
     hand1=HandleToFEMM;
     % create new document
     DOCTYPE=3; %0 for magnetics, 1 for electrostatics, 3 for current flow
     newdocument(DOCTYPE);
-    % main_minimize;
+    main_minimize;
     
     %% Set problem solver
     w=2*pi*freq;
@@ -67,7 +64,6 @@ for i=1:con
     end
     
     %% Position objects in the 2D grid space
-    L=20e3; % domain size
     
     % Air layer
     ci_addblocklabel(0,L/2);
@@ -175,48 +171,13 @@ for i=1:con
     co_zoom(x_center-window_size,y_center-window_size,x_center+window_size,y_center+window_size);
     co_shownames();
     
-    % Inspect conductors
-    %     for j=1
-    %         x_c = Geom(j,2);
-    %         y_c = Geom(j,3);
-    %         r_ext = Geom(j,5);
-    %         r_ins = Geom(j,8);
-    %         DELTA=1e-3;
-    %         r_contour=sum([r_ext r_ins],'omitnan')+DELTA;
-    %         co_seteditmode('contour');
-    %         co_clearcontour();
-    %         window_size=3*r_contour;
-    %         co_zoom(x_c-window_size,y_c-window_size,x_c+window_size,y_c+window_size);
-    %         theta=[0:(pi/200):2*pi];
-    %         for jj=1:length(theta)
-    %             x=x_c+r_contour*cos(theta(jj));
-    %             y=y_c+r_contour*sin(theta(jj));
-    %             co_addcontour(x,y);
-    %             pause(0.01);
-    %         end
-    %     end
-    
     % Extract admittances
     for j=i:con
-        x_c = Geom(j,2);
-        y_c = Geom(j,3);
-        r_in = Geom(j,4);
-        r_ext = Geom(j,5);
-        r_ins = Geom(j,8);
-        % DELTA=1e-3;
-        % r_contour=sum([r_ext r_ins],'omitnan')+DELTA;
-        % co_seteditmode('contour');
-        % co_clearcontour();
-        % window_size=3*r_contour;
-        % co_zoom(x_c-window_size,y_c-window_size,x_c+window_size,y_c+window_size);
-        % theta=[0:(pi/200):2*pi];
-        % for jj=1:length(theta)
-        %     x=x_c+r_contour*cos(theta(jj));
-        %     y=y_c+r_contour*sin(theta(jj));
-        %     co_addcontour(x,y);
-        %     pause(0.01);
-        % end
-        % Y=co_lineintegral(1);
+        %x_c = Geom(j,2);
+        %y_c = Geom(j,3);
+        %r_in = Geom(j,4);
+        %r_ext = Geom(j,5);
+        %r_ins = Geom(j,8);
 
         maxRetries = 5; % Maximum number of retries
         retryDelay = 0.25; % Delay between retries in seconds
@@ -225,15 +186,15 @@ for i=1:con
         while retryCount < maxRetries
             try
                 if i == j
-                    vals = co_getconductorproperties(sprintf('cond%d_source', j));
+                    vals = get_conductor_Y(Geom,j); % computing the line integral gives better results for self
                 else
-                    vals = co_getconductorproperties(sprintf('cond%d_target', j));
+                    vals = get_conductor_Y(Geom,j,sprintf('cond%d_target', j));  % extracting directly from conductor props
                 end
 
-                if numel(vals) > 1
-                    break; % Exit the loop if vals has more than 1 element
+                if numel(vals) == 1
+                    break; % Exit the loop if vals has one valid element
                 else
-                    error('vals has only one element'); % Trigger an error to enter the catch block
+                    error('vals has no elements'); % Trigger an error to enter the catch block
                 end
             catch ME
                 % Increment retry count
@@ -249,7 +210,7 @@ for i=1:con
             end
         end
 
-        Y(i,j)= vals(2); 
+        Y(i,j)= vals(1); 
         if i~=j;Y(j,i)=Y(i,j);end %symmetry is beautiful
     end
     ci_close
