@@ -70,6 +70,10 @@ To recover these results as defaults for futher calculations (e.g. propagation c
 Z=selectZ('myCustomZ');
 Y=selectY('myCustomY');
 ```
+### Loading the fitULM data file into ATPDraw 7.5
+
+To load ULM models generated via the toolbox into ATPDraw 7.5, click 'Lines/Cables' ➜ 'Read PCH file...' and choose your `RunJob_fitULM.dat` file. ATPDraw will complain with a message 'Unknown punch file format!' and ask if a ULM file is to be assumed. Hit 'Yes' and you are set.
+
 
 ### Acknowledgements
 
