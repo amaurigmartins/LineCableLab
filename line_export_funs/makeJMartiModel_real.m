@@ -7,6 +7,7 @@ if ~isfield(optsRW,'TendsToZero');optsRW.TendsToZero = true;end
 if ~isfield(optsRW,'Npoles');optsRW.Npoles = [1 20];end
 if ~isfield(optsRW,'samePolesH');optsRW.samePolesH = false;end
 if ~isfield(optsRW,'tol');optsRW.tol = 3;end
+if ~isfield(optsRW,'bode');optsRW.bode = false;end
 
 if size(f,1) == 1
     f=f.';
@@ -27,14 +28,22 @@ ord=size(Z,2);
 [H_test,~,~,~,~]=calc_prop_function(Ti_dis,g_dis,line_length,ord,freq_siz,f); 
 
 if optsRW.samePolesH
-            [~, ffit_JM,~,~] = rationalfit_wrapper_real(H_test,f,optsRW); %Calculating the poles and residues
+            if optsRW.bode
+                [~, ffit_JM,~,~] = rationalfit_wrapper_real_bode(H_test,f,optsRW); %Calculating the poles and residues
+            else
+                [~, ffit_JM,~,~] = rationalfit_wrapper_real(H_test,f,optsRW); %Calculating the poles and residues
+            end
             for m=1:ord
                 H_modefit(:,m) = ffit_JM(:,m);
             end
 
 else
             for m=1:ord
-                [~, ffit_JM,~,~] = rationalfit_wrapper_real(H_test(:,m),f,optsRW); %Calculating the poles and residues
+                if optsRW.bode
+                    [~, ffit_JM,~,~] = rationalfit_wrapper_real_bode(H_test(:,m),f,optsRW); %Calculating the poles and residues
+                else
+                    [~, ffit_JM,~,~] = rationalfit_wrapper_real(H_test(:,m),f,optsRW);
+                end
                 H_modefit(:,m) = ffit_JM;
             end
             
@@ -52,7 +61,7 @@ end
 
 % Now let's pick the corresponding matrix for a specific frequency @ f_Ti
 [~,p_Ti] = min(err_T);
-f_Ti=f(p_Ti);
+f_Ti=f(p_T(p_Ti,1));
 interplM2freq = @(M) squeeze(interp1(f,M,f_Ti)); %use interpolation to handle the case where the frequency sample is missing
 T=interplM2freq(T_const);
 % T=real(T); 
@@ -73,8 +82,11 @@ end
 %% Calculating Zc poles and residues
 
 if optsRW.samePolesH
-        
-    [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(Zch_m,f,optsRW); %Calculating the poles and residues
+    if optsRW.bode   
+        [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real_bode(Zch_m,f,optsRW); %Calculating the poles and residues
+    else
+        [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(Zch_m,f,optsRW); %Calculating the poles and residues
+    end
         for m=1:ord
             fitOHLT_Zc(m).mode = m;
             fitOHLT_Zc(m).NORD = numpol_JM;
@@ -86,7 +98,11 @@ if optsRW.samePolesH
         end
 else
         for m=1:ord
-            [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(Zch_m(:,m),f,optsRW); %Calculating the poles and residues
+            if optsRW.bode
+                [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real_bode(Zch_m(:,m),f,optsRW); %Calculating the poles and residues
+            else
+                [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(Zch_m(:,m),f,optsRW); %Calculating the poles and residues
+            end
             fitOHLT_Zc(m).mode = m;
             fitOHLT_Zc(m).NORD = numpol_JM;
             fitOHLT_Zc(m).ks = fit_data_JM.D;
@@ -95,6 +111,7 @@ else
             fitOHLT_Zc(m).err = rmserr_JM;
             fitOHLT_Zc(m).ffit = ffit_JM;
         end
+     
 end
 
 
@@ -102,8 +119,8 @@ end
 if optsRW.plot1
     figure
     for m=1:ord
-        semilogx(f,abs(Zch_m(:,m)),'o', 'DisplayName', ['Mode #' num2str(m)]);hold all;
-        semilogx(f,abs(fitOHLT_Zc(m).ffit), 'DisplayName', ['Fit mode #' num2str(m)]);hold all;
+        semilogx(f,abs(Zch_m(:,m)), 'DisplayName', ['Mode #' num2str(m)]);hold all;
+        semilogx(f,abs(fitOHLT_Zc(m).ffit),'o', 'DisplayName', ['Fit mode #' num2str(m)]);hold all;
     end
     axis tight
     xlabel('Frequency [Hz]')
@@ -121,7 +138,11 @@ end
 
 %% Calculating fitting of H for the modes
 if optsRW.samePolesH
+    if optsRW.bode
+        [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real_bode(H_shifted,f,optsRW); %Calculating the poles
+    else
         [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(H_shifted,f,optsRW); %Calculating the poles
+    end
             for m=1:ord
                 fitOHLT_H(m).mode = m;
                 fitOHLT_H(m).NORD = numpol_JM;
@@ -134,7 +155,11 @@ if optsRW.samePolesH
 
 else
             for m=1:ord
-                [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(H_shifted(:,m),f,optsRW); %Calculating the poles and residues
+                if optsRW.bode
+                    [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real_bode(H_shifted(:,m),f,optsRW); %Calculating the poles and residues
+                else
+                    [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real(H_shifted(:,m),f,optsRW); %Calculating the poles and residues
+                end
                 fitOHLT_H(m).mode = m;
                 fitOHLT_H(m).NORD = numpol_JM;
                 fitOHLT_H(m).tau_opt = Optimal_time(m,1);
@@ -149,8 +174,8 @@ end
 if optsRW.plot1
     figure
     for m=1:ord
-        semilogx(f,abs((H_m(:,m))),'o', 'DisplayName', ['Mode #' num2str(m)]);hold all;
-        semilogx(f,abs(fitOHLT_H(m).ffit(1:freq_siz)), 'DisplayName', ['Fit mode #' num2str(m)]);hold all;
+        semilogx(f,abs((H_m(:,m))), 'DisplayName', ['Mode #' num2str(m)]);hold all;
+        semilogx(f,abs(fitOHLT_H(m).ffit(1:freq_siz)),'o', 'DisplayName', ['Fit mode #' num2str(m)]);hold all;
     end
     axis tight
     xlabel('Frequency [Hz]')
@@ -228,6 +253,10 @@ end
 
 
 function [rmserr_JM] = fcalc_WRP(H, f, tau,optsRW)
-H_mod = H.*exp(1i.*2.*pi.*f.*tau);
-[~, ~, ~,rmserr_JM ] = rationalfit_wrapper_real(H_mod,f,optsRW); %Find the RMSerr
+    H_mod = H.*exp(1i.*2.*pi.*f.*tau);
+    if optsRW.bode
+        [~, ~, ~,rmserr_JM ] = rationalfit_wrapper_real_bode(H_mod,f,optsRW); %Find the RMSerr
+    else
+        [~, ~, ~,rmserr_JM ] = rationalfit_wrapper_real(H_mod,f,optsRW); %Find the RMSerr
+    end
 end
