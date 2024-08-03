@@ -163,12 +163,13 @@ for k=1:siz
         if k==1; Ytot_Papad2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         sigma_g_la=soilFD.sigma_g_total(1,:);
         e_g_la=soilFD.e_g_total(1,:);
+        m_g_la=soilFD.m_g;
         global kxa;if isempty(kxa);kxa='k0';end;
         t=-soilFD.layer(1).t;
         % Self
-        Ps2la=P_ohl_slf_2lay(h,cab_ex,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
+        Ps2la=P_ohl_slf_2lay(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
         % Mutual
-        Pm2la=P_ohl_mut_2lay(h,d,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
+        Pm2la=P_ohl_mut_2lay(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
         % Total matrices
         Pg_Papad2La=Ps2la+Pm2la;
         P_Papad2La=Pin+Pg_Papad2La;
@@ -302,7 +303,6 @@ for k=1:siz
             o=o+1;
         end
     end
-
 end % of main loop
 
 %% TESTME
@@ -313,7 +313,7 @@ if useFormula('ImportCYZ')
         if size(CYZ,1) ~= Nph; error('The supplied LineCable_Data file has a different number of phases than the current model. Comparing oranges to potatoes eh?'); end
         CYZ = interp_matrix(CYZ, w, omega_total);
         out(o).VarName='Ytot_CYZ';
-        out(o).Label='LineCable_Data';
+        out(o).Label='LineCableData';
         out(o).Values=CYZ;
         o=o+1;
     else

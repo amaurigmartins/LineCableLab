@@ -252,11 +252,12 @@ for k=1:siz
         if k==1; Ztot_Naka2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         sigma_g_la=soilFD.sigma_g_total(1,:);
         e_g_la=soilFD.e_g_total(1,:);
+        m_g_la=soilFD.m_g;
         %0 for sunde, k0 for nakagawa %%%%%%%%%%%%%%%%%%% CHECK ME
         global kxa;if isempty(kxa);kxa='k0';end; 
         t=-soilFD.layer(1).t;
-        Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
-        Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
+        Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
+        Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
         % Total matrices
         Zg_Naka2La=Zs2la+Zm2la;
         Z_Naka2La=Zin+Zg_Naka2La;
@@ -399,7 +400,7 @@ if useFormula('ImportCYZ')
         if size(CYZ,1) ~= Nph; error('The supplied LineCable_Data file has a different number of phases than the current model. Comparing oranges to potatoes eh?'); end
         CYZ = interp_matrix(CYZ, w, omega_total);
         out(o).VarName='Ztot_CYZ';
-        out(o).Label='LineCable_Data';
+        out(o).Label='LineCableData';
         out(o).Values=CYZ;
         o=o+1;
     else
