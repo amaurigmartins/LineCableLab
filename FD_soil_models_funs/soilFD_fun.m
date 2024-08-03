@@ -59,6 +59,6 @@ end
 soilFD.erg_total=erg_total;
 soilFD.sigma_g_total = sigma_g_total;
 soilFD.e_g_total = e_g_total;
-
+soilFD.m_g = m_g;
 end
 
