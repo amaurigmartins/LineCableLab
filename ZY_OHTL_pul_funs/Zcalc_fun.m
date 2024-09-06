@@ -369,7 +369,7 @@ for k=1:siz
     %%%% FEMM solver
     if useFormula('FEMM')
 
-        foldername=fullfile(currPath,'femm_files');
+        foldername=fullfile(currPath,'femm_files_Z');
         if isfolder(foldername)
             rmdir(foldername, 's');
         end
