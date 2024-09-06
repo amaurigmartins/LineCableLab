@@ -507,14 +507,14 @@ datastr{1,1}=    'C SHORT-CIRCUIT BUNDLED PHASES';
 datastr{end+1,1}='C < n1 >< n2 ><ref1><ref2>< R  >< L  >< C  >';
 for k=0:1:numblocks       %'  50005A50005B              1E-6'
     for j=1:length(sw_idx)-1
-        datastr{end+1,1}=sprintf('  P%d%04dP%d%04d              1.0E-5           ',sw_idx(j),k,sw_idx(j+1),k); %fucking lazy half assed solution, needs to improve for generality
+        datastr{end+1,1}=sprintf('  P%d%04dP%d%04d            1.0E-5           ',sw_idx(j),k,sw_idx(j+1),k); %fucking lazy half assed solution, needs to improve for generality
     end
 
     for j=1:numel(bundled_conductors)
         thisbundle=bundled_conductors{j};
         if length(thisbundle)>1
             for jj=1:length(thisbundle)-1
-                datastr{end+1,1}=sprintf('  P%d%04dP%d%04d              1.0E-5           ',thisbundle(jj),k,thisbundle(jj+1),k); %fucking lazy half assed solution, needs to improve for generality
+                datastr{end+1,1}=sprintf('  P%d%04dP%d%04d            1.0E-5           ',thisbundle(jj),k,thisbundle(jj+1),k); %fucking lazy half assed solution, needs to improve for generality
             end
         end
     end

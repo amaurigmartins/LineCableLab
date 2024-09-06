@@ -6,7 +6,7 @@ function [] = func_replace_string(InputFile, OutputFile, SearchString, ReplaceSt
 % ReplaceString - string
 % read whole model file data into cell array
 fid = fopen(InputFile);
-data = textscan(fid, '%s', 'Delimiter', '\n', 'CollectOutput', true);
+data = textscan(fid, '%s', 'Delimiter', '\n', 'whitespace', '', 'CollectOutput', true);
 fclose(fid);
 % modify the cell array
 % find the position where changes need to be applied and insert new data
