@@ -17,12 +17,13 @@ rho=app.ResistivitymEditField.Value; %soil resistivity
 minTargetLength=app.SubdivisionmEditField.Value; %pipeline will be subdivided every minTargetLength meters
 
 [GeometricData, LCCData] = calcCouplingRegionsParams(src,tgt,minTargetLength); %don't try to understand what this is, it's just... WEIRD
-G=calcGreenFuns(src,tgt,rho);
 
 src=GeometricData(:,1:2);
 src=src(LCCData(:,4)==1,:);
-
 tgt=GeometricData(:,3:4);
+
+% Define ground potential coefficients
+G=calcGreenFuns(src,tgt,rho);
 
 % Cross-section
 linecable_data = cell2matButNotStupid(app,app.UITable.Data);
