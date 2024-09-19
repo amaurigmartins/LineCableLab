@@ -37,8 +37,8 @@ Zin_tmp1=mparam./(2*pi*radius_ex.*sigma_w);
 %     end
 % end
 
-w1=mparam.*radius_ex;
-w2=mparam.*radius_in;
+w1=mparam.*radius_in;
+w2=mparam.*radius_ex;
 % z_non_scaled = Zin_tmp1 * (besseli(0, w1) * besselk(1, w2) + besseli(1, w2) * besselk(0, w1)) / ...
 %     (besseli(1, w2) * besselk(1, w1) + besseli(1, w1) * besselk(1, w2));
 
@@ -46,7 +46,8 @@ s1 = exp(abs(real(w1)) - w2);
 s2 = exp(abs(real(w2)) - w1);
 sc = s1/s2;
 
-z_scaled = Zin_tmp1 * (sc * besseli(0, w1, 1) * besselk(1, w2, 1) + besseli(1, w2, 1) * besselk(0, w1, 1)) / (besseli(1, w2, 1) * besselk(1, w1, 1) + sc * besseli(1, w1, 1) * besselk(1, w2, 1));
+z_scaled = Zin_tmp1*(sc*besseli(0, w1, 1)*besselk(1, w2, 1) + besseli(1, w2, 1)*besselk(0, w1, 1)) / ...
+                         (besseli(1, w2, 1)*besselk(1, w1, 1) + sc*besseli(1, w1, 1)*besselk(1, w2, 1));
 zin = z_scaled;
 
 end
