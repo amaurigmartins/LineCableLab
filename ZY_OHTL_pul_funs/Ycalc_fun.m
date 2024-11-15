@@ -4,7 +4,7 @@ if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
 fieldNames=fieldnames(opts);
-idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile') | strcmp(fieldNames, 'EHEMflag')));
 
 if isstruct(opts)
     fieldValues = struct2cell(opts);
@@ -53,13 +53,27 @@ end
 % Compute the actual parameters
 e0=8.854187817e-12;  % Farads/meters
 o=1; % counter for the number of outputs
+m_g=soilFD.m_g;
 for k=1:siz
     omega=omega_total(k);
     f=f_total(k);
-    sigma_g=soilFD.sigma_g_total(k);
-    m_g=soilFD.m_g(end);
-    e_g=soilFD.e_g_total(k);
-    
+
+    % uniform soil formulations use sigma_g and e_g of the bottom layer by default
+    sigma_g=soilFD.sigma_g_total(k,end);
+    e_g=soilFD.e_g_total(k,end);
+    append_tag = 'bottom layer';
+    % uses EHEM approach for layered soils
+    if soilFD.num_layers > 1 && isfield(opts,'EHEMflag')
+        if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
+            sigma_g=soilFD.sigma_eff(k);
+            append_tag = 'EHEM-sigma';
+        elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
+            sigma_g=soilFD.sigma_eff(k);
+            e_g=soilFD.eps_eff(k);
+            append_tag = 'EHEM-gamma';
+        end
+    end
+   
     %%%% Potential Coeficients of Conductor insulation
     Pin_mat=Pins_mat_fun(ord,Geom);
     Pin=Pin_mat./(2*pi*e0);
@@ -163,7 +177,7 @@ for k=1:siz
         if k==1; Ytot_Papad2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         sigma_g_la=soilFD.sigma_g_total(1,:);
         e_g_la=soilFD.e_g_total(1,:);
-        m_g_la=soilFD.m_g;
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         global kxa;if isempty(kxa);kxa='k0';end;
         t=-soilFD.layer(1).t;
         % Self
@@ -305,6 +319,28 @@ for k=1:siz
     end
 end % of main loop
 
+% Add decent labels to uniform soil results if a layered structure is
+% present
+if soilFD.num_layers > 1
+    for i = 1:numel(out)
+        % Get the current label
+        label = out(i).Label;
+        
+        % Check and skip if layered formulation 
+        if contains(label, 'layers', 'IgnoreCase', true) || contains(label, 'FEMM', 'IgnoreCase', true)
+            continue;  % Skip to the next iteration, leave this label untouched
+        end
+
+        % Check if the label already has something in parentheses at the end
+        if regexp(label, '\(.*\)$')  % Regular expression to find existing parentheses at the end
+            % Append tag inside the existing parentheses
+            out(i).Label = regexprep(label, '\((.*)\)$', ['($1, ' append_tag ')']);
+        else
+            % No parentheses at the end, so just add tag at the end
+            out(i).Label = [label ' (' append_tag ')'];
+        end
+    end
+end
 %% TESTME
 if useFormula('ImportCYZ')
     fname=opts.CYZfile;
