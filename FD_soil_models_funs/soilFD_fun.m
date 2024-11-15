@@ -19,11 +19,9 @@ for l=1:num_layers
     % Earth Electric Parameters
     if l==num_layers
         epsr(:,l)=soil.erg;         %relative permittivity of earth
-        m_g(:,l)=soil.m_g;     %permeability of earth
         sig(:,l)=soil.sigma_g; %conductivity of earth
     elseif l < num_layers
         epsr(:,l)=soil.layer(l).erg;         %relative permittivity of earth
-        m_g(:,l)=soil.layer(l).m_g;     %permeability of earth
         sig(:,l)=soil.layer(l).sigma_g; %conductivity of earth
     end
 
@@ -56,9 +54,26 @@ for l=1:num_layers
 
 end
 
+soilFD.num_layers=num_layers;
 soilFD.erg_total=erg_total;
 soilFD.sigma_g_total = sigma_g_total;
 soilFD.e_g_total = e_g_total;
-soilFD.m_g = m_g;
+
+if num_layers > 1
+    gamma_eq = zeros(siz,1);
+    eps_eff = zeros(siz,1);
+    sigma_eff = zeros(siz,1);
+    t= [soil.layer(:).t];
+    for i=1:siz
+        freq = f_total(i);
+        sigma = sigma_g_total(i,:);
+        epsr = erg_total(i,:);
+        [gamma_eq(i), eps_eff(i), sigma_eff(i)] = calc_equivalent_gamma(sigma, epsr, t, freq);
+    end
+    soilFD.gamma_eq=gamma_eq;
+    soilFD.eps_eff=eps_eff;
+    soilFD.sigma_eff=sigma_eff;
+end
+
 end
 
