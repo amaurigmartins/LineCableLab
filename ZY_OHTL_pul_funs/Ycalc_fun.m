@@ -196,6 +196,31 @@ for k=1:siz
             o=o+1;
         end
     end
+
+    %%%% Papadopoulos (underground, 2-layered soil)
+    if useFormula('Papad2LayersUnder')
+        if k==1; Ytot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
+        sigma_g_la=soilFD.sigma_g_total(1,:);
+        e_g_la=soilFD.e_g_total(1,:);
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        global kxe;if isempty(kxe);kxe=1;end;
+        t=-soilFD.layer(1).t;
+        % Self
+        Ps2la_under=P_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        % Mutual
+        Pm2la_under=P_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        % Total matrices
+        Pg_Papad2LaUnder=Ps2la_under+Pm2la_under;
+        P_Papad2LaUnder=Pin+Pg_Papad2LaUnder;
+        Ptot_Papad2LaUnder = bundleReduction(ph_order,P_Papad2LaUnder);
+        Ytot_Papad2LaUnder(:,:,k)=1i.*omega.*inv(Ptot_Papad2LaUnder);
+        if k==siz
+            out(o).VarName='Ytot_Papad2LaUnder';
+            out(o).Label='Papadopoulos (underground, 2-layers)';
+            out(o).Values=Ytot_Papad2LaUnder;
+            o=o+1;
+        end
+    end
     
     %%%% Papadopoulos (underground)
     if useFormula('Papadopoulos')

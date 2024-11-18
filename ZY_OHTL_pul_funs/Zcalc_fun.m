@@ -283,6 +283,28 @@ for k=1:siz
         end
     end
 
+    %%%% Papadopoulos (underground, 2-layered soil)
+    if useFormula('Papad2LayersUnder')
+        if k==1; Ztot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
+        sigma_g_la=soilFD.sigma_g_total(1,:);
+        e_g_la=soilFD.e_g_total(1,:);
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        global kxe;if isempty(kxe);kxe=1;end; 
+        t=-soilFD.layer(1).t;
+        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        % Total matrices
+        Zg_Papad2LaUnder=Zs2la_under+Zm2la_under;
+        Z_Papad2LaUnder=Zin+Zg_Papad2LaUnder;
+        Ztot_Papad2LaUnder(:,:,k) = bundleReduction(ph_order,Z_Papad2LaUnder);
+        if k==siz
+            out(o).VarName='Ztot_Papad2LaUnder';
+            out(o).Label='Papadopoulos (underground, 2-layers)';
+            out(o).Values=Ztot_Papad2LaUnder;
+            o=o+1;
+        end
+    end
+   
     %%%% Papadopoulos (underground)
     if useFormula('Papadopoulos')
         if k==1; Ztot_Papad=zeros(Nph,Nph,siz); end % Prelocate matrix
