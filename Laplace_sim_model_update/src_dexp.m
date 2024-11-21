@@ -65,4 +65,4 @@ vo1=[zeros(1,int32(time_cl_brkr*e)),d_emp_fun]; % Double exponential with switch
 Cn=exp(-c*data_t_sim)*(1/e);
 
 Vo1=fft(vo1.*Cn); % FFT of double exponential (with image)
-Vo1=Vo1(1,1:(samples/2+1)); % FFT of double exponential (without image)
+Vo1=Vo1(1,1:(round(samples/2)+1)); % FFT of double exponential (without image)
