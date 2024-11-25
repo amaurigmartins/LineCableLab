@@ -108,7 +108,7 @@ For the semi-infinite integral, the shifted domain becomes:
 ```math
 \int_{u_{\text{start}}}^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_{\text{start}}} \cdot \int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx
 ```
-- Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ is applied **once, outside the loop**.
+- Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{\text{start}}) dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ is applied **once, outside the loop**.
   
 The `compute_laguerre_integral` function implements:
 ```matlab
