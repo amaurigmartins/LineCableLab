@@ -117,15 +117,13 @@ In the computation of `Gu_2`, the **Laguerre transformation shifts the effective
 1. The use of shifted $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$.
 2. The exponential decay factor $e^{-u}$, inherent in Laguerre quadrature.
 
-Thus, even though `Gu_2` is computed using Gauss-Laguerre points and weights, it effectively integrates from $u_1$ to infinity.
-
-This clever use of Gauss-Laguerre quadrature avoids having to directly handle the infinite upper bound $\infty$. The semi-infinite domain $[u_1, \infty)$ is "transformed" into a summation over Laguerre nodes and weights, with the scaling and shifting done via:
+Thus, even though `Gu_2` is computed using Gauss-Laguerre points and weights, it effectively integrates from $u_1$ to infinity. This clever use of Gauss-Laguerre quadrature avoids having to directly handle the infinite upper bound $\infty$. The semi-infinite domain $[u_1, \infty)$ is "transformed" into a summation over Laguerre nodes and weights, with the scaling and shifting done via:
 
 ```matlab
 u_new = points(v) / (2 * height) + u_start;
 ```
 
-So, **`Gu_2` does indeed compute the contribution from $[u_1, \infty)$**, even though it’s not immediately obvious from the code.
+In conclusion, **`Gu_2` does indeed compute the contribution from $[u_1, \infty)$**, even though it’s not immediately obvious from the code.
 
 ---
 
