@@ -97,7 +97,12 @@ function F = nakagawa(u, omega, permittivity)
     F = 1 / (u + sqrt(u^2 + 1j * omega * mu_0 * (1 / permittivity)));
 end
 ```
-
+### Description of the numerical integration method as per 10.1109/TPWRD.2005.855448
+> A novel numerical integration technique is applied for the calculation of the infinite integrals of (1) and (2). It is based on the presence of the terms $e^{-(h_i+h_j)u}$ and $e^{-2 h_i u}$ in the integrand and on the observation that the integral of (2) has as a factor the term $cos(uy)$. Therefore, some of the roots of the integrand are known. Thus, when the horizontal distance $y$ between the two conductors is not zero, the integral in the right part of (2) can be calculated as follows.
+> The Gauss–Legendre method [14] is applied to calculate the integral between zero and the first root of $cos(uy)$, as this method is capable of handling the initial steep descent of the integrand.  Then the Lobatto rule [10] is applied in the intervals between subsequent roots of $cos(uy)$.  The procedure is repeated until convergence is achieved, controlled by a user defined tolerance, set to $10^{-9}$ in this paper.
+> For the calculation of the integral in (1) or the integral in (2) in the case where the horizontal distance $y$ is zero, the procedure is described below.
+> The Gauss–Legendre method is applied in order to find the integral at an initial interval between zero and $u_0 = 4 \times 10^{-4}/(h_i+h_j)$ in (2) or $u_0 = 4 \times 10^{-4}/(2h_i)$ in (1). Then the shifted Gauss-Laguerre method [14] is used for the evaluation of the rest of the integral. The procedure is repeated iteratively. In each iteration, the initial interval is bisected and the use of the Gauss–Legendre method is extended by $10 u_0$ intervals to the right of $u_0$.  Convergence is achieved when the absolute difference between two succedent values of calculated integral is less than the predefined tolerance.
+> In all cases examined, convergence is achieved after 3–4 iterations.
 
 ### **1. Initial computation using Gauss-Legendre quadrature**
 
