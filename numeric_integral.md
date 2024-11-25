@@ -13,20 +13,17 @@ This term evaluates the integral over the interval $[0, u_1]$ using **Gauss-Lege
 Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
 ```
 
-- **Purpose**:
-  - Compute the initial segment of the integral from 0 to the first integration step size `u(1)`, where the function typically has a **steep descent** (as the paper mentions).
-  - **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
-  - Gauss-Legendre quadrature is well-suited for this, as it accurately handles functions with rapid changes in this region.
-    
-- **Key behavior**:
-  - It divides $[0, u_1]$ into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
-    
-- **Details**:
-  - The first interval $u_1$ is estimated as:
-    ```matlab
-    u(1) = 4e-4 / (2 * height);
-    ```
-    This scales the step size by the conductor height, ensuring it is small enough to capture the steep descent behavior.
+The general description of the computation is as follows:
+- Compute the initial segment of the integral from 0 to the first integration step size `u(1)`, where the function typically has a **steep descent** (as the paper mentions).
+- **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
+- Gauss-Legendre quadrature is well-suited for this, as it accurately handles functions with rapid changes in this region.
+- It divides $[0, u_1]$ into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
+
+The first interval $u_1$ is estimated as:
+```matlab
+u(1) = 4e-4 / (2 * height);
+```
+This scales the step size by the conductor height, ensuring it is small enough to capture the steep descent behavior.
 
 ---
 
