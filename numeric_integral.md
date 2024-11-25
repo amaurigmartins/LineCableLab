@@ -1,4 +1,4 @@
-### Description of the numerical integration method as per 10.1109/TPWRD.2005.855448
+### Appendix B of 10.1109/TPWRD.2005.855448
 > A novel numerical integration technique is applied for the calculation of the infinite integrals of (1) and (2). It is based on the presence of the terms $e^{-(h_i+h_j)u}$ and $e^{-2 h_i u}$ in the integrand and on the observation that the integral of (2) has as a factor the term $cos(uy)$. Therefore, some of the roots of the integrand are known. Thus, when the horizontal distance $y$ between the two conductors is not zero, the integral in the right part of (2) can be calculated as follows.
 
 > The Gauss–Legendre method [14] is applied to calculate the integral between zero and the first root of $cos(uy)$, as this method is capable of handling the initial steep descent of the integrand.  Then the Lobatto rule [10] is applied in the intervals between subsequent roots of $cos(uy)$.  The procedure is repeated until convergence is achieved, controlled by a user defined tolerance, set to $10^{-9}$ in this paper.
@@ -9,7 +9,8 @@
 
 > In all cases examined, convergence is achieved after 3–4 iterations.
 
-A breakdown of the numerical algorithm is provided below.
+
+###A breakdown of the numerical algorithm is provided below.
 
 ---
 
