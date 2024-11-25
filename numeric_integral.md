@@ -10,7 +10,7 @@
 > In all cases examined, convergence is achieved after 3–4 iterations.
 
 
-### A breakdown of the numerical algorithm is provided below.
+#### A breakdown of the numerical algorithm is provided below.
 
 ---
 
