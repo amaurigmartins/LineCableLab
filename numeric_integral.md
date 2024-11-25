@@ -67,7 +67,7 @@ It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interv
 - `Gu_1`: Covers $[0, u_1]$.
 - `Gu_2`: Covers $[u_1, \infty)$.
 
-### **How Gauss-Laguerre handles semi-infinite domains**
+#### **How Gauss-Laguerre handles semi-infinite domains**
 
 Gauss-Laguerre quadrature is specifically designed for **semi-infinite integrals** of the form:
 
