@@ -94,9 +94,9 @@ Where:
   $u_{\text{new}} = u_1 + \frac{x_v}{2 \cdot h}$
 
   From the code:
-  ```matlab
-  u_new = points(v) / (2 * height) + u_start;
-  ```
+```matlab
+u_new = points(v) / (2 * height) + u_start;
+```
   
   - $u_{\text{start}}$: Acts as the starting point of the shifted interval $u_1$.
   - $points(v) / (2 \cdot height)$: Scales the Laguerre nodes appropriately for the integration range.
@@ -108,9 +108,9 @@ Where:
   Laguerre quadrature implicitly accounts for the exponential decay $e^{-u}$. When $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$, the decay factor $e^{-2 h \cdot u_{\text{new}}}$ is naturally incorporated into the computation. The scaling factor $1 / (2 \cdot h)$ ensures proper handling of the semi-infinite range.
   
   From the code:
-  ```matlab
-  G = G + weights(v) * F_u; % Sum the weighted function values
-  ```
+```matlab
+G = G + weights(v) * F_u; % Sum the weighted function values
+```
 
 In the computation of `Gu_2`, the **Laguerre transformation shifts the effective interval** to $[u_1, \infty)$ without explicitly stating so. Instead, this happens "automatically" due to:
 
