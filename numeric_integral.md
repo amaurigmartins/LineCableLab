@@ -101,14 +101,14 @@ The general description of the computation is as follows:
 - Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature, i.e. the part of the integral extending to **infinity**, starting at $u_0$.
 - Laguerre quadrature naturally handles the **exponential decay** of terms like $e^{-2 h \cdot u}$, which dominate in the semi-infinite domain.
 - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$. It **assumes the exponential decay $e^{-x}$** is already factored into the quadrature weights and nodes.
-- In this case, $e^{-2 \cdot \text{height} \cdot u_{\text{new}}}$ is already **accounted for by the Laguerre quadrature weights** (inherently designed for $e^{-x}$), so only $e^{-2 \cdot \text{height} \cdot u_0}$ needs to be applied **after the summation**.
+- In this case, $e^{-2 \cdot \text{height} \cdot u_{\text{new}}}$ is already **accounted for by the Laguerre quadrature weights** (inherently designed for $e^{-x}$), so only $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ needs to be applied **after the summation**.
 
 #### **Integral formulation**
 For the semi-infinite integral, the shifted domain becomes:
 ```math
-\int_{u_0}^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_0} \cdot \int_0^\infty e^{-x} f(x + u_{0}) \, dx
+\int_{u_{\text{start}}}^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_{\text{start}}} \cdot \int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx
 ```
-Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{0}) dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_0}$ is applied **once, outside the loop**.
+- Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{\text{start}}) dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ is applied **once, outside the loop**.
   
 The `compute_laguerre_integral` function implements:
 ```matlab
