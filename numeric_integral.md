@@ -79,7 +79,7 @@ To compute an integral over $[u_1, \infty)$, the **Laguerre transformation shift
 u_new = points(v) / (2 * height) + u_start;
 ```
 
-- **Step 1: Original semi-infinite interval**
+**Step 1: Original semi-infinite interval**
   The base **Laguerre quadrature nodes (`points`) and weights (`weights`)** are computed for the standard interval $[0, \infty)$, using the formula:
 
 $\int_{0}^{\infty} e^{-u} f(u) \, du \approx \sum_{v=1}^n w_v f(x_v)$
@@ -88,7 +88,7 @@ Where:
 - $x_v$: Gauss-Laguerre nodes.
 - $w_v$: Gauss-Laguerre weights.
 
-- **Step 2: Shifting the interval to start at $u_1$ **
+**Step 2: Shifting the interval to start at $u_1$**
   To extend the integration domain to $[u_1, \infty)$, the variable $u$ is **shifted** by adding $u_1$:
 
   $u_{\text{new}} = u_1 + \frac{x_v}{2 \cdot h}$
@@ -103,7 +103,7 @@ u_new = points(v) / (2 * height) + u_start;
 
   This transformation moves the integration domain from $[0, \infty)$ to $[u_1, \infty)$.
 
-- **Step 3: How the exponential decay is handled**
+**Step 3: How the exponential decay is handled**
 
   Laguerre quadrature implicitly accounts for the exponential decay $e^{-u}$. When $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$, the decay factor $e^{-2 h \cdot u_{\text{new}}}$ is naturally incorporated into the computation. The scaling factor $1 / (2 \cdot h)$ ensures proper handling of the semi-infinite range.
   
