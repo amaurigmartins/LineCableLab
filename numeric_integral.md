@@ -37,13 +37,13 @@ end
 ```
 
 ##### **`Gu_1`: Gauss-Legendre quadrature**
-This term evaluates the integral over the interval $[0, u_1]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**. The general description of the computation is as follows:
+This term evaluates the integral over the interval $[0, u_0]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**. The general description of the computation is as follows:
 - Compute the initial segment of the integral from 0 to the first integration step size `u(1)`, where the function typically has a **steep descent** (as the paper mentions).
 - **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
 - Gauss-Legendre quadrature is well-suited for this, as it accurately handles functions with rapid changes in this region.
-- It divides $[0, u_1]$ into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
+- It divides $[0, u_0]$ into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
 
-The first interval $u_1$ is estimated as:
+The first interval $u_0$ is estimated as:
 ```matlab
 u(1) = 4e-4 / (2 * height);
 ```
@@ -57,7 +57,7 @@ This scales the step size by the conductor height, ensuring it is small enough t
 > "Then the shifted Gauss-Laguerre method is used for the evaluation of the rest of the integral."
 
 ##### **`Gu_2`: Gauss-Laguerre Quadrature**
-This term evaluates the **semi-infinite part of the integral** starting from $u_1$. Specifically, it uses **Gauss-Laguerre quadrature**, which is designed for intervals of the form $[u_1, \infty)$.
+This term evaluates the **semi-infinite part of the integral** starting from $u_0$. Specifically, it uses **Gauss-Laguerre quadrature**, which is designed for intervals of the form $[u_0, \infty)$.
 
 #### Code mapping:
 This is handled by the **Laguerre quadrature** computation:
@@ -80,7 +80,7 @@ end
 ```
 
 The general description of the computation is as follows:
-- Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature, i.e. the part of the integral extending to **infinity**, starting at $u_1$.
+- Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature, i.e. the part of the integral extending to **infinity**, starting at $u_0$.
 - Laguerre quadrature naturally handles the **exponential decay** of terms like $e^{-2 h \cdot u}$, which dominate in the semi-infinite domain.
 - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$.
 
@@ -105,20 +105,20 @@ function F = nakagawa(u, omega, permittivity)
 end
 ```
 
-The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_1, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
+The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_0, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
 
 The paper explains why **two methods** are used:
-1. **Gauss-Legendre for $[0, u_1]$**:
+1. **Gauss-Legendre for $[0, u_0]$**:
 - This interval contains a **steep descent** of the integrand, which Gauss-Legendre handles efficiently for short, finite intervals.
 - The sharp initial decay means that uniform quadrature (e.g., trapezoidal) would need many points to achieve similar accuracy.
 
-2. **Gauss-Laguerre for $[u_1, \infty)$**:
+2. **Gauss-Laguerre for $[u_0, \infty)$**:
 - This region is dominated by the **exponential decay** $e^{-2 h \cdot u}$, making Laguerre quadrature the natural choice for efficient evaluation.
 - Using Gauss-Legendre here would require transforming the infinite domain or truncating it, which is less efficient.
 
 It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interval. They are complementary contributions to the overall integral:
-- `Gu_1`: Covers $[0, u_1]$.
-- `Gu_2`: Covers $[u_1, \infty)$.
+- `Gu_1`: Covers $[0, u_0]$.
+- `Gu_2`: Covers $[u_0, \infty)$.
 
 #### **How Gauss-Laguerre handles semi-infinite domains**
 
@@ -126,7 +126,7 @@ Gauss-Laguerre quadrature is specifically designed for **semi-infinite integrals
 
 $\int_{0}^{\infty} e^{-x} f(x) \, dx$
 
-To compute an integral over $[u_1, \infty)$, the **Laguerre transformation shifts the semi-infinite domain** $[0, \infty)$ to start from $u_1$. This shift is performed in the code using the term:
+To compute an integral over $[u_0, \infty)$, the **Laguerre transformation shifts the semi-infinite domain** $[0, \infty)$ to start from $u_0$. This shift is performed in the code using the term:
 
 ```matlab
 u_new = points(v) / (2 * height) + u_start;
@@ -141,42 +141,42 @@ Where:
 - $x_v$: Gauss-Laguerre nodes.
 - $w_v$: Gauss-Laguerre weights.
 
-**Step 2: Shifting the interval to start at $u_1$**
-  To extend the integration domain to $[u_1, \infty)$, the variable $u$ is **shifted** by adding $u_1$:
+**Step 2: Shifting the interval to start at $u_0$**
+  To extend the integration domain to $[u_0, \infty)$, the variable $u$ is **shifted** by adding $u_0$:
 
-  $u_{\text{new}} = u_1 + \frac{x_v}{2 \cdot h}$
+  $u_{\text{new}} = u_0 + \frac{x_v}{2 \cdot h}$
 
   From the code:
 ```matlab
 u_new = points(v) / (2 * height) + u_start;
 ```
   
-  - `u_start`: Acts as the starting point of the shifted interval $u_1$.
+  - `u_start`: Acts as the starting point of the shifted interval $u_0$.
   - `points(v) / (2 * height)`: Scales the Laguerre nodes appropriately for the integration range.
 
-  This transformation moves the integration domain from $[0, \infty)$ to $[u_1, \infty)$.
+  This transformation moves the integration domain from $[0, \infty)$ to $[u_0, \infty)$.
 
 **Step 3: How the exponential decay is handled**
 
-  Laguerre quadrature implicitly accounts for the exponential decay $e^{-u}$. When $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$, the decay factor $e^{-2 h \cdot u_{\text{new}}}$ is naturally incorporated into the computation. The scaling factor $1 / (2 \cdot h)$ ensures proper handling of the semi-infinite range.
+  Laguerre quadrature implicitly accounts for the exponential decay $e^{-u}$. When $u_{\text{new}} = u_0 + x_v / (2 \cdot h)$, the decay factor $e^{-2 h \cdot u_{\text{new}}}$ is naturally incorporated into the computation. The scaling factor $1 / (2 \cdot h)$ ensures proper handling of the semi-infinite range.
   
   From the code:
 ```matlab
 G = G + weights(v) * F_u; % Sum the weighted function values
 ```
 
-In the computation of `Gu_2`, the **Laguerre transformation shifts the effective interval** to $[u_1, \infty)$ without explicitly stating so. Instead, this happens "automatically" due to:
+In the computation of `Gu_2`, the **Laguerre transformation shifts the effective interval** to $[u_0, \infty)$ without explicitly stating so. Instead, this happens "automatically" due to:
 
-1. The use of shifted $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$.
+1. The use of shifted $u_{\text{new}} = u_0 + x_v / (2 \cdot h)$.
 2. The exponential decay factor $e^{-u}$, inherent in Laguerre quadrature.
 
-Thus, even though `Gu_2` is computed using Gauss-Laguerre points and weights, it effectively integrates from $u_1$ to infinity. This clever use of Gauss-Laguerre quadrature avoids having to directly handle the infinite upper bound $\infty$. The semi-infinite domain $[u_1, \infty)$ is "transformed" into a summation over Laguerre nodes and weights, with the scaling and shifting done via:
+Thus, even though `Gu_2` is computed using Gauss-Laguerre points and weights, it effectively integrates from $u_0$ to infinity. This clever use of Gauss-Laguerre quadrature avoids having to directly handle the infinite upper bound $\infty$. The semi-infinite domain $[u_0, \infty)$ is "transformed" into a summation over Laguerre nodes and weights, with the scaling and shifting done via:
 
 ```matlab
 u_new = points(v) / (2 * height) + u_start;
 ```
 
-In conclusion, **`Gu_2` does indeed compute the contribution from $[u_1, \infty)$**, even though it’s not immediately obvious from the code.
+In conclusion, **`Gu_2` does indeed compute the contribution from $[u_0, \infty)$**, even though it’s not immediately obvious from the code.
 
 ---
 
@@ -223,7 +223,7 @@ end
   - `u(i)` defines the new integration bound, increasing logarithmically to cover the semi-infinite domain.
 - **Key steps**:
   1. **`Gu_3`**:
-     - Computes a small segment at the leftmost interval $[0, u_1/2]$ using Gauss-Legendre.
+     - Computes a small segment at the leftmost interval $[0, u_0/2]$ using Gauss-Legendre.
   2. **`Gu_4`**:
      - Computes the interval between the two successive bounds $[u(i-1), u(i)]$ using Gauss-Legendre.
   3. **`Gu_6`**:
