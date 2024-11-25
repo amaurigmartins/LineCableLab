@@ -1,18 +1,26 @@
 ### **1. Initial Computation Using Gauss-Legendre Quadrature**
 
-#### Paper’s Description:
+#### Paper’s description:
 > "The Gauss–Legendre method is applied to calculate the integral between zero and the first root... as this method is capable of handling the initial steep descent of the integrand."
 
-#### Code Mapping:
+#### Code mapping:
 This is handled by the **first Gauss-Legendre integral** computation in the `method_self_aeras_1_strwma` function:
+
+### **`Gu_1`: Gauss-Legendre quadrature**
+This term evaluates the integral over the interval \( [0, u_1] \) using **Gauss-Legendre quadrature**, which is suited for **finite intervals**.
 
 ```matlab
 Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
 ```
 
 - **Purpose**:
-  - Compute the initial segment of the integral from 0 to the first integration step size \( u(1) \).
+  - Compute the initial segment of the integral from 0 to the first integration step size \( u(1) \), where the function typically has a **steep descent** (as the paper mentions).
   - **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
+  - Gauss-Legendre quadrature is well-suited for this, as it accurately handles functions with rapid changes in this region.
+    
+- **Key behavior**:
+  - It divides \( [0, u_1] \) into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
+  - 
 - **Details**:
   - \( u(1) \) is defined as:
     ```matlab
@@ -24,10 +32,13 @@ Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittiv
 
 ### **2. Evaluation Using Laguerre Quadrature**
 
-#### Paper’s Description:
+#### Paper’s description:
 > "Then the shifted Gauss-Laguerre method is used for the evaluation of the rest of the integral."
 
-#### Code Mapping:
+### **`Gu_2`: Gauss-Laguerre Quadrature**
+This term evaluates the **semi-infinite part of the integral** starting from \( u_1 \). Specifically, it uses **Gauss-Laguerre quadrature**, which is designed for intervals of the form \( [u_1, \infty) \).
+
+#### Code mapping:
 This is handled by the **Laguerre quadrature** computation:
 
 ```matlab
@@ -36,7 +47,10 @@ Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittiv
 
 - **Purpose**:
   - Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature.
-- **How It Works**:
+  - Compute the part of the integral extending to **infinity**, starting at \( u_1 \).
+  - Laguerre quadrature naturally handles the **exponential decay** of terms like \( e^{-2 h \cdot u} \), which dominate in the semi-infinite domain.
+
+- **How it works**:
   - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights \( w_\text{laguerre} \) and nodes \( s_\text{laguerre} \) are designed to approximate integrals weighted by exponential decay terms \( e^{-x} \).
   - The `compute_laguerre_integral` function implements:
     ```matlab
@@ -44,6 +58,10 @@ Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittiv
     ```
     - \( u_{\text{start}} = u(1) \) ensures a shift to match the end of the Gauss-Legendre interval.
     - \( F_u \) is computed via the **Nakagawa function**, which is the main part of the integrand.
+
+  - **Key behavior**:
+  - The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like \( e^{-x} \). The interval \( [u_1, \infty) \) is effectively compressed into a manageable summation by Laguerre weights and nodes.
+
 
 ---
 
