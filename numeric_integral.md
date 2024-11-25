@@ -1,4 +1,4 @@
-### **1. Initial Computation Using Gauss-Legendre Quadrature**
+### **1. Initial computation using Gauss-Legendre quadrature**
 
 #### Paper’s description:
 > "The Gauss–Legendre method is applied to calculate the integral between zero and the first root... as this method is capable of handling the initial steep descent of the integrand."
@@ -20,7 +20,7 @@ Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittiv
     
 - **Key behavior**:
   - It divides \( [0, u_1] \) into sub-intervals using the **Legendre points and weights**, which optimally sample the steep descent.
-  - 
+    
 - **Details**:
   - \( u(1) \) is defined as:
     ```matlab
@@ -30,7 +30,7 @@ Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittiv
 
 ---
 
-### **2. Evaluation Using Laguerre Quadrature**
+### **2. Evaluation using Laguerre quadrature**
 
 #### Paper’s description:
 > "Then the shifted Gauss-Laguerre method is used for the evaluation of the rest of the integral."
@@ -62,7 +62,19 @@ Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittiv
   - **Key behavior**:
   - The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like \( e^{-x} \). The interval \( [u_1, \infty) \) is effectively compressed into a manageable summation by Laguerre weights and nodes.
 
+The paper clearly explains why **two methods** are used:
+1. **Gauss-Legendre for \( [0, u_1] \)**:
+   - This interval contains a **steep descent** of the integrand, which Gauss-Legendre handles efficiently for short, finite intervals.
+   - The sharp initial decay means that uniform quadrature (e.g., trapezoidal) would need many points to achieve similar accuracy.
 
+2. **Gauss-Laguerre for \( [u_1, \infty) \)**:
+   - This region is dominated by the **exponential decay** \( e^{-2 h \cdot u} \), making Laguerre quadrature the natural choice for efficient evaluation.
+   - Using Gauss-Legendre here would require transforming the infinite domain or truncating it, which is less efficient.
+
+It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interval. They are complementary contributions to the overall integral:
+- `Gu_1`: Covers \( [0, u_1] \).
+- `Gu_2`: Covers \( [u_1, \infty) \).
+  
 ---
 
 ### **3. Iterative Extension of Integration**
