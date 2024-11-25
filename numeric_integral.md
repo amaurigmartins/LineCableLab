@@ -7,7 +7,7 @@
 This is handled by the **first Gauss-Legendre integral** computation in the `method_self_aeras_1_strwma` function:
 
 ### **`Gu_1`: Gauss-Legendre quadrature**
-This term evaluates the integral over the interval \( [0, u_1] \) using **Gauss-Legendre quadrature**, which is suited for **finite intervals**.
+This term evaluates the integral over the interval $[0, u_1]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**.
 
 ```matlab
 Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
