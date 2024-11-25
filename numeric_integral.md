@@ -51,13 +51,13 @@ Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittiv
   - Laguerre quadrature naturally handles the **exponential decay** of terms like $e^{-2 h \cdot u}$, which dominate in the semi-infinite domain.
 
 - **How it works**:
-  - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $ s_\text{laguerre} $ are designed to approximate integrals weighted by exponential decay terms $ e^{-x} $.
+  - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$.
   - The `compute_laguerre_integral` function implements:
     ```matlab
     u_new = points(v) / (2 * height) + u_start;
     ```
-    - $ u_{\text{start}} = u(1) $ ensures a shift to match the end of the Gauss-Legendre interval.
-    - $ F_u $ is computed via the **Nakagawa function**, which is the main part of the integrand.
+    - $u_{\text{start}} = u(1)$ ensures a shift to match the end of the Gauss-Legendre interval.
+    - $F_u$ is computed via the **Nakagawa function**, which is the main part of the integrand.
 
   - **Key behavior**:
   - The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_1, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
@@ -79,7 +79,7 @@ It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interv
 
 Gauss-Laguerre quadrature is specifically designed for **semi-infinite integrals** of the form:
 
-$ \int_{0}^{\infty} e^{-x} f(x) \, dx$
+$\int_{0}^{\infty} e^{-x} f(x) \, dx$
 
 To compute an integral over $[u_1, \infty)$, the **Laguerre transformation shifts the semi-infinite domain** $[0, \infty)$ to start from $u_1$. This shift is performed in the code using the term:
 
@@ -88,9 +88,9 @@ u_new = points(v) / (2 * height) + u_start;
 ```
 
 - **Step 1: Original semi-infinite interval**
-  The base **Laguerre quadrature nodes (`points`) and weights (`weights`)** are computed for the standard interval \( [0, \infty) \), using the formula:
+  The base **Laguerre quadrature nodes (`points`) and weights (`weights`)** are computed for the standard interval $[0, \infty)$, using the formula:
 
-$ \int_{0}^{\infty} e^{-u} f(u) \, du \approx \sum_{v=1}^n w_v f(x_v) $
+$\int_{0}^{\infty} e^{-u} f(u) \, du \approx \sum_{v=1}^n w_v f(x_v)$
 
 Where:
 - $x_v$: Gauss-Laguerre nodes.
@@ -99,7 +99,7 @@ Where:
 - **Step 2: Shifting the interval to start at $u_1$ **
   To extend the integration domain to $[u_1, \infty)$, the variable $u$ is **shifted** by adding $u_1$:
 
-  $ u_{\text{new}} = u_1 + \frac{x_v}{2 \cdot h} $
+  $u_{\text{new}} = u_1 + \frac{x_v}{2 \cdot h}$
 
   From the code:
   ```matlab
@@ -113,7 +113,7 @@ Where:
 
 - **Step 3: How the exponential decay is handled**
 
-  Laguerre quadrature implicitly accounts for the exponential decay \( e^{-u} \). When \( u_{\text{new}} = u_1 + x_v / (2 \cdot h) \), the decay factor \( e^{-2 h \cdot u_{\text{new}}} \) is naturally incorporated into the computation. The scaling factor \( 1 / (2 \cdot h) \) ensures proper handling of the semi-infinite range.
+  Laguerre quadrature implicitly accounts for the exponential decay $e^{-u}$. When $u_{\text{new}} = u_1 + x_v / (2 \cdot h)$, the decay factor $e^{-2 h \cdot u_{\text{new}}}$ is naturally incorporated into the computation. The scaling factor $1 / (2 \cdot h)$ ensures proper handling of the semi-infinite range.
   
   From the code:
   ```matlab
