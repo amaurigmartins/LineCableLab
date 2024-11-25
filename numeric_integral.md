@@ -1,4 +1,5 @@
-### Refactored numeric integral implementation by Papagiannis et al.
+### Hybrid Gauss-Legendre /  Gauss-Laguerre quadrature implementation
+
 ```matlab
 function d_Z = method_self_aeras_1_strwma(frequency, permittivity_layers, height)
     % Numerically evaluate self-impedance integrals using hybrid quadrature
