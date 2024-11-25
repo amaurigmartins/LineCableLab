@@ -20,11 +20,12 @@
 > "The Gauss–Legendre method is applied to calculate the integral between zero and the first root... as this method is capable of handling the initial steep descent of the integrand."
 
 #### Code mapping:
-This is handled by the **first Gauss-Legendre integral** computation in the `method_self_aeras_1_strwma` function:
+This is handled by the **first Gauss-Legendre integral** computation in the function:
 
 ```matlab
 Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
 ```
+##### **`Gu_1`: Gauss-Legendre quadrature**
 
 ```matlab
 function G = compute_legendre_integral(interval, height, points, weights, permittivity, omega)
@@ -39,7 +40,6 @@ function G = compute_legendre_integral(interval, height, points, weights, permit
 end
 ```
 
-##### **`Gu_1`: Gauss-Legendre quadrature**
 This term evaluates the integral over the interval $[0, u_0]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**. The general description of the computation is as follows:
 - Compute the initial segment of the integral from 0 to the first integration step size `u(1)`, where the function typically has a **steep descent** (as the paper mentions).
 - **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
@@ -74,7 +74,6 @@ Here, $w_w$ are the weights and $u_w$ are the quadrature nodes.
 #### Paper’s description:
 > "Then the shifted Gauss-Laguerre method is used for the evaluation of the rest of the integral."
 
-##### **`Gu_2`: Gauss-Laguerre Quadrature**
 This term evaluates the **semi-infinite part of the integral** starting from $u_0$. Specifically, it uses **Gauss-Laguerre quadrature**, which is designed for intervals of the form $[u_0, \infty)$.
 
 #### Code mapping:
@@ -83,6 +82,7 @@ This is handled by the **Laguerre quadrature** computation:
 ```matlab
 Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittivity_layers);
 ```
+##### **`Gu_2`: Gauss-Laguerre Quadrature**
 
 ```matlab
 function G = compute_laguerre_integral(u_start, height, points, weights, permittivity)
@@ -100,8 +100,16 @@ end
 The general description of the computation is as follows:
 - Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature, i.e. the part of the integral extending to **infinity**, starting at $u_0$.
 - Laguerre quadrature naturally handles the **exponential decay** of terms like $e^{-2 h \cdot u}$, which dominate in the semi-infinite domain.
-- Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$.
+- Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$. It **assumes the exponential decay $e^{-x}$** is already factored into the quadrature weights and nodes.
+- In this case, $e^{-2 \cdot \text{height} \cdot u_{\text{new}}}$ is already **accounted for by the Laguerre quadrature weights** (inherently designed for $e^{-x}$), so only $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ needs to be applied **after the summation**.
 
+#### **Integral formulation**
+For the semi-infinite integral, the shifted domain becomes:
+```math
+\int_{u_{\text{start}}}^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_{\text{start}}} \cdot \int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx
+```
+- Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_{\text{start}}}$ is applied **once, outside the loop**.
+  
 The `compute_laguerre_integral` function implements:
 ```matlab
 u_new = points(v) / (2 * height) + u_start;
@@ -142,7 +150,9 @@ It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interv
 
 Gauss-Laguerre quadrature is specifically designed for **semi-infinite integrals** of the form:
 
-$\int_{0}^{\infty} e^{-x} f(x) \, dx$
+```math
+\int_{0}^{\infty} e^{-x} f(x) \, dx
+```
 
 To compute an integral over $[u_0, \infty)$, the **Laguerre transformation shifts the semi-infinite domain** $[0, \infty)$ to start from $u_0$. This shift is performed in the code using the term:
 
@@ -153,7 +163,9 @@ u_new = points(v) / (2 * height) + u_start;
 **Step 1: Original semi-infinite interval**
   The base **Laguerre quadrature nodes (`points`) and weights (`weights`)** are computed for the standard interval $[0, \infty)$, using the formula:
 
-$\int_{0}^{\infty} e^{-u} f(u) \, du \approx \sum_{v=1}^n w_v f(x_v)$
+```math
+\int_{0}^{\infty} e^{-u} f(u) \, du \approx \sum_{v=1}^n w_v f(x_v)
+```
 
 Where:
 - $x_v$: Gauss-Laguerre nodes.
@@ -204,7 +216,7 @@ In conclusion, **`Gu_2` does indeed compute the contribution from $[u_0, \infty)
 > "The procedure is repeated iteratively. In each iteration, the initial interval is bisected and the use of the Gauss–Legendre method is extended by intervals to the right of $u_0$."
 
 #### Code mapping:
-This is implemented in the **iterative loop** of `method_self_aeras_1_strwma`:
+This is implemented in the **iterative loop** of the code:
 
 ```matlab
 for i = 2:iteration_limit
