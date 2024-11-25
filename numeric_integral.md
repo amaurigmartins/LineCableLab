@@ -60,7 +60,7 @@ This scales the step size by the conductor height, ensuring it is small enough t
 
 #### **Integral formulation**
 For a finite interval $[a, b]$, the integral is approximated as:
-$\int_a^b e^{-2 \cdot \text{height} \cdot u} f(u) \, du \approx \sum_{w=1}^N w_w \cdot e^{-2 \cdot \text{height} \cdot u_w} \cdot f(u_w)$
+$$\int_a^b e^{-2 \cdot \text{height} \cdot u} f(u) \, du \approx \sum_{w=1}^N w_w \cdot e^{-2 \cdot \text{height} \cdot u_w} \cdot f(u_w)$$
 Here, $w_w$ are the weights and $u_w$ are the quadrature nodes.
 
 ---
