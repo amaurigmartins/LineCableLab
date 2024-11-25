@@ -205,9 +205,6 @@ for i = 2:iteration_limit
     Gu_6 = compute_laguerre_integral(u(i), height, s_laguerre, w_laguerre, permittivity_layers);
 
     % Total impedance
-   
-
-```matlab
     dZ(i) = Gu_3 + Gu_4 + Gu_6;
 
     % Check convergence
