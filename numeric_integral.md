@@ -106,9 +106,9 @@ The general description of the computation is as follows:
 #### **Integral formulation**
 For the semi-infinite integral, the shifted domain becomes:
 ```math
-\int_{u_0^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_0 \cdot \int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx
+\int_{u_0}^\infty e^{-2 \cdot \text{height} \cdot u} f(u) \, du = e^{-2 \cdot \text{height} \cdot u_0 \cdot \int_0^\infty e^{-x} f(x + u_{\text{start}}) \, dx
 ```
-Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{\text{start}}) dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_0$ is applied **once, outside the loop**.
+Gauss-Laguerre handles $\int_0^\infty e^{-x} f(x + u_{0}) dx$ directly, so the exponential $e^{-2 \cdot \text{height} \cdot u_0$ is applied **once, outside the loop**.
   
 The `compute_laguerre_integral` function implements:
 ```matlab
