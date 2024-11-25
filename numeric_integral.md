@@ -74,7 +74,18 @@ The paper explains why **two methods** are used:
 It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interval. They are complementary contributions to the overall integral:
 - `Gu_1`: Covers $[0, u_1]$.
 - `Gu_2`: Covers $[u_1, \infty)$.
-  
+
+### **How Gauss-Laguerre handles semi-infinite domains**
+
+Gauss-Laguerre quadrature is specifically designed for **semi-infinite integrals** of the form:
+
+$ \int_{0}^{\infty} e^{-x} f(x) \, dx$
+
+To compute an integral over $[u_1, \infty)$, the **Laguerre transformation shifts the semi-infinite domain** $[0, \infty)$ to start from $u_1$. This shift is performed in the code using the term:
+
+```matlab
+u_new = points(v) / (2 * height) + u_start;
+
 ---
 
 ### **3. Iterative extension of integration**
