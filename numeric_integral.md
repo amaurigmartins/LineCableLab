@@ -217,23 +217,22 @@ for i = 2:iteration_limit
 end
 ```
 
-- **Purpose**:
-  - Extends the integration by progressively adding contributions from new intervals, refining the solution iteratively.
-  - The **step factor** halves the segment size at each iteration, improving resolution.
-  - `u(i)` defines the new integration bound, increasing logarithmically to cover the semi-infinite domain.
-- **Key steps**:
-  1. **`Gu_3`**:
-     - Computes a small segment at the leftmost interval $[0, u_0/2]$ using Gauss-Legendre.
-  2. **`Gu_4`**:
-     - Computes the interval between the two successive bounds $[u(i-1), u(i)]$ using Gauss-Legendre.
-  3. **`Gu_6`**:
-     - Adds the Laguerre contribution for the new interval $[u(i), \infty)$.
+The general description of the computation is as follows:
+- Extends the integration by progressively adding contributions from new intervals, refining the solution iteratively.
+- The **step factor** halves the segment size at each iteration, improving resolution.
+- `u(i)` defines the new integration bound, increasing logarithmically to cover the semi-infinite domain.
+
+The main terms in the algorithm are:
+##### **`Gu_3`:** Computes a small segment at the leftmost interval $[0, u_0/2]$ using Gauss-Legendre.
+##### **`Gu_4`:** Computes the interval between the two successive bounds $[u(i-1), u(i)]$ using Gauss-Legendre.
+##### **`Gu_6`:** Adds the Laguerre contribution for the new interval $[u(i), \infty)$.
+
 - **Convergence check**:
-  - The code compares successive impedance estimates \( dZ(i) \) to \( dZ(i-1) \) using:
-    ```matlab
-    if abs(dZ(i) - dZ_previous) <= tolerance
-    ```
-    - The loop stops when the change falls below the predefined `tolerance`.
+  The code compares successive impedance estimates \( dZ(i) \) to \( dZ(i-1) \) using:
+```matlab
+if abs(dZ(i) - dZ_previous) <= tolerance
+```
+The loop stops when the change falls below the predefined `tolerance`.
 
 ---
 
