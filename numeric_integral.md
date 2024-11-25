@@ -44,13 +44,15 @@ The general description of the computation is as follows:
 - Compute the contribution of the integral for the semi-infinite part of the domain using Gauss-Laguerre quadrature, i.e. the part of the integral extending to **infinity**, starting at $u_1$.
 - Laguerre quadrature naturally handles the **exponential decay** of terms like $e^{-2 h \cdot u}$, which dominate in the semi-infinite domain.
 - Gauss-Laguerre is well-suited for semi-infinite intervals. The weights $w_\text{laguerre}$ and nodes $s_\text{laguerre}$ are designed to approximate integrals weighted by exponential decay terms $e^{-x}$.
-- The `compute_laguerre_integral` function implements:
-  ```matlab
-  u_new = points(v) / (2 * height) + u_start;
-  ```
-  - $u_{\text{start}} = u(1)$ ensures a shift to match the end of the Gauss-Legendre interval.
-  - $F_u$ is computed via the **Nakagawa function**, which is the main part of the integrand.
-- The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_1, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
+
+The `compute_laguerre_integral` function implements:
+```matlab
+u_new = points(v) / (2 * height) + u_start;
+```
+- $u_{\text{start}} = u(1)$ ensures a shift to match the end of the Gauss-Legendre interval.
+- $F_u$ is computed via the **Nakagawa function**, which is the main part of the integrand.
+
+The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_1, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
 
 The paper explains why **two methods** are used:
 1. **Gauss-Legendre for $[0, u_1]$**:
