@@ -56,12 +56,12 @@ The nodes and weights of Laguerre quadrature are tailored for integrals involvin
 
 The paper explains why **two methods** are used:
 1. **Gauss-Legendre for $[0, u_1]$**:
-   - This interval contains a **steep descent** of the integrand, which Gauss-Legendre handles efficiently for short, finite intervals.
-   - The sharp initial decay means that uniform quadrature (e.g., trapezoidal) would need many points to achieve similar accuracy.
+- This interval contains a **steep descent** of the integrand, which Gauss-Legendre handles efficiently for short, finite intervals.
+- The sharp initial decay means that uniform quadrature (e.g., trapezoidal) would need many points to achieve similar accuracy.
 
 2. **Gauss-Laguerre for $[u_1, \infty)$**:
-   - This region is dominated by the **exponential decay** $e^{-2 h \cdot u}$, making Laguerre quadrature the natural choice for efficient evaluation.
-   - Using Gauss-Legendre here would require transforming the infinite domain or truncating it, which is less efficient.
+- This region is dominated by the **exponential decay** $e^{-2 h \cdot u}$, making Laguerre quadrature the natural choice for efficient evaluation.
+- Using Gauss-Legendre here would require transforming the infinite domain or truncating it, which is less efficient.
 
 It is noted that **`Gu_1`** and **`Gu_2`** do not integrate over the same interval. They are complementary contributions to the overall integral:
 - `Gu_1`: Covers $[0, u_1]$.
