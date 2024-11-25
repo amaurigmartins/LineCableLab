@@ -1,3 +1,103 @@
+### Refactored numeric integral implementation by Papagiannis et al.
+```matlab
+function d_Z = method_self_aeras_1_strwma(frequency, permittivity_layers, height)
+    % Numerically evaluate self-impedance integrals using hybrid quadrature
+    % frequency: frequency of operation [Hz]
+    % permittivity_layers: permittivity values of the layers
+    % height: distance from conductor to ground [m]
+
+    % --- Constants ---
+    tolerance = 1e-10;    % Convergence tolerance
+    mu_0 = 4 * pi * 1e-7; % Magnetic permeability
+    omega = 2 * pi * frequency;
+
+    % Load Gauss-Legendre and Laguerre points/weights
+    [s_legendre, w_legendre] = load_quadrature('ah16.txt');
+    [s_laguerre, w_laguerre] = load_quadrature('ah35.txt');
+
+    % --- Initialization ---
+    u(1) = 4e-4 / (2 * height);
+    dZ_previous = 0;
+    iteration_limit = 100; % Fail-safe iteration cap
+
+    % Compute initial segments
+    Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
+    Gu_2 = compute_laguerre_integral(u(1), height, s_laguerre, w_laguerre, permittivity_layers);
+    dZ(1) = Gu_1 + Gu_2;
+
+    % Iterative computation
+    for i = 2:iteration_limit
+        % Update step size
+        step_factor = 1 / (2^(i - 1));
+        u(i) = 10 * u(i - 1);
+
+        % Gauss-Legendre segments
+        Gu_3 = compute_legendre_integral(u(1) * step_factor, height, s_legendre, w_legendre, permittivity_layers, omega);
+        Gu_4 = compute_legendre_integral(u(i) - u(i - 1), height, s_legendre, w_legendre, permittivity_layers, omega);
+
+        % Laguerre contribution
+        Gu_6 = compute_laguerre_integral(u(i), height, s_laguerre, w_laguerre, permittivity_layers);
+
+        % Total impedance
+        dZ(i) = Gu_3 + Gu_4 + Gu_6;
+
+        % Check convergence
+        if abs(dZ(i) - dZ_previous) <= tolerance
+            break;
+        end
+
+        % Update for next iteration
+        dZ_previous = dZ(i);
+    end
+
+    % Final result
+    d_Z = 1j * omega * mu_0 * dZ(i) / pi;
+end
+
+% --- Helper Functions ---
+function [points, weights] = load_quadrature(filename)
+    % Load quadrature points and weights from file
+    data = load(filename);
+    points = data(:, 1);
+    weights = data(:, 2);
+end
+
+function G = compute_legendre_integral(interval, height, points, weights, permittivity, omega)
+    % Compute integral using Gauss-Legendre quadrature
+    G = 0;
+    for w = 1:length(weights)
+        u_new = ((interval * (points(w) - 1)) / 2) + interval;
+        F_u = nakagawa(u_new, omega, permittivity);
+        G = G + weights(w) * exp(-2 * height * u_new) * F_u;
+    end
+    G = G * interval / 2;
+end
+
+function G = compute_laguerre_integral(u_start, height, points, weights, permittivity)
+    % Compute integral using Laguerre quadrature
+    G = 0;
+    for v = 1:length(weights)
+        u_new = points(v) / (2 * height) + u_start;
+        F_u = nakagawa(u_new, 2 * pi * permittivity, permittivity);
+        G = G + weights(v) * F_u;
+    end
+    G = G * exp(-2 * height * u_start) / (2 * height);
+end
+
+function F = nakagawa(u, omega, permittivity)
+    % Compute the Nakagawa function
+    mu_0 = 4 * pi * 1e-7;
+    epsilon_0 = 8.854187817e-12;
+
+    % Free-space propagation constant
+    k_0 = omega * sqrt(mu_0 * epsilon_0);
+
+    % Return Nakagawa function value
+    F = 1 / (u + sqrt(u^2 + 1j * omega * mu_0 * (1 / permittivity)));
+end
+```
+
+
 ### **1. Initial computation using Gauss-Legendre quadrature**
 
 #### Paper’s description:
