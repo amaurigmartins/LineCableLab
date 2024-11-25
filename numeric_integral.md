@@ -223,12 +223,12 @@ The general description of the computation is as follows:
 - `u(i)` defines the new integration bound, increasing logarithmically to cover the semi-infinite domain.
 
 The main terms in the algorithm are:
-##### **`Gu_3`:** Computes a small segment at the leftmost interval $[0, u_0/2]$ using Gauss-Legendre.
-##### **`Gu_4`:** Computes the interval between the two successive bounds $[u(i-1), u(i)]$ using Gauss-Legendre.
-##### **`Gu_6`:** Adds the Laguerre contribution for the new interval $[u(i), \infty)$.
+- **`Gu_3`:** Computes a small segment at the leftmost interval $[0, u_0/2]$ using Gauss-Legendre.
+- **`Gu_4`:** Computes the interval between the two successive bounds $[u(i-1), u(i)]$ using Gauss-Legendre.
+- **`Gu_6`:** Adds the Laguerre contribution for the new interval $[u(i), \infty)$.
 
 - **Convergence check**:
-  The code compares successive impedance estimates \( dZ(i) \) to \( dZ(i-1) \) using:
+The code compares successive impedance estimates $dZ(i)$ to $dZ(i-1)$ using:
 ```matlab
 if abs(dZ(i) - dZ_previous) <= tolerance
 ```
@@ -247,11 +247,9 @@ This is reflected in the final line of the main function:
 ```matlab
 d_Z = 1j * omega * mu_0 * dZ(i) / pi;
 ```
-
-- **Purpose**:
-  - Once convergence is achieved, the final self-impedance $\Delta Z$ is computed as:
+Once convergence is achieved, the final self-impedance $\Delta Z$ is computed as:
     $\Delta Z = \frac{j \cdot \omega \cdot \mu_0 \cdot dZ(i)}{\pi}$
-  - Here, `dZ(i)` represents the converged value of the integral.
+Here, `dZ(i)` represents the converged value of the integral.
 
 ---
 
