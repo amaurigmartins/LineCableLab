@@ -6,14 +6,12 @@
 #### Code mapping:
 This is handled by the **first Gauss-Legendre integral** computation in the `method_self_aeras_1_strwma` function:
 
-### **`Gu_1`: Gauss-Legendre quadrature**
-This term evaluates the integral over the interval $[0, u_1]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**.
-
 ```matlab
 Gu_1 = compute_legendre_integral(u(1), height, s_legendre, w_legendre, permittivity_layers, omega);
 ```
 
-The general description of the computation is as follows:
+##### **`Gu_1`: Gauss-Legendre quadrature**
+This term evaluates the integral over the interval $[0, u_1]$ using **Gauss-Legendre quadrature**, which is suited for **finite intervals**. The general description of the computation is as follows:
 - Compute the initial segment of the integral from 0 to the first integration step size `u(1)`, where the function typically has a **steep descent** (as the paper mentions).
 - **`compute_legendre_integral`** implements Gauss-Legendre quadrature, which uses roots of Legendre polynomials and weights for high accuracy in this segment.
 - Gauss-Legendre quadrature is well-suited for this, as it accurately handles functions with rapid changes in this region.
@@ -32,7 +30,7 @@ This scales the step size by the conductor height, ensuring it is small enough t
 #### Paper’s description:
 > "Then the shifted Gauss-Laguerre method is used for the evaluation of the rest of the integral."
 
-### **`Gu_2`: Gauss-Laguerre Quadrature**
+##### **`Gu_2`: Gauss-Laguerre Quadrature**
 This term evaluates the **semi-infinite part of the integral** starting from $u_1$. Specifically, it uses **Gauss-Laguerre quadrature**, which is designed for intervals of the form $[u_1, \infty)$.
 
 #### Code mapping:
