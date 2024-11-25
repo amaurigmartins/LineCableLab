@@ -50,7 +50,18 @@ The first interval $u_0$ is estimated as:
 ```matlab
 u(1) = 4e-4 / (2 * height);
 ```
-This scales the step size by the conductor height, ensuring it is small enough to capture the steep descent behavior.
+This scales the step size by the conductor height, ensuring it is small enough to capture the steep descent behavior, captured by the exponential term within the integration loop:
+  ```matlab
+  G = G + weights(w) * exp(-2 * height * u_new) * F_u;
+  ```
+- The Gauss-Legendre method integrates over **finite intervals** by summing weighted function evaluations at specific quadrature nodes $u_{\text{new}}$ within the interval.
+- Each node $u_{\text{new}}$ contributes to the integral based on the **value of the integrand at that point**.
+- Since $u_{\text{new}}$ varies for each quadrature point, the exponential decay must be applied **individually at each node**.
+
+#### **Integral formulation**
+For a finite interval $[a, b]$, the integral is approximated as:
+$\int_a^b e^{-2 \cdot \text{height} \cdot u} f(u) \, du \approx \sum_{w=1}^N w_w \cdot e^{-2 \cdot \text{height} \cdot u_w} \cdot f(u_w)$
+Here, $w_w$ are the weights and $u_w$ are the quadrature nodes.
 
 ---
 
