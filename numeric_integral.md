@@ -133,6 +133,8 @@ end
 
 The nodes and weights of Laguerre quadrature are tailored for integrals involving **exponentials** like $e^{-x}$. The interval $[u_0, \infty)$ is effectively compressed into a manageable summation by Laguerre weights and nodes.
 
+---
+
 ### **Hybrid quadrature method**
 
 The paper explains why **two methods** are used:
