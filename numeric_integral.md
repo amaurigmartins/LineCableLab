@@ -98,8 +98,8 @@ Where:
 u_new = points(v) / (2 * height) + u_start;
 ```
   
-  - $u_{\text{start}}$: Acts as the starting point of the shifted interval $u_1$.
-  - $points(v) / (2 \cdot height)$: Scales the Laguerre nodes appropriately for the integration range.
+  - `u_start`: Acts as the starting point of the shifted interval $u_1$.
+  - `points(v) / (2 * height)`: Scales the Laguerre nodes appropriately for the integration range.
 
   This transformation moves the integration domain from $[0, \infty)$ to $[u_1, \infty)$.
 
