@@ -37,8 +37,8 @@ Zin_tmp1=mparam./(2*pi*radius_ex.*sigma_w);
 %     end
 % end
 
-w1=mparam.*radius_in;
-w2=mparam.*radius_ex;
+w1=mparam.*radius_ex; %% TESTED AND CONFIRMED, w1 relates to external radius.
+w2=mparam.*radius_in;
 % z_non_scaled = Zin_tmp1 * (besseli(0, w1) * besselk(1, w2) + besseli(1, w2) * besselk(0, w1)) / ...
 %     (besseli(1, w2) * besselk(1, w1) + besseli(1, w1) * besselk(1, w2));
 
