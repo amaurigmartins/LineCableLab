@@ -20,7 +20,11 @@ figureWidth = max(initialWidth, requiredLegendWidth);
 
 figure('Name', ['AtnConst_PhaseVel_' tag], 'Position', [100 100 figureWidth 600])
 
-subplot(2,1,1)
+ax1 = subplot(2,1,1);
+pos1 = get(ax1,'Position');  % read the current [left bottom width height]
+pos1(2) = 0.55;              % adjust the 'y' (bottom) position
+set(ax1,'Position',pos1);    % write back
+
 for o=1:ord
     loglog(freq,a(:,o),'LineWidth',2);
     hold all
@@ -38,7 +42,10 @@ legendPosition1(2) = .99 - legendPosition1(4); % Position just above the plot
 set(hLegend1, 'Position', legendPosition1);
 
 hold off
-subplot(2,1,2)
+ax2 = subplot(2,1,2);
+pos2 = get(ax2,'Position');
+pos2(2) = 0.1;
+set(ax2,'Position',pos2);
 for o=1:ord
     semilogx(freq,vel(:,o),'LineWidth',2)
     hold all
@@ -55,7 +62,10 @@ grid on
 
 figure('Name', ['CharImped_' tag], 'Position', [100 100 figureWidth 600])
 
-subplot(2,1,1)
+ax1 = subplot(2,1,1);
+pos1 = get(ax1,'Position');  % read the current [left bottom width height]
+pos1(2) = 0.55;              % adjust the 'y' (bottom) position
+set(ax1,'Position',pos1);    % write back
 for o=1:ord
     semilogx(freq,abs(Zch_mod(:,o)),'LineWidth',2)
     hold all
@@ -74,7 +84,10 @@ legendPosition1(1) = 0.5 - legendPosition1(3) / 2; % Center horizontally
 legendPosition1(2) = .99 - legendPosition1(4); % Position just above the plot
 set(hLegend1, 'Position', legendPosition1);
 
-subplot(2,1,2)
+ax2 = subplot(2,1,2);
+pos2 = get(ax2,'Position');
+pos2(2) = 0.1;
+set(ax2,'Position',pos2);
 for o=1:ord
     semilogx(freq,rad2deg(unwrap(angle(Zch_mod(:,o)))),'LineWidth',2)
     hold all
