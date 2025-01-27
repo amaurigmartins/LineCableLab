@@ -63,14 +63,30 @@ for k=1:siz
     e_g=soilFD.e_g_total(k,end);
     append_tag = 'bottom layer';
     % uses EHEM approach for layered soils
-    if soilFD.num_layers > 1 && isfield(opts,'EHEMflag')
-        if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
-            sigma_g=soilFD.sigma_eff(k);
-            append_tag = 'EHEM-sigma';
-        elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
-            sigma_g=soilFD.sigma_eff(k);
-            e_g=soilFD.eps_eff(k);
-            append_tag = 'EHEM-gamma';
+    if soilFD.num_layers > 1
+        sigma_g_la=soilFD.sigma_g_total(k,:);
+        e_g_la=soilFD.e_g_total(k,:);
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        if isfield(opts,'EHEMflag')
+            if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                append_tag = 'EHEM-gamma';
+            elseif opts.EHEMflag == 11 && isfield(soilFD,'sigma_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(e_g,1,soilFD.num_layers);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 21 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(soilFD.eps_eff(k),1,soilFD.num_layers);
+                append_tag = 'EHEM-gamma';
+            end
         end
     end
    
@@ -175,9 +191,9 @@ for k=1:siz
     %%%% Papadopoulos (2-layered soil)
     if useFormula('Papad2Layers')
         if k==1; Ytot_Papad2La=zeros(Nph,Nph,siz); end % Prelocate matrix
-        sigma_g_la=soilFD.sigma_g_total(1,:);
-        e_g_la=soilFD.e_g_total(1,:);
-        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         global kxa;if isempty(kxa);kxa='k0';end;
         t=-soilFD.layer(1).t;
         % Self
@@ -200,9 +216,9 @@ for k=1:siz
     %%%% Papadopoulos (underground, 2-layered soil)
     if useFormula('Papad2LayersUnder')
         if k==1; Ytot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
-        sigma_g_la=soilFD.sigma_g_total(1,:);
-        e_g_la=soilFD.e_g_total(1,:);
-        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         global kxe;if isempty(kxe);kxe=1;end;
         t=-soilFD.layer(1).t;
         % Self
@@ -314,6 +330,26 @@ for k=1:siz
             out(o).VarName='Ytot_OverUnderClassicalTL';
             out(o).Label='Martins-Papadopoulos-Chrysochos (classical TL)';
             out(o).Values=Ytot_OverUnderClassicalTL;
+            o=o+1;
+        end
+    end
+
+    %%%% De Conti (underground)
+    if useFormula('Conti')
+        if k==1; Ytot_Conti=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % Self
+        Ps_conti=P_xue_closed_slf(abs(h),cab_ex,e_g,sigma_g,f,ord);
+        % Mutual
+        Pm_conti=P_xue_closed_mut(abs(h),d,e_g,sigma_g,f,ord);
+        % Total matrices
+        Pg_conti=Ps_conti+Pm_conti;
+        P_Conti=Pin+Pg_conti;
+        Ptot_Conti = bundleReduction(ph_order,P_Conti);
+        Ytot_Conti(:,:,k)=1i.*omega.*inv(Ptot_Conti);
+        if k==siz
+            out(o).VarName='Ytot_Conti';
+            out(o).Label='De Conti (underground)';
+            out(o).Values=Ytot_Conti;
             o=o+1;
         end
     end

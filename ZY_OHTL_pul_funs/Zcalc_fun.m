@@ -67,14 +67,30 @@ for k=1:siz
     e_g=soilFD.e_g_total(k,end);
     append_tag = 'bottom layer';
     % uses EHEM approach for layered soils
-    if soilFD.num_layers > 1 && isfield(opts,'EHEMflag')
-        if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
-            sigma_g=soilFD.sigma_eff(k);
-            append_tag = 'EHEM-sigma';
-        elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
-            sigma_g=soilFD.sigma_eff(k);
-            e_g=soilFD.eps_eff(k);
-            append_tag = 'EHEM-gamma';
+    if soilFD.num_layers > 1
+        sigma_g_la=soilFD.sigma_g_total(k,:);
+        e_g_la=soilFD.e_g_total(k,:);
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        if isfield(opts,'EHEMflag')
+            if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                append_tag = 'EHEM-gamma';
+            elseif opts.EHEMflag == 11 && isfield(soilFD,'sigma_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(e_g,1,soilFD.num_layers);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 21 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(soilFD.eps_eff(k),1,soilFD.num_layers);
+                append_tag = 'EHEM-gamma';
+            end
         end
     end
 
@@ -263,9 +279,9 @@ for k=1:siz
     %%%% Nakagawa (2-layered soil)
     if useFormula('Naka2Layers')
         if k==1; Ztot_Naka2La=zeros(Nph,Nph,siz); end % Prelocate matrix
-        sigma_g_la=soilFD.sigma_g_total(1,:);
-        e_g_la=soilFD.e_g_total(1,:);
-        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         %0 for sunde, k0 for nakagawa %%%%%%%%%%%%%%%%%%% CHECK ME
         global kxa;if isempty(kxa);kxa='k0';end; 
         t=-soilFD.layer(1).t;
@@ -286,13 +302,13 @@ for k=1:siz
     %%%% Papadopoulos (underground, 2-layered soil)
     if useFormula('Papad2LayersUnder')
         if k==1; Ztot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
-        sigma_g_la=soilFD.sigma_g_total(1,:);
-        e_g_la=soilFD.e_g_total(1,:);
-        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         global kxe;if isempty(kxe);kxe=1;end; 
         t=-soilFD.layer(1).t;
-        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
-        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
+        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
         % Total matrices
         Zg_Papad2LaUnder=Zs2la_under+Zm2la_under;
         Z_Papad2LaUnder=Zin+Zg_Papad2LaUnder;
@@ -309,7 +325,7 @@ for k=1:siz
     if useFormula('Papadopoulos')
         if k==1; Ztot_Papad=zeros(Nph,Nph,siz); end % Prelocate matrix
         global kxe;if isempty(kxe);kxe='k1';end;
-        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe);
+        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,0);
         Zm_papad=Z_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe);
         % Total matrices
         Zg_Papad=Zs_papad+Zm_papad;
@@ -327,8 +343,8 @@ for k=1:siz
     if useFormula('Pollaczek')
         if k==1; Ztot_Pol=zeros(Nph,Nph,siz); end % Prelocate matrix
         global kxe;if isempty(kxe);kxe=0;end;
-        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
-        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
+        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
+        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
         % Total matrices
         Zg_pol=Zs_pol+Zm_pol;
         Z_Pol=Zin+Zg_pol;
@@ -336,7 +352,7 @@ for k=1:siz
         if k==siz
             out(o).VarName='Ztot_Pol';
             out(o).Label='Pollaczek (underground)';
-            out(o).Values=Ztot_Papad;
+            out(o).Values=Ztot_Pol;
             o=o+1;
         end
     end
@@ -397,6 +413,23 @@ for k=1:siz
             out(o).VarName='Ztot_CarsonPol';
             out(o).Label='Carson-Pollaczek (overhead-underground)';
             out(o).Values=Ztot_CarsonPol;
+            o=o+1;
+        end
+    end
+    
+    %%%% De Conti (underground)
+    if useFormula('Conti')
+        if k==1; Ztot_Conti=zeros(Nph,Nph,siz); end % Prelocate matrix
+        Zs_conti=Z_xue_closed_slf(abs(h),cab_ex,e_g,sigma_g,f,ord);
+        Zm_conti=Z_xue_closed_mut(abs(h),d,e_g,sigma_g,f,ord);
+        % Total matrices
+        Zg_conti=Zs_conti+Zm_conti;
+        Z_Conti=Zin+Zg_conti;
+        Ztot_Conti(:,:,k) = bundleReduction(ph_order,Z_Conti);
+        if k==siz
+            out(o).VarName='Ztot_Conti';
+            out(o).Label='De Conti (underground)';
+            out(o).Values=Ztot_Conti;
             o=o+1;
         end
     end
