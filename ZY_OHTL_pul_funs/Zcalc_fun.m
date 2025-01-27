@@ -4,7 +4,7 @@ if nargin == 9; opts=struct();end
 
 % Extract all the field values from the structure
 fieldNames=fieldnames(opts);
-idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile')));
+idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile') | strcmp(fieldNames, 'EHEMflag')));
 
 if isstruct(opts)
     fieldValues = struct2cell(opts);
@@ -58,12 +58,41 @@ mrw=Geom(:,7); % relative permeability of conductor
 
 % Compute the actual parameters
 o=1; % counter for the number of outputs
+m_g=soilFD.m_g;
 for k=1:siz
     omega=omega_total(k);
     f=f_total(k);
-    sigma_g=soilFD.sigma_g_total(k);
-    m_g=soilFD.m_g(end);
-    e_g=soilFD.e_g_total(k);
+    % uniform soil formulations use sigma_g and e_g of the bottom layer by default
+    sigma_g=soilFD.sigma_g_total(k,end);
+    e_g=soilFD.e_g_total(k,end);
+    append_tag = 'bottom layer';
+    % uses EHEM approach for layered soils
+    if soilFD.num_layers > 1
+        sigma_g_la=soilFD.sigma_g_total(k,:);
+        e_g_la=soilFD.e_g_total(k,:);
+        m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        if isfield(opts,'EHEMflag')
+            if opts.EHEMflag == 1 && isfield(soilFD,'sigma_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 2 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff')
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                append_tag = 'EHEM-gamma';
+            elseif opts.EHEMflag == 11 && isfield(soilFD,'sigma_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(e_g,1,soilFD.num_layers);
+                append_tag = 'EHEM-sigma';
+            elseif opts.EHEMflag == 21 && isfield(soilFD,'sigma_eff') && isfield(soilFD,'eps_eff') % artificial homogeneous earth implemented via identical layers
+                sigma_g=soilFD.sigma_eff(k);
+                e_g=soilFD.eps_eff(k);
+                sigma_g_la(1,1:soilFD.num_layers)=repmat(soilFD.sigma_eff(k),1,soilFD.num_layers);
+                e_g_la(1,1:soilFD.num_layers)=repmat(soilFD.eps_eff(k),1,soilFD.num_layers);
+                append_tag = 'EHEM-gamma';
+            end
+        end
+    end
 
     %%%% Internal impedance of the conductor
     Zin=Z_skin_mat_fun_ct(ord,rad_ex,rad_in,sigma_w,mrw,omega,Geom);
@@ -164,7 +193,7 @@ for k=1:siz
         Ztot_Sunde(:,:,k) = bundleReduction(ph_order,Z_Sunde);
         if k==siz
             out(o).VarName='Ztot_Sunde';
-            out(o).Label='Sunde (uniform)';
+            out(o).Label='Sunde';
             out(o).Values=Ztot_Sunde;
             o=o+1;
         end
@@ -250,13 +279,14 @@ for k=1:siz
     %%%% Nakagawa (2-layered soil)
     if useFormula('Naka2Layers')
         if k==1; Ztot_Naka2La=zeros(Nph,Nph,siz); end % Prelocate matrix
-        sigma_g_la=soilFD.sigma_g_total(1,:);
-        e_g_la=soilFD.e_g_total(1,:);
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         %0 for sunde, k0 for nakagawa %%%%%%%%%%%%%%%%%%% CHECK ME
         global kxa;if isempty(kxa);kxa='k0';end; 
         t=-soilFD.layer(1).t;
-        Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
-        Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g,sigma_g_la,t,f,ord,kxa);
+        Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
+        Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
         % Total matrices
         Zg_Naka2La=Zs2la+Zm2la;
         Z_Naka2La=Zin+Zg_Naka2La;
@@ -269,11 +299,33 @@ for k=1:siz
         end
     end
 
+    %%%% Papadopoulos (underground, 2-layered soil)
+    if useFormula('Papad2LayersUnder')
+        if k==1; Ztot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % sigma_g_la=soilFD.sigma_g_total(1,:);
+        % e_g_la=soilFD.e_g_total(1,:);
+        % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
+        global kxe;if isempty(kxe);kxe=1;end; 
+        t=-soilFD.layer(1).t;
+        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
+        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
+        % Total matrices
+        Zg_Papad2LaUnder=Zs2la_under+Zm2la_under;
+        Z_Papad2LaUnder=Zin+Zg_Papad2LaUnder;
+        Ztot_Papad2LaUnder(:,:,k) = bundleReduction(ph_order,Z_Papad2LaUnder);
+        if k==siz
+            out(o).VarName='Ztot_Papad2LaUnder';
+            out(o).Label='Papadopoulos (underground, 2-layers)';
+            out(o).Values=Ztot_Papad2LaUnder;
+            o=o+1;
+        end
+    end
+   
     %%%% Papadopoulos (underground)
     if useFormula('Papadopoulos')
         if k==1; Ztot_Papad=zeros(Nph,Nph,siz); end % Prelocate matrix
         global kxe;if isempty(kxe);kxe='k1';end;
-        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe);
+        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,0);
         Zm_papad=Z_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe);
         % Total matrices
         Zg_Papad=Zs_papad+Zm_papad;
@@ -291,8 +343,8 @@ for k=1:siz
     if useFormula('Pollaczek')
         if k==1; Ztot_Pol=zeros(Nph,Nph,siz); end % Prelocate matrix
         global kxe;if isempty(kxe);kxe=0;end;
-        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
-        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
+        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
+        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
         % Total matrices
         Zg_pol=Zs_pol+Zm_pol;
         Z_Pol=Zin+Zg_pol;
@@ -300,7 +352,7 @@ for k=1:siz
         if k==siz
             out(o).VarName='Ztot_Pol';
             out(o).Label='Pollaczek (underground)';
-            out(o).Values=Ztot_Papad;
+            out(o).Values=Ztot_Pol;
             o=o+1;
         end
     end
@@ -364,11 +416,28 @@ for k=1:siz
             o=o+1;
         end
     end
+    
+    %%%% De Conti (underground)
+    if useFormula('Conti')
+        if k==1; Ztot_Conti=zeros(Nph,Nph,siz); end % Prelocate matrix
+        Zs_conti=Z_xue_closed_slf(abs(h),cab_ex,e_g,sigma_g,f,ord);
+        Zm_conti=Z_xue_closed_mut(abs(h),d,e_g,sigma_g,f,ord);
+        % Total matrices
+        Zg_conti=Zs_conti+Zm_conti;
+        Z_Conti=Zin+Zg_conti;
+        Ztot_Conti(:,:,k) = bundleReduction(ph_order,Z_Conti);
+        if k==siz
+            out(o).VarName='Ztot_Conti';
+            out(o).Label='De Conti (underground)';
+            out(o).Values=Ztot_Conti;
+            o=o+1;
+        end
+    end
 
     %%%% FEMM solver
     if useFormula('FEMM')
 
-        foldername=fullfile(currPath,'femm_files');
+        foldername=fullfile(currPath,'femm_files_Z');
         if isfolder(foldername)
             rmdir(foldername, 's');
         end
@@ -390,6 +459,29 @@ for k=1:siz
         end
     end
 end % of main loop
+
+% Add decent labels to uniform soil results if a layered structure is
+% present
+if soilFD.num_layers > 1
+    for i = 1:numel(out)
+        % Get the current label
+        label = out(i).Label;
+        
+        % Check and skip if layered formulation 
+        if contains(label, 'layers', 'IgnoreCase', true) || contains(label, 'FEMM', 'IgnoreCase', true)
+            continue;  % Skip to the next iteration, leave this label untouched
+        end
+
+        % Check if the label already has something in parentheses at the end
+        if regexp(label, '\(.*\)$')  % Regular expression to find existing parentheses at the end
+            % Append tag inside the existing parentheses
+            out(i).Label = regexprep(label, '\((.*)\)$', ['($1, ' append_tag ')']);
+        else
+            % No parentheses at the end, so just add tag at the end
+            out(i).Label = [label ' (' append_tag ')'];
+        end
+    end
+end
 
 %% TESTME
 if useFormula('ImportCYZ')
