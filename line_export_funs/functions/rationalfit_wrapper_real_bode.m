@@ -9,16 +9,14 @@ j=0;
 NpolesMin=opts.Npoles(1);
 NpolesMax=opts.Npoles(2);
 errtgt = opts.errtgt;
-tolThreshold =errtgt;
 Ns=length(freq);
-s = 1i*2*pi*freq;
 
 while rmserr > errtgt
 
     numpol=NpolesMin+j;
 
     [fit_data,errdB] = rationalfit(freq.',fun,'NPoles',numpol,'TendsToZero',opts.TendsToZero,'IterationLimit',opts.Niter);       
-    if j==0
+%     if j==0
         if ~isreal(fit_data(1,1).A)
               warning('Rationalfit was unable to fit the data with real poles only. ATP results might be unstable or inaccurate.');
               warning('Will try to fit Zthe data using Bode method. Beware possible innaccuracies.');
@@ -28,6 +26,9 @@ while rmserr > errtgt
                     as = k.*poly(Z); bs = poly(P); % Polynomials
                     [r,p,ks] = residue(as,bs); % Poles, residues and constant term
               catch
+                  error('Bode method failed to fit one or more modes. No PCH file will be written.');
+              end
+              if isempty(r) || isempty(p)
                   error('Bode method failed to fit one or more modes. No PCH file will be written.');
               end
               TF=isempty(ks);if(TF==1);ks=0;end
@@ -59,7 +60,7 @@ while rmserr > errtgt
               h_ffit(j+1,1) = {ffit};
               break
         end
-    end
+%     end
     
     rmserr = 10^(errdB/20);
     h_rmserr(j+1,1) = rmserr;
@@ -88,7 +89,7 @@ while rmserr > errtgt
         break;
     end
     if j > 0
-        noErrorImprovement = (abs( h_rmserr(end)-h_rmserr(end-1)) < tolThreshold ); %adding poles does not improve the response
+        noErrorImprovement = (abs( h_rmserr(end)-h_rmserr(end-1)) < errtgt ); %adding poles does not improve the response
         addingPolIncreasesError = ( h_rmserr(end) > h_rmserr(end-1) ); %adding poles makes things worse >:|
         if noErrorImprovement || addingPolIncreasesError
             fit_data=h_fit_data{end-1};
