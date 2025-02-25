@@ -9,8 +9,6 @@ j=0;
 NpolesMin=opts.Npoles(1);
 NpolesMax=opts.Npoles(2);
 errtgt = opts.errtgt;
-tolThreshold =errtgt;
-Ns=length(freq);
 s = 1i*2*pi*freq;
 ord = size(fun,2);
 
@@ -93,18 +91,20 @@ while rmserr > errtgt
     if rmserr < errtgt
         break;
     end
-    if j > 0
-        noErrorImprovement = (abs( h_rmserr(end)-h_rmserr(end-1)) < tolThreshold ); %adding poles does not improve the response
-        addingPolIncreasesError = ( h_rmserr(end) > h_rmserr(end-1) ); %adding poles makes things worse >:|
-        if noErrorImprovement || addingPolIncreasesError
-            fit_data=h_fit_data{end-1};
-            numpol=length(fit_data(1,1).A);
-            rmserr = h_rmserr(end-1);
-            ffit = h_ffit{end-1};
-            break
+    
+    if opts.err_par
+        if j > 0
+            noErrorImprovement = (abs( h_rmserr(end)-h_rmserr(end-1)) < errtgt ); %adding poles does not improve the response
+            addingPolIncreasesError = ( h_rmserr(end) > h_rmserr(end-1) ); %adding poles makes things worse >:|
+            if noErrorImprovement || addingPolIncreasesError
+                fit_data=h_fit_data{end-1};
+                numpol=length(fit_data(1,1).A);
+                rmserr = h_rmserr(end-1);
+                ffit = h_ffit{end-1};
+                break
+            end
         end
     end
-
     if numpol == NpolesMax
         break;
     end         % Reached maximum number of poles
