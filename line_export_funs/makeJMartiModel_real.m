@@ -8,6 +8,9 @@ if ~isfield(optsRW,'Npoles');optsRW.Npoles = [1 20];end
 if ~isfield(optsRW,'samePolesH');optsRW.samePolesH = false;end
 if ~isfield(optsRW,'tol');optsRW.tol = 3;end
 if ~isfield(optsRW,'bode');optsRW.bode = false;end
+if ~isfield(optsRW,'errtgt');optsRW.errtgt = 1e-3;end
+if ~isfield(optsRW,'err_par');optsRW.err_par = true;end
+
 
 if size(f,1) == 1
     f=f.';
@@ -69,9 +72,9 @@ T=interplM2freq(T_const);
 %% Calculating the characteristic impedance, the propagation function and phase velocity
 
 % Zc and H using the chosen T 
-modif_T=sqmat2list(T,ord,freq_siz);
-[Zch_m,~,~,~]=calc_char_imped_admit(modif_T,Z,Y,ord,freq_siz);
-[H_m,~,~,~,~]=calc_prop_function(modif_T,g_dis,line_length,ord,freq_siz,f); %it works!!!
+modif_T_Jm=sqmat2list(T,ord,freq_siz);
+[Zch_m,~,~,~]=calc_char_imped_admit(modif_T_Jm,Z,Y,ord,freq_siz);
+[H_m,~,~,~,~]=calc_prop_function(modif_T_Jm,g_dis,line_length,ord,freq_siz,f); %it works!!!
 
 % Calculate phase velocities
 for m=1:ord
@@ -80,7 +83,6 @@ end
 
 
 %% Calculating Zc poles and residues
-
 if optsRW.samePolesH
     if optsRW.bode   
         [fit_data_JM, ffit_JM, numpol_JM,rmserr_JM ] = rationalfit_wrapper_real_bode(Zch_m,f,optsRW); %Calculating the poles and residues
