@@ -48,22 +48,9 @@ for x=1:con
             if abs(h2-h1)<TOL; h2=h2+TOL;end
 
             if (h1 < 0 && h2 <0)
-                % dd=d(x,y);
-                % 
-                % Dij=sqrt(dd^2+(h1+h2)^2);
-                % dij=sqrt(dd^2+(h1-h2)^2);
-                % F=@(lambda,omega) 2*mu0*exp(a_1(lambda,omega)*(h1+h2))/(a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1);
-                % G=@(lambda,omega) 2*mu0*mu1*a_1(lambda,omega)*(gamma_1(omega)^2-gamma_0(omega)^2)*exp(a_1(lambda,omega)*(h1+h2)) / ...
-                %     ((a_1(lambda,omega)*mu0+a_0(lambda,omega)*mu1)*(a_1(lambda,omega)*gamma_0(omega)^2*mu1+a_0(lambda,omega)*gamma_1(omega)^2*mu0));
-                % yy=@(lambda,omega) (F(lambda,omega)+G(lambda,omega))*cos(lambda*dd);
-                % yfun=@(lambda) sum([0 yy(lambda,w)],'omitnan');
-                % 
-                % Qm=integral(yfun,0,Inf,'ArrayValued',true);
-                % Pg_mutual(x,y)=(1i*w/(sigma1+1i*w*eps1))*(log(Dij/dij)+Qm);
-
 
                 yy=@(a0,a1,gamma0,gamma1,hi,hj,lambda,mu0,mu1,omega,y) ...
-                    (1.0./gamma1.^2.*mu1.*omega.*exp(-a1.*abs(hi-hj+1e-3)).*cos(lambda.*y) ...
+                    (1.0./gamma1.^2.*mu1.*omega.*exp(-a1.*abs(hi-hj)).*cos(lambda.*y) ...
                     .*5.0e-1i)./(a1.*pi)-(1.0./gamma1.^2.*mu1.*omega.*exp(a1.*(hi+hj)) ...
                     .*cos(lambda.*y).*(a0.*mu1+a1.*mu0.*sign(hi)).*5.0e-1i) ...
                     ./(a1.*pi.*(a0.*mu1+a1.*mu0))+(a1.*1.0./gamma1.^2.*mu0.*mu1.^2.*omega.*exp(a1.*(hi+hj)) ...
@@ -77,7 +64,7 @@ for x=1:con
                 Pg_mutual(x,y)=(1i*w*Qm);
                 Pg_mutual(y,x)=Pg_mutual(x,y);
 
-                
+
 
             end
         end
