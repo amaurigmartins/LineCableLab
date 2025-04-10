@@ -18,6 +18,8 @@ function [Zg_mutual]=Z_sln_mut(h,d,e_g,m_g,sigma_g,omega,con)
 
 Zg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
 for x=1:con
     for y=x+1:con
         if x~=y

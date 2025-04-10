@@ -6,6 +6,10 @@ if nargin == 9; opts=struct();end
 fieldNames=fieldnames(opts);
 idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile') | strcmp(fieldNames, 'EHEMflag')));
 
+islayered_earth = soilFD.num_layers > 1;
+is_overhead = all(h)>0;
+is_underground = all(h)<0;
+
 if isstruct(opts)
     fieldValues = struct2cell(opts);
     fieldValues = fieldValues(idx);
@@ -100,7 +104,7 @@ for k=1:siz
 
 
     %%%% Pettersson
-    if useFormula('Pettersson')
+    if useFormula('Pettersson') && is_overhead
         if k==1; Ytot_Pet=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
         Ps_pet_imperf=P_pet_slf_imperf(h,e_g,m_g,sigma_g,omega,ord);
@@ -123,7 +127,7 @@ for k=1:siz
     end
 
     %%%% Images
-    if useFormula('Images')
+    if useFormula('Images') && is_overhead
         if k==1; Ytot_Imag=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
         Ps_imag=Ps_pet_perf;
@@ -144,7 +148,7 @@ for k=1:siz
     end
 
     %%%% Wise
-    if useFormula('Wise')
+    if useFormula('Wise') && is_overhead
         if k==1; Ytot_Wise=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
         Ps_wise_imperf=P_wise_slf_imperf(h,e_g,m_g,sigma_g,omega,ord);
@@ -167,10 +171,10 @@ for k=1:siz
     end
 
     %%%% Kikuchi
-    if useFormula('Kikuchi')
+    if useFormula('Kikuchi') && is_overhead
         if k==1; Ytot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
-        global kxa;if isempty(kxa);kxa='k0';end;
+        kxa='k0';
         Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
         % Mutual
         Pm_kik=P_kik_mut(h,d,e_g,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
@@ -189,12 +193,12 @@ for k=1:siz
     end
     
     %%%% Papadopoulos (2-layered soil)
-    if useFormula('Papad2Layers')
+    if useFormula('Papad2Layers') && islayered_earth && is_overhead
         if k==1; Ytot_Papad2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         % sigma_g_la=soilFD.sigma_g_total(1,:);
         % e_g_la=soilFD.e_g_total(1,:);
         % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
-        global kxa;if isempty(kxa);kxa='k0';end;
+        kxa='k0';
         t=-soilFD.layer(1).t;
         % Self
         Ps2la=P_ohl_slf_2lay(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
@@ -214,12 +218,12 @@ for k=1:siz
     end
 
     %%%% Papadopoulos (underground, 2-layered soil)
-    if useFormula('Papad2LayersUnder')
+    if useFormula('Papad2LayersUnder') && islayered_earth && is_underground
         if k==1; Ytot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
         % sigma_g_la=soilFD.sigma_g_total(1,:);
         % e_g_la=soilFD.e_g_total(1,:);
         % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
-        global kxe;if isempty(kxe);kxe=1;end;
+        kxe=1;
         t=-soilFD.layer(1).t;
         % Self
         Ps2la_under=P_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
@@ -239,10 +243,10 @@ for k=1:siz
     end
     
     %%%% Papadopoulos (underground)
-    if useFormula('Papadopoulos')
+    if useFormula('Papadopoulos') && is_underground
         if k==1; Ytot_Papad=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
-        global kxe;if isempty(kxe);kxe='k1';end;
+        kxe='k1';
         Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe);
         % Mutual
         Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe);
@@ -260,7 +264,7 @@ for k=1:siz
     end
 
     %%%% Xue (underground)
-    if useFormula('Xue')
+    if useFormula('Xue') && is_underground
         if k==1; Ytot_Xue=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
         Ps_xue=P_xue_slf(h,cab_ex,e_g,sigma_g,f,ord);
@@ -283,15 +287,15 @@ for k=1:siz
     if useFormula('OverUnder')
         if k==1; Ytot_OverUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Selfs and mutuals for underground
-        global kxe;if isempty(kxe);kxe=0;end; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
+        kxe=0; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
         Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self coefficients of the underground conductors
         Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
         % Selfs and mutuals for overhead
-        global kxa;if isempty(kxa);kxa=0;end;
+        kxa=0;
         Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
         Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
         % Mutuals for overhead-underground
-        global kxm;if isempty(kxm);kxm=0;end;
+        kxm=0;
         Pm_overunder=P_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual coefficients in the mixed configuration
         % Total matrices
         Pg_OverUnder=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunder;
@@ -306,36 +310,87 @@ for k=1:siz
         end
     end
 
-    %%%% Martins-Papadopoulos-Chrysochos (overhead-underground, classical TL)
-    if useFormula('OverUnderClassicalTL')
-        if k==1; Ytot_OverUnderClassicalTL=zeros(Nph,Nph,siz); end % Prelocate matrix
-        if ~useFormula('OverUnder') % skip if already calculated
-            % Selfs and mutuals for underground
-            global kxe;if isempty(kxe);kxe=0;end; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
-            Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self coefficients of the underground conductors
-            Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
-            % Selfs and mutuals for overhead
-            global kxa;if isempty(kxa);kxa=0;end;
-            Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
-            Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+    %%%% Martins-Papadopoulos-Chrysochos (no capacitive coupling)
+    if useFormula('NoCapCoupling')
+        if k==1; Ytot_NoCapCoupling=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % Selfs and mutuals for underground
+        kxe=0; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
+        Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self coefficients of the underground conductors
+        Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
+        % Selfs and mutuals for overhead
+        kxa=0;
+        Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
+        Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        % Mutuals for overhead-underground
+        kxm=0;
+        Pm_overunder=zeros(ord,ord); % mutual coefficients in the mixed configuration
+        % Total matrices
+        Pg_NoCapCoupling=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunder;
+        P_NoCapCoupling=Pin+Pg_NoCapCoupling;
+        Ptot_NoCapCoupling = bundleReduction(ph_order,P_NoCapCoupling);
+        Ytot_NoCapCoupling(:,:,k)=1i.*omega.*inv(Ptot_NoCapCoupling);
+        if k==siz
+            out(o).VarName='Ytot_NoCapCoupling';
+            out(o).Label='Martins-Papadopoulos-Chrysochos (without C coupling)';
+            out(o).Values=Ytot_NoCapCoupling;
+            o=o+1;
         end
+    end
+
+    %%%% Overhead-underground arrangement, classical TL
+    if useFormula('OverUnderClassicalTL')
+        % if k==1; Ytot_OverUnderClassicalTL=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % if ~useFormula('OverUnder') % skip if already calculated
+        %     % Selfs and mutuals for underground
+        %     kxe=0; %set 'k0' (string) to air layer, 'k1' for earth, 0 to neglect
+        %     Ps_papad=P_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self coefficients of the underground conductors
+        %     Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
+        %     % Selfs and mutuals for overhead
+        %     kxa=0;
+        %     Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
+        %     Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        % end
+        % % Mutuals for overhead-underground are neglected
+        % Pm_overunderClassicalTL=zeros(ord,ord);
+        % % Total matrices
+        % Pg_OverUnderClassicalTL=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunderClassicalTL;
+        % P_OverUnderClassicalTL=Pin+Pg_OverUnderClassicalTL;
+        % Ptot_OverUnderClassicalTL = bundleReduction(ph_order,P_OverUnderClassicalTL);
+        % Ytot_OverUnderClassicalTL(:,:,k)=1i.*omega.*inv(Ptot_OverUnderClassicalTL);
+        % if k==siz
+        %     out(o).VarName='Ytot_OverUnderClassicalTL';
+        %     out(o).Label='Martins-Papadopoulos-Chrysochos (earth shield)';
+        %     out(o).Values=Ytot_OverUnderClassicalTL;
+        %     o=o+1;
+        % end
+        if k==1; Ytot_OverUnderClassicalTL=zeros(Nph,Nph,siz); end % Prelocate matrix
+        
+        % Selfs and mutuals for underground
+        Ps_papad=P_papad_slf(h,cab_ex,0*e_g,m_g,sigma_g,f,ord,0); % self coefficients of the underground conductors
+        Pm_papad=P_papad_mut(h,d,     0*e_g,m_g,sigma_g,f,ord,0); % mutual coefficients of the underground conductors
+        
+        % Selfs and mutuals for overhead
+        Ps_img=P_pet_slf_perf(h,cab_ex,ord)./(e0.*2.*pi); % True classical
+        Pm_img=P_pet_mut_perf(h,d,ord)./(e0.*2.*pi);
+
         % Mutuals for overhead-underground are neglected
         Pm_overunderClassicalTL=zeros(ord,ord);
+        
         % Total matrices
-        Pg_OverUnderClassicalTL=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunderClassicalTL;
+        Pg_OverUnderClassicalTL=Ps_papad+Pm_papad+Ps_img+Pm_img+Pm_overunderClassicalTL;
         P_OverUnderClassicalTL=Pin+Pg_OverUnderClassicalTL;
         Ptot_OverUnderClassicalTL = bundleReduction(ph_order,P_OverUnderClassicalTL);
         Ytot_OverUnderClassicalTL(:,:,k)=1i.*omega.*inv(Ptot_OverUnderClassicalTL);
         if k==siz
             out(o).VarName='Ytot_OverUnderClassicalTL';
-            out(o).Label='Martins-Papadopoulos-Chrysochos (classical TL)';
+            out(o).Label='Classical TL (overhead-underground)';
             out(o).Values=Ytot_OverUnderClassicalTL;
             o=o+1;
         end
     end
 
     %%%% De Conti (underground)
-    if useFormula('Conti')
+    if useFormula('Conti') && is_underground
         if k==1; Ytot_Conti=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self
         Ps_conti=P_xue_closed_slf(abs(h),cab_ex,e_g,sigma_g,f,ord);

@@ -18,6 +18,9 @@ m0=4*pi*1e-7;
 p=1./sqrt(1i*omega.*m_g*sigma_g);
 %p=1./sqrt(j*omega.*m_g.*(sigma_g+j*omega.*e_g));
 Zg_mutual=zeros(con,con);
+
+if con == 1; return; end
+
 % Mutual Impedance
 
 for x=1:con

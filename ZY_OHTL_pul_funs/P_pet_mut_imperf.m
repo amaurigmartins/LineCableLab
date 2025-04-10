@@ -18,6 +18,9 @@ Yg_mut=zeros(con,con);
 m0=4*pi*1e-7;
 e0=8.854187817e-12;
 
+if con == 1; return; end
+
+
 b=sqrt(1i*omega*m0*sigma_g+omega.^2*(e0*m0-e_g*m0));
 n2=sqrt((1i.*omega*e_g+sigma_g)./(1i.*omega.*e0));
 n1=1;

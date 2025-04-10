@@ -6,6 +6,10 @@ if nargin == 9; opts=struct();end
 fieldNames=fieldnames(opts);
 idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile') | strcmp(fieldNames, 'EHEMflag')));
 
+islayered_earth = soilFD.num_layers > 1;
+is_overhead = all(h)>0;
+is_underground = all(h)<0;
+
 if isstruct(opts)
     fieldValues = struct2cell(opts);
     fieldValues = fieldValues(idx);
@@ -101,7 +105,7 @@ for k=1:siz
     Zpg=Z_self_mut_pg(h,d,cab_ex,omega,ord);
 
     %%%% Carson
-    if useFormula('Carson')
+    if useFormula('Carson') && is_overhead
         if k==1; Ztot_Carson=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Formulas includes the effect of the perfect and the imperfect earth
         % Self Impedances
@@ -122,7 +126,7 @@ for k=1:siz
     end
 
     %%%% Noda
-    if useFormula('Noda')
+    if useFormula('Noda') && is_overhead
         if k==1; Ztot_Noda=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Formulas includes the effect of the perfect and the imperfect earth
         % Self Impedances
@@ -143,7 +147,7 @@ for k=1:siz
     end
 
     %%%% Deri
-    if useFormula('Deri')
+    if useFormula('Deri') && is_overhead
         if k==1; Ztot_Deri=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_deri=Z_der_slf(h,m_g,sigma_g,omega,ord);
@@ -162,7 +166,7 @@ for k=1:siz
     end
 
     %%%% Alvarado - Betancourt
-    if useFormula('Alvarado')
+    if useFormula('Alvarado') && is_overhead
         if k==1; Ztot_AlBe=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_alde=Z_alvadetan_slf(h,e_g,m_g,sigma_g,omega,ord);
@@ -181,7 +185,7 @@ for k=1:siz
     end
 
     %%%% Sunde (uniform soil)
-    if useFormula('Sunde')
+    if useFormula('Sunde') && is_overhead
         if k==1; Ztot_Sunde=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_sunde=Z_snd_slf(h,e_g,m_g,sigma_g,omega,ord);
@@ -200,7 +204,7 @@ for k=1:siz
     end
 
     %%%% Semlyen
-    if useFormula('Semlyen')
+    if useFormula('Semlyen') && is_overhead
         if k==1; Ztot_Semlyen=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_semlyen=Z_sln_slf(h,e_g,m_g,sigma_g,omega,ord);
@@ -219,7 +223,7 @@ for k=1:siz
     end
 
     %%%% Pettersson
-    if useFormula('Pettersson')
+    if useFormula('Pettersson') && is_overhead
         if k==1; Ztot_Pettersson=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_pet=Z_pet_slf(h,e_g,m_g,sigma_g,omega,ord);
@@ -238,7 +242,7 @@ for k=1:siz
     end
 
     %%%% Wise
-    if useFormula('Wise')
+    if useFormula('Wise') && is_overhead
         if k==1; Ztot_Wise=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
         Zs_wise=Z_wise_slf(h,e_g,m_g,sigma_g,omega,ord);
@@ -257,9 +261,9 @@ for k=1:siz
     end
 
     %%%% Kikuchi
-    if useFormula('Kikuchi')
+    if useFormula('Kikuchi') && is_overhead
         if k==1; Ztot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
-        global kxa;if isempty(kxa);kxa='k0';end;
+        kxa='k0';
         % Self Impedances
         Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
         % Mutual Impedances
@@ -277,13 +281,13 @@ for k=1:siz
     end
 
     %%%% Nakagawa (2-layered soil)
-    if useFormula('Naka2Layers')
+    if useFormula('Naka2Layers') && islayered_earth && is_overhead
         if k==1; Ztot_Naka2La=zeros(Nph,Nph,siz); end % Prelocate matrix
         % sigma_g_la=soilFD.sigma_g_total(1,:);
         % e_g_la=soilFD.e_g_total(1,:);
         % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
         %0 for sunde, k0 for nakagawa %%%%%%%%%%%%%%%%%%% CHECK ME
-        global kxa;if isempty(kxa);kxa='k0';end; 
+        kxa='k0'; 
         t=-soilFD.layer(1).t;
         Zs2la=Z_ohl_slf_2lay(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
         Zm2la=Z_ohl_mut_2lay(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxa);
@@ -300,15 +304,15 @@ for k=1:siz
     end
 
     %%%% Papadopoulos (underground, 2-layered soil)
-    if useFormula('Papad2LayersUnder')
+    if useFormula('Papad2LayersUnder') && islayered_earth && is_underground
         if k==1; Ztot_Papad2LaUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
         % sigma_g_la=soilFD.sigma_g_total(1,:);
         % e_g_la=soilFD.e_g_total(1,:);
         % m_g_la=[soilFD.layer(:).m_g soilFD.m_g];
-        global kxe;if isempty(kxe);kxe=1;end; 
+        kxe=0;
         t=-soilFD.layer(1).t;
-        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
-        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,0);
+        Zs2la_under=Z_papad_slf_2lay_under(h,cab_ex,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
+        Zm2la_under=Z_papad_mut_2lay_under(h,d,e_g_la,m_g_la,sigma_g_la,t,f,ord,kxe);
         % Total matrices
         Zg_Papad2LaUnder=Zs2la_under+Zm2la_under;
         Z_Papad2LaUnder=Zin+Zg_Papad2LaUnder;
@@ -322,10 +326,10 @@ for k=1:siz
     end
    
     %%%% Papadopoulos (underground)
-    if useFormula('Papadopoulos')
+    if useFormula('Papadopoulos') && is_underground
         if k==1; Ztot_Papad=zeros(Nph,Nph,siz); end % Prelocate matrix
-        global kxe;if isempty(kxe);kxe='k1';end;
-        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,0);
+        kxe='k1';
+        Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe);
         Zm_papad=Z_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe);
         % Total matrices
         Zg_Papad=Zs_papad+Zm_papad;
@@ -340,11 +344,11 @@ for k=1:siz
     end
 
     %%%% Pollaczek (underground)
-    if useFormula('Pollaczek')
+    if useFormula('Pollaczek') && is_underground
         if k==1; Ztot_Pol=zeros(Nph,Nph,siz); end % Prelocate matrix
-        global kxe;if isempty(kxe);kxe=0;end;
-        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
-        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,0); % Pollackzek's result is attained by setting e_g=0
+        kxe=0;
+        Zs_pol=Z_papad_slf(h,cab_ex,0*e_g,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
+        Zm_pol=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,kxe); % Pollackzek's result is attained by setting e_g=0
         % Total matrices
         Zg_pol=Zs_pol+Zm_pol;
         Z_Pol=Zin+Zg_pol;
@@ -358,7 +362,7 @@ for k=1:siz
     end
 
     %%%% Xue (underground)
-    if useFormula('Xue')
+    if useFormula('Xue') && is_underground
         if k==1; Ztot_Xue=zeros(Nph,Nph,siz); end % Prelocate matrix
         Zs_xue=Z_xue_slf(h,cab_ex,e_g,sigma_g,f,ord);
         Zm_xue=Z_xue_mut(h,d,e_g,sigma_g,f,ord);
@@ -377,13 +381,13 @@ for k=1:siz
     %%%% Martins-Papadopoulos-Chrysochos (overhead-underground)
     if useFormula('OverUnder')
         if k==1; Ztot_OverUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
-        global kxe;if isempty(kxe);kxe=0;end;
+        kxe=0;
         Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors
         Zm_papad=Z_papad_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
-        global kxa;if isempty(kxa);kxa=0;end;
+        kxa=0;
         Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
         Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
-        global kxm;if isempty(kxm);kxm=0;end;
+        kxm=0;
         Zm_new=Z_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual impedances in the mixed configuration
         % Total matrices
         Zg_OverUnder=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_new;
@@ -399,26 +403,44 @@ for k=1:siz
 
     %%%% Carson-Pollaczek (overhead-underground)
     if useFormula('CarsonPol')
+        % if k==1; Ztot_CarsonPol=zeros(Nph,Nph,siz); end % Prelocate matrix
+        % Zm_pol_ovund=Z_pol_mut_overunder(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
+        % kxe=0;
+        % Zs_pol_und=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors - Pollackzek's result is attained by setting e_g=0
+        % Zm_pol_und=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
+        % kxa=0;
+        % Zs_pol_ov=Z_kik_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors - Carson's result is attained by setting e_g=0
+        % Zm_pol_ov=Z_kik_mut(h,d,0*e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+        % % Total matrices
+        % Zg_CarsonPol=Zs_pol_und+Zm_pol_und+Zs_pol_ov+Zm_pol_ov+Zm_pol_ovund;
+        % Z_CarsonPol=Zin+Zg_CarsonPol;
+        % Ztot_CarsonPol(:,:,k) = bundleReduction(ph_order,Z_CarsonPol);
+        % if k==siz
+        %     out(o).VarName='Ztot_CarsonPol';
+        %     out(o).Label='Carson-Pollaczek (overhead-underground)';
+        %     out(o).Values=Ztot_CarsonPol;
+        %     o=o+1;
+        % end
         if k==1; Ztot_CarsonPol=zeros(Nph,Nph,siz); end % Prelocate matrix
-        Zm_pol_ovund=Z_pol_mut(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
-        Zs_pol_und=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors - Pollackzek's result is attained by setting e_g=0
-        Zm_pol_und=Z_papad_mut(h,d,e_g ,0*m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
-        Zs_pol_ov=Z_kik_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors - Carson's result is attained by setting e_g=0
-        Zm_pol_ov=Z_kik_mut(h,d,0*e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+        Zm_pol_ovund=Z_pol_mut_overunder(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
+        Zs_pol_und=Z_pol_slf_und(h,cab_ex,sigma_g,f,ord);
+        Zm_pol_und=Z_pol_mut_und(h,d,sigma_g,f,ord);
+        Zs_pol_ov=Z_carson_slf(h,cab_ex,sigma_g,omega,0*e_g,ord);
+        Zm_pol_ov=Z_carson_mut(h,d,omega,sigma_g,0*e_g,ord);
         % Total matrices
         Zg_CarsonPol=Zs_pol_und+Zm_pol_und+Zs_pol_ov+Zm_pol_ov+Zm_pol_ovund;
         Z_CarsonPol=Zin+Zg_CarsonPol;
         Ztot_CarsonPol(:,:,k) = bundleReduction(ph_order,Z_CarsonPol);
         if k==siz
             out(o).VarName='Ztot_CarsonPol';
-            out(o).Label='Carson-Pollaczek (overhead-underground)';
+            out(o).Label='Carson-Pollaczek';
             out(o).Values=Ztot_CarsonPol;
             o=o+1;
         end
     end
     
     %%%% De Conti (underground)
-    if useFormula('Conti')
+    if useFormula('Conti') && is_underground
         if k==1; Ztot_Conti=zeros(Nph,Nph,siz); end % Prelocate matrix
         Zs_conti=Z_xue_closed_slf(abs(h),cab_ex,e_g,sigma_g,f,ord);
         Zm_conti=Z_xue_closed_mut(abs(h),d,e_g,sigma_g,f,ord);

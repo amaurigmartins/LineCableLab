@@ -13,7 +13,10 @@ function [Zg_mut]=Z_noda_mut(h,e_g,sigma_g,omega,d,con)
 % Zg_self : Self earth impedance [Ohm/m]
 
 m0=4*pi*1e-7;
-Zg_self=zeros(con,con);
+Zg_mut=zeros(con,con);
+
+if con == 1; return; end
+
 
 for x=1:con
    for y=x+1:con

@@ -1,7 +1,7 @@
 function [Z12] = Z_carson_mut(h,d,omega,con,er,ord)
 %Z_carson_mut(h1,h2,x,f,con,er)
 % Carson_Mutual computes the earth-return mutual impedance of an overhead
-% conductor above earth. Since permittivity is included it can evaluate 
+% conductor above earth. Since permittivity is included it can evaluate
 % also Sunde's result. One of the parameters can also be vector of values.
 %
 % Author : T.P. Theodoulidis
@@ -26,23 +26,26 @@ e0=8.8541878176e-12;
 Z12=zeros(ord,ord);
 CI=zeros(ord,ord);
 
+if ord == 1; return; end
+
 for x=1:ord
     for y=x+1:ord
-       
-       if x~=y 
-        k=sqrt(1i*omega*m0.*(con+1i*omega*e0*er));
-        H=h(1,x)+h(1,y);
-        d1=sqrt((h(1,x)-h(1,y))^2+d(x,y)^2);
-        d2=sqrt(H^2+d(x,y)^2);
-        u1=k*(H-1i*d(x,y));
-        u2=k*(H+1i*d(x,y));
-        %
-        CI(x,y) = (pi/2./u1).*(StruveH1Y1(u1)-2/pi./u1)+...
-             (pi/2./u2).*(StruveH1Y1(u2)-2/pi./u2);
-        %
-        Z12(x,y) = 1i.*omega*m0/(2*pi)*(log(d2/d1)+CI(x,y));
-        Z12(y,x)=Z12(x,y);
-       end
+        if x~=y
+            if h(1,x) > 0 && h(1,y) > 0
+                k=sqrt(1i*omega*m0.*(con+1i*omega*e0*er));
+                H=h(1,x)+h(1,y);
+                d1=sqrt((h(1,x)-h(1,y))^2+d(x,y)^2);
+                d2=sqrt(H^2+d(x,y)^2);
+                u1=k*(H-1i*d(x,y));
+                u2=k*(H+1i*d(x,y));
+                %
+                CI(x,y) = (pi/2./u1).*(StruveH1Y1(u1)-2/pi./u1)+...
+                    (pi/2./u2).*(StruveH1Y1(u2)-2/pi./u2);
+                %
+                Z12(x,y) = 1i.*omega*m0/(2*pi)*(log(d2/d1)+CI(x,y));
+                Z12(y,x)=Z12(x,y);
+            end
+        end
     end
 end
 %

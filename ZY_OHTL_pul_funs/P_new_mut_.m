@@ -57,6 +57,9 @@ end
 
 Pg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
+
 for x=1:con
     for y=x+1:con
         if x~=y

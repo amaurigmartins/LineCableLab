@@ -28,6 +28,8 @@ a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 
 Zg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
 % Mutual Impedance
 for x=1:con
     for y=x+1:con
