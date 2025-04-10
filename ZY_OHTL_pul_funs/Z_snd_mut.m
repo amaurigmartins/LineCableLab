@@ -17,6 +17,9 @@ function [Zg_mutual]=Z_snd_mut(h,d,e_g,m_g,sigma_g,omega,con)
 m0=4*pi*1e-7;
 gamma_g=sqrt(1i*omega.*m_g.*(sigma_g+1i*omega.*e_g));
 Zg_mutual=zeros(con,con);
+
+if con == 1; return; end
+
 % Mutual Impedance
 for x=1:con
     for y=x+1:con

@@ -40,6 +40,9 @@ a_1=@(lambda,omega) sqrt(lambda.^2+gamma_1(omega).^2+k_x(omega).^2);
 Pg_mutual=zeros(con,con);
 TOL=1e-3;
 
+if con == 1; return; end
+
+
 for x=1:con
     for y=x+1:con
         if x~=y
@@ -58,13 +61,13 @@ for x=1:con
             yfun=@(lambda,omega) sum([0 yy(a_0(lambda,omega),a_1(lambda,omega),gamma_0(omega),gamma_1(omega),h1,h2,lambda,mu0,mu1,omega,d(x,y))],'omitnan');
             yfun=@(lambda) yfun(lambda,w);
 
-                        Qm=integral(yfun,0,Inf,'ArrayValued',true);
+            Qm=integral(yfun,0,Inf,'ArrayValued',true);
 
-                        Pg_mutual(x,y)=1i*w*Qm;
-%             dij = sqrt((h1-h2)^2+d(x,y)^2);
-%             Dij = sqrt((h1+h2)^2+d(x,y)^2);
-%             Pg_mutual(x,y) = 1/(2*pi*eps0)*(log(Dij/dij));
-              Pg_mutual(y,x)= Pg_mutual(x,y);
+            Pg_mutual(x,y)=1i*w*Qm;
+            %             dij = sqrt((h1-h2)^2+d(x,y)^2);
+            %             Dij = sqrt((h1+h2)^2+d(x,y)^2);
+            %             Pg_mutual(x,y) = 1/(2*pi*eps0)*(log(Dij/dij));
+            Pg_mutual(y,x)= Pg_mutual(x,y);
         end
     end
 end

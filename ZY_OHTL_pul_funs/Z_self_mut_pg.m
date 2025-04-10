@@ -9,6 +9,7 @@ e0=8.854187817e-12;
 
 Zpg_mat=zeros(con,con);
 
+if con == 1; return; end
 
 for x=1:con
     for y=1:con

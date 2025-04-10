@@ -21,6 +21,8 @@ b=sqrt(1i*omega*m0*sigma_g+omega.^2*(e0*m0-e_g*m0));
 
 Zg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
 % Mutual Impedance
 for x=1:con
     for y=x+1:con

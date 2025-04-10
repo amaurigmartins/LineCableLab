@@ -28,6 +28,9 @@ gamma_a=1i*ka;
 
 Pg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
+
 % Mutual potential coefficient
 for x=1:con
     for y=x+1:con

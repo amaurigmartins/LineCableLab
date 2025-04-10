@@ -26,6 +26,9 @@ u1=@(lambda) sqrt(lambda^2-ke^2);
 
 Pg_mutual=zeros(con,con);
 
+if con == 1; return; end
+
+
 % Mutual potential coefficient
 for x=1:con
     for y=x+1:con
@@ -36,10 +39,12 @@ for x=1:con
             dnm=sqrt((h1-h2)^2+dd^2);
             Dnm=sqrt((h1+h2)^2+dd^2);
             K=besselk(0,1i*ke*dnm)-besselk(0,1i*ke*Dnm);
-            T5=@(lambda) (exp((h1+h2)*u1(lambda))/(u0(lambda)+(u1(lambda)*(ka^2)*(1/(ke^2)))    ))*(lambda^2/u1(lambda)^2);
-            T6=@(lambda) (exp((h1+h2)*u1(lambda))/(u0(lambda)+u1(lambda)))*(1/u1(lambda)^2);
-            yy=@(lambda) (2*T5(lambda)-2*ke^2*T6(lambda))*cos(lambda*dd);
 
+            T5=@(lambda) (exp((h1+h2)*u1(lambda))/(u0(lambda)+(u1(lambda)*(ka^2)*(1/(ke^2)))    ))*(lambda^2/u1(lambda)^2);
+            % T5=@(lambda) (exp((h1+h2)*u1(lambda))/(u0(lambda)+(u1(lambda)*ka^2*ke^(-2))))*(lambda^2/u1(lambda)^2);
+            T6=@(lambda) (exp((h1+h2)*u1(lambda))/(u0(lambda)+u1(lambda)))*(1/u1(lambda)^2);
+
+            yy=@(lambda) (2*T5(lambda)-2*ke^2*T6(lambda))*cos(lambda*dd);
             yfun=@(lambda) sum([0 yy(lambda)],'omitnan');
 
             Qm=integral(yfun,0,Inf,'ArrayValued',true);
@@ -49,8 +54,4 @@ for x=1:con
 
         end
     end
-end
-
-
-
 end
