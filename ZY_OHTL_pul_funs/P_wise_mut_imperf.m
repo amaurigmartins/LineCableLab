@@ -29,18 +29,20 @@ if con == 1; return; end
 for x=1:con
     for y=x+1:con
         if x~=y
-            
+
             h1=h(1,x);
             h2=h(1,y);
-            H=h1+h2;
-            d12 = d(x,y);
-            
-            y_lambda =@(lambda) sum([0 (((2*m_g*(gama0^2)*(m0*lambda + (sqrt(lambda^2 + gama_g^2 + k0^2))*m_g)*exp(-H*lambda))/(((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g)*((sqrt(lambda^2 + gama_g^2 + k0^2))*(gama0^2)*m_g + lambda*(gama_g^2)*m0)))*cos(d12*lambda))],'omitnan');
-%             y_lambda=@(lambda) sum([0 y_lambda(lambda)],'omitnan');
-            Qm = integral(y_lambda,0,Inf,'ArrayValued',true);
-            
-            Pg_mutual(x,y)=Qm;
-            Pg_mutual(y,x)=Pg_mutual(x,y);
+            if (h1>0 && h2>0)
+                H=h1+h2;
+                d12 = d(x,y);
+
+                y_lambda =@(lambda) sum([0 (((2*m_g*(gama0^2)*(m0*lambda + (sqrt(lambda^2 + gama_g^2 + k0^2))*m_g)*exp(-H*lambda))/(((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g)*((sqrt(lambda^2 + gama_g^2 + k0^2))*(gama0^2)*m_g + lambda*(gama_g^2)*m0)))*cos(d12*lambda))],'omitnan');
+                %             y_lambda=@(lambda) sum([0 y_lambda(lambda)],'omitnan');
+                Qm = integral(y_lambda,0,Inf,'ArrayValued',true);
+
+                Pg_mutual(x,y)=Qm;
+                Pg_mutual(y,x)=Pg_mutual(x,y);
+            end
         end
     end
 end
