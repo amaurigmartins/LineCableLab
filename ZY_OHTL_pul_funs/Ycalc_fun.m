@@ -170,27 +170,27 @@ for k=1:siz
         end
     end
 
-    %%%% Kikuchi
-    if useFormula('Kikuchi') && is_overhead
-        if k==1; Ytot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
-        % Self
-        kxa='k0';
-        Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
-        % Mutual
-        Pm_kik=P_kik_mut(h,d,e_g,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
-        % Total matrices
-        Pg_kik=Ps_kik+Pm_kik;
-        P_kik=Pin+Pg_kik;
-        Ptot_kik = bundleReduction(ph_order,P_kik);
-        Ytot_Kik(:,:,k)=1i.*omega.*inv(Ptot_kik);
-        % Store outputs
-        if k==siz
-            out(o).VarName='Ytot_Kik';
-            out(o).Label='Kikuchi';
-            out(o).Values=Ytot_Kik;
-            o=o+1;
-        end
-    end
+    % %%%% Kikuchi
+    % if useFormula('Kikuchi') && is_overhead
+    %     if k==1; Ytot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
+    %     % Self
+    %     kxa='k0';
+    %     Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
+    %     % Mutual
+    %     Pm_kik=P_kik_mut(h,d,e_g,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+    %     % Total matrices
+    %     Pg_kik=Ps_kik+Pm_kik;
+    %     P_kik=Pin+Pg_kik;
+    %     Ptot_kik = bundleReduction(ph_order,P_kik);
+    %     Ytot_Kik(:,:,k)=1i.*omega.*inv(Ptot_kik);
+    %     % Store outputs
+    %     if k==siz
+    %         out(o).VarName='Ytot_Kik';
+    %         out(o).Label='Kikuchi';
+    %         out(o).Values=Ytot_Kik;
+    %         o=o+1;
+    %     end
+    % end
     
     %%%% Papadopoulos (2-layered soil)
     if useFormula('Papad2Layers') && islayered_earth && is_overhead
@@ -292,13 +292,20 @@ for k=1:siz
         Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
         % Selfs and mutuals for overhead
         kxa=0;
-        Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
-        Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        % Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
+        % Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        % TEMPORARY FALLBACK TO WISE
+        Ps_over_imperf=P_wise_slf_imperf(h,e_g,m_g,sigma_g,omega,ord);
+        Ps_over=(Ps_pet_perf+Ps_over_imperf)./(e0.*2.*pi);
+        % Mutual
+        Pm_over_imperf=P_wise_mut_imperf(h,d,e_g,m_g,sigma_g,omega,ord);
+        Pm_over=(Pm_pet_perf+Pm_over_imperf)./(e0.*2.*pi);
+        
         % Mutuals for overhead-underground
         kxm=0;
         Pm_overunder=P_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual coefficients in the mixed configuration
         % Total matrices
-        Pg_OverUnder=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunder;
+        Pg_OverUnder=Ps_papad+Pm_papad+Ps_over+Pm_over+Pm_overunder;
         P_OverUnder=Pin+Pg_OverUnder;
         Ptot_OverUnder = bundleReduction(ph_order,P_OverUnder);
         Ytot_OverUnder(:,:,k)=1i.*omega.*inv(Ptot_OverUnder);
@@ -319,13 +326,21 @@ for k=1:siz
         Pm_papad=P_papad_mut(h,d,e_g,m_g,sigma_g,f,ord,kxe); % mutual coefficients of the underground conductors
         % Selfs and mutuals for overhead
         kxa=0;
-        Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
-        Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        % Ps_kik=P_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self coefficients of the overhead conductors
+        % Pm_kik=P_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual coefficients of the overhead conductors
+        
+        % TEMPORARY FALLBACK TO WISE
+        Ps_over_imperf=P_wise_slf_imperf(h,e_g,m_g,sigma_g,omega,ord);
+        Ps_over=(Ps_pet_perf+Ps_over_imperf)./(e0.*2.*pi);
+        % Mutual
+        Pm_over_imperf=P_wise_mut_imperf(h,d,e_g,m_g,sigma_g,omega,ord);
+        Pm_over=(Pm_pet_perf+Pm_over_imperf)./(e0.*2.*pi);
+        
         % Mutuals for overhead-underground
         kxm=0;
         Pm_overunder=zeros(ord,ord); % mutual coefficients in the mixed configuration
         % Total matrices
-        Pg_NoCapCoupling=Ps_papad+Pm_papad+Ps_kik+Pm_kik+Pm_overunder;
+        Pg_NoCapCoupling=Ps_papad+Pm_papad+Ps_over+Pm_over+Pm_overunder;
         P_NoCapCoupling=Pin+Pg_NoCapCoupling;
         Ptot_NoCapCoupling = bundleReduction(ph_order,P_NoCapCoupling);
         Ytot_NoCapCoupling(:,:,k)=1i.*omega.*inv(Ptot_NoCapCoupling);

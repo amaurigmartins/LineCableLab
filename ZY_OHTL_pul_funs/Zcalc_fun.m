@@ -260,25 +260,25 @@ for k=1:siz
         end
     end
 
-    %%%% Kikuchi
-    if useFormula('Kikuchi') && is_overhead
-        if k==1; Ztot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
-        kxa='k0';
-        % Self Impedances
-        Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
-        % Mutual Impedances
-        Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
-        % Total matrices
-        Zg_kik=Zs_kik+Zm_kik;
-        Z_kik=Zin+Zg_kik;
-        Ztot_Kik(:,:,k) = bundleReduction(ph_order,Z_kik);
-        if k==siz
-            out(o).VarName='Ztot_Kik';
-            out(o).Label='Kikuchi';
-            out(o).Values=Ztot_Kik;
-            o=o+1;
-        end
-    end
+    % %%%% Kikuchi
+    % if useFormula('Kikuchi') && is_overhead
+    %     if k==1; Ztot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
+    %     kxa='k0';
+    %     % Self Impedances
+    %     Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
+    %     % Mutual Impedances
+    %     Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+    %     % Total matrices
+    %     Zg_kik=Zs_kik+Zm_kik;
+    %     Z_kik=Zin+Zg_kik;
+    %     Ztot_Kik(:,:,k) = bundleReduction(ph_order,Z_kik);
+    %     if k==siz
+    %         out(o).VarName='Ztot_Kik';
+    %         out(o).Label='Kikuchi';
+    %         out(o).Values=Ztot_Kik;
+    %         o=o+1;
+    %     end
+    % end
 
     %%%% Nakagawa (2-layered soil)
     if useFormula('Naka2Layers') && islayered_earth && is_overhead
@@ -378,6 +378,7 @@ for k=1:siz
         end
     end
 
+
     %%%% Martins-Papadopoulos-Chrysochos (overhead-underground)
     if useFormula('OverUnder')
         if k==1; Ztot_OverUnder=zeros(Nph,Nph,siz); end % Prelocate matrix
@@ -385,12 +386,12 @@ for k=1:siz
         Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors
         Zm_papad=Z_papad_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
         kxa=0;
-        Zs_kik=Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
-        Zm_kik=Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+        Zs_over=Z_wise_slf(h,e_g,m_g,sigma_g,omega,ord); % temporary fallback to Wise --> Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
+        Zm_over=Z_wise_mut(h,d,e_g,m_g,sigma_g,omega,ord); %Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
         kxm=0;
         Zm_new=Z_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual impedances in the mixed configuration
         % Total matrices
-        Zg_OverUnder=Zs_papad+Zm_papad+Zs_kik+Zm_kik+Zm_new;
+        Zg_OverUnder=Zs_papad+Zm_papad+Zs_over+Zm_over+Zm_new;
         Z_OverUnder=Zin+Zg_OverUnder;
         Ztot_OverUnder(:,:,k) = bundleReduction(ph_order,Z_OverUnder);
         if k==siz
