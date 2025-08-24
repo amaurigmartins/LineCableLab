@@ -7,8 +7,8 @@ fieldNames=fieldnames(opts);
 idx=find(~(strcmp(fieldNames, 'CYZfile') | strcmp(fieldNames, 'MATfile') | strcmp(fieldNames, 'EHEMflag')));
 
 islayered_earth = soilFD.num_layers > 1;
-is_overhead = all(h)>0;
-is_underground = all(h)<0;
+is_overhead = all(h>0);
+is_underground = all(h<0);
 
 if isstruct(opts)
     fieldValues = struct2cell(opts);
