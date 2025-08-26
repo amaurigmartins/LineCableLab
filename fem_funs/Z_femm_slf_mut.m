@@ -1,17 +1,19 @@
 function [Z]=Z_femm_slf_mut(Geom,soilFD,k,freq,con,basename)
 
+fclose('all');
+
 Z = zeros(con,con);
-L=5e3; % domain size
-try; closefemm; end
+L=10e3; % domain size
+
+global HandleToFEMM;
+hand1=HandleToFEMM;
 
 for i=1:con
     %% Open a FEMM instance
-    fclose('all');
     
     fname=sprintf('%s_c%d.fem',basename,i);
-    global HandleToFEMM;
+
     openfemm(1);
-    hand1=HandleToFEMM;
     % create new document
     DOCTYPE=0; %0 for magnetics, 1 for electrostatics, 3 for current flow
     newdocument(DOCTYPE);
@@ -22,7 +24,6 @@ for i=1:con
     minangle=33.8;
     depth=1;
     acsolver=1; %0 for successive approximation, 1 for Newton.
-
     mi_smartmesh(1)
     
     mi_probdef(freq,'meters','planar',1e-12,depth,minangle,acsolver);
@@ -198,5 +199,6 @@ for i=1:con
     mi_close
     
 end %of main loop
+try; closefemm; end
 
 end % of function

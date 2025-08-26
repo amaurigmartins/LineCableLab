@@ -1,17 +1,19 @@
 function [Y]=Y_femm_slf_mut(Geom,soilFD,k,freq,con,basename)
 
+fclose('all');
+
 Y = zeros(con,con);
-L=5e3; % domain size
-try; closefemm; end
+L=10e3; % domain size
+
+global HandleToFEMM;
+hand1=HandleToFEMM;
 
 for i=1:con
     %% Open a FEMM instance
-    fclose('all');
     
     fname=sprintf('%s_c%d.fec',basename,i);
-    global HandleToFEMM;
+
     openfemm(1);
-    hand1=HandleToFEMM;
     % create new document
     DOCTYPE=3; %0 for magnetics, 1 for electrostatics, 3 for current flow
     newdocument(DOCTYPE);
@@ -216,5 +218,6 @@ for i=1:con
     ci_close
     
 end %of main loop
+try; closefemm; end
 
 end % of function
