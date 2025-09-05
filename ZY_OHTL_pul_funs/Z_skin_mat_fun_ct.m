@@ -12,7 +12,11 @@ for k=1:1:num
     %Calculate the self Impedance
     Zskin_self(k,k)=skeffct_tb_fun_ct(rad_ex(k),rad_in(k),sigma_w(k),mrw(k),omega);
     if isnan(Zskin_self(k,k))
-        Zskin_self(k,k)=0;
+        % Zskin_self(k,k)=0;
+        Ricc = 1 / (sigma_w(k) * pi * rad_ex(k)^2);
+        ZiHF = 1/(2*pi* rad_ex(k)) * sqrt(1i*omega*mrw(k)*m0/sigma_w(k));
+        Zskin_self(k,k) = sqrt(Ricc^2 + ZiHF^2); 
+        warning('Zskin_self overflow, using fallback to Nahman & Holt approximation');
     end
     Zin_mat(k,k)=Zskin_self(k,k);
 end

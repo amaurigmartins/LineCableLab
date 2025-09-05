@@ -36,22 +36,21 @@ if radius_in > 0
     sc1 = exp(abs(real(w1)) - abs(real(w2)) + w1 - w2);
 
     % Numerator
-    numerator = besseli(0, w2) * besselk(1, w1) + sc1 * besseli(1, w1) * besselk(0, w2);
+    numerator = besseli(0, w2, 1) * besselk(1, w1, 1) + sc1 * besseli(1, w1, 1) * besselk(0, w2, 1);
 
     % Denominator
-    denominator = besseli(1, w2) * besselk(1, w1) - sc1 * besseli(1, w1) * besselk(1, w2);
+    denominator = besseli(1, w2, 1) * besselk(1, w1, 1) - sc1 * besseli(1, w1, 1) * besselk(1, w2, 1);
 
     % Full expression for zin
     zin = (j * omega * mu0 * mrw) / (2 * pi * w2) * (numerator / denominator);
 
 else
     % This is a solid conductor (radius_in = 0)
-
     % Numerator
-    numerator = besseli(0, w2);
+    numerator = besseli(0, w2, 1);
 
     % Denominator
-    denominator = besseli(1, w2);
+    denominator = besseli(1, w2, 1);
 
     % Full expression for zin
     zin = (j * omega * mu0 * mrw) / (2 * pi * w2) * (numerator / denominator);
