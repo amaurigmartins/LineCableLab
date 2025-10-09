@@ -1,5 +1,5 @@
 % Z_wise_slf.m
-function [Zg_self]=Z_wise_slf(h,e_g,m_g,sigma_g,omega,con)
+function [Zg_self]=Z_wise_slf(h,r,e_g,m_g,sigma_g,omega,con)
 % Function for the Self Earth Impedance by Wise's Integral
 % Formula
 
@@ -28,8 +28,8 @@ for k=1:1:con
     H=2*h(1,k);
     z_lambda =@(lambda) sum([0 ((2*m_g*(exp(-H*lambda)))/((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g))],'omitnan');
     Jm = integral(z_lambda,0,Inf,'ArrayValued',true);
-
-    Zg_self(k,k)=1i*omega*m0/(2*pi)*(+Jm); % let us add the perfect earth term later, to keep consistency
+    perf_self=log((2*h(1,k))./r(k));
+    Zg_self(k,k)=((1i*omega*m0)/(2*pi))*(perf_self+Jm);
 
     end
 

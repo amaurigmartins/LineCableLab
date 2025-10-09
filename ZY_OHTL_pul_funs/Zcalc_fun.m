@@ -245,11 +245,11 @@ for k=1:siz
     if useFormula('Wise') && is_overhead
         if k==1; Ztot_Wise=zeros(Nph,Nph,siz); end % Prelocate matrix
         % Self Impedances
-        Zs_wise=Z_wise_slf(h,e_g,m_g,sigma_g,omega,ord);
+        Zs_wise=Z_wise_slf(h,cab_ex,e_g,m_g,sigma_g,omega,ord);
         % Mutual Impedances
         Zm_wise=Z_wise_mut(h,d,e_g,m_g,sigma_g,omega,ord);
         % Total matrices
-        Zg_Wise=Zs_wise+Zm_wise+Zpg;
+        Zg_Wise=Zs_wise+Zm_wise; %+Zpg;
         Z_Wise=Zin+Zg_Wise;
         Ztot_Wise(:,:,k) = bundleReduction(ph_order,Z_Wise);
         if k==siz
@@ -260,7 +260,7 @@ for k=1:siz
         end
     end
 
-    % %%%% Kikuchi
+    %%%% Kikuchi
     % if useFormula('Kikuchi') && is_overhead
     %     if k==1; Ztot_Kik=zeros(Nph,Nph,siz); end % Prelocate matrix
     %     kxa='k0';
@@ -385,9 +385,8 @@ for k=1:siz
         kxe=0;
         Zs_papad=Z_papad_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors
         Zm_papad=Z_papad_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
-        kxa=0;
-        Zs_over=Z_wise_slf(h,e_g,m_g,sigma_g,omega,ord); % temporary fallback to Wise --> Z_kik_slf(h,cab_ex,e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors
-        Zm_over=Z_wise_mut(h,d,e_g,m_g,sigma_g,omega,ord); %Z_kik_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
+        Zs_over=Z_wise_slf(h,cab_ex,e_g,m_g,sigma_g,omega,ord); % self impedances of the overhead conductors
+        Zm_over=Z_wise_mut(h,d,e_g,m_g,sigma_g,omega,ord); % mutual impedances of the overhead conductors
         kxm=0;
         Zm_new=Z_new_mut(h,d,e_g ,m_g,sigma_g,f,ord,kxm); % mutual impedances in the mixed configuration
         % Total matrices
@@ -404,24 +403,6 @@ for k=1:siz
 
     %%%% Carson-Pollaczek (overhead-underground)
     if useFormula('CarsonPol')
-        % if k==1; Ztot_CarsonPol=zeros(Nph,Nph,siz); end % Prelocate matrix
-        % Zm_pol_ovund=Z_pol_mut_overunder(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
-        % kxe=0;
-        % Zs_pol_und=Z_papad_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxe); % self impedances of the underground conductors - Pollackzek's result is attained by setting e_g=0
-        % Zm_pol_und=Z_papad_mut(h,d,0*e_g,m_g,sigma_g,f,ord,kxe); % mutual impedances of the underground conductors
-        % kxa=0;
-        % Zs_pol_ov=Z_kik_slf(h,cab_ex,0*e_g ,m_g,sigma_g,f,ord,kxa); % self impedances of the overhead conductors - Carson's result is attained by setting e_g=0
-        % Zm_pol_ov=Z_kik_mut(h,d,0*e_g ,m_g,sigma_g,f,ord,kxa); % mutual impedances of the overhead conductors
-        % % Total matrices
-        % Zg_CarsonPol=Zs_pol_und+Zm_pol_und+Zs_pol_ov+Zm_pol_ov+Zm_pol_ovund;
-        % Z_CarsonPol=Zin+Zg_CarsonPol;
-        % Ztot_CarsonPol(:,:,k) = bundleReduction(ph_order,Z_CarsonPol);
-        % if k==siz
-        %     out(o).VarName='Ztot_CarsonPol';
-        %     out(o).Label='Carson-Pollaczek (overhead-underground)';
-        %     out(o).Values=Ztot_CarsonPol;
-        %     o=o+1;
-        % end
         if k==1; Ztot_CarsonPol=zeros(Nph,Nph,siz); end % Prelocate matrix
         Zm_pol_ovund=Z_pol_mut_overunder(h,d,sigma_g,f,ord); % mutual impedances in the mixed configuration Pollaczek
         Zs_pol_und=Z_pol_slf_und(h,cab_ex,sigma_g,f,ord);

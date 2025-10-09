@@ -14,6 +14,8 @@ function [Ypg_self]=P_pet_slf_perf(h,r,con)
 Ypg_self=zeros(con,con);
 
 for k=1:1:con
-    % Self potential coefficient
-    Ypg_self(k,k)=log(2.*h(1,k)/r(k));
+    if h(1,k) > 0
+        % Self potential coefficient
+        Ypg_self(k,k)=log(2.*h(1,k)/r(k));
+    end
 end

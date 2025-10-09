@@ -30,13 +30,18 @@ for x=1:con
         if x~=y
             h1=h(1,x);
             h2=h(1,y);
-            H=h1+h2;
-            
-            z_lambda =@(lambda) sum([0 ((2*m_g*(exp(-H*lambda)))/((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g))*cos(lambda*d(x,y))], 'omitnan');
-            Jm = integral(z_lambda,0,Inf,'ArrayValued',true);
+            if (h1 > 0 && h2 > 0)
+                H=h1+h2;
+                d1=sqrt(d(x,y).^2+(h(1,x)-h(1,y)).^2);
+                d2=sqrt(d(x,y).^2+(h(1,x)+h(1,y)).^2);
+                perf_mut=log(d2./d1);
 
-            Zg_mutual(x,y)=1i*omega*m0/(2*pi)*(+Jm);
-            Zg_mutual(y,x)=Zg_mutual(x,y);
+                z_lambda =@(lambda) sum([0 ((2*m_g*(exp(-H*lambda)))/((sqrt(lambda^2 + gama_g^2 + k0^2))*m0 + lambda*m_g))*cos(lambda*d(x,y))], 'omitnan');
+                Jm = integral(z_lambda,0,Inf,'ArrayValued',true);
+
+                Zg_mutual(x,y)=((1i*omega*m0)/(2*pi))*(perf_mut+Jm);
+                Zg_mutual(y,x)=Zg_mutual(x,y);
+            end
         end
     end
 end
