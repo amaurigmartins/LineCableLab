@@ -63,24 +63,32 @@ BatchID = 'testBatch'; % prefix that will be stitched to each combo value to min
 % If you want a literal string in the target file, you need doubled single-quotes.
 % Example: '''abc''' emits 'abc' in the file.
 var_ranges = {
+    'FD_flag', {'0', '9'}; % CP, CG
+    'length', {'100', '1000', '10000'};
+    'soil_props', {'[100 10 1]','[1000 5 1]'}; % <---- vectors [rho epsr mur]
+};
+
+% For layered earth, specify also the thickness:
+% var_ranges = {
+%     'FD_flag', {'0', '9'}; % CP, CG
+%     'soil_layer_1', {'[100 10 1 3]','[1000 5 1 3]'}; % <---- vectors [rho epsr mur thick]
+% };
+
+% If you want some constants slammed on every run regardless of ranges, do it here.
+% (Still strings of MATLAB code, same convention.)
+static_vars = {
     'runLineParametersCalc', 'logical(1)';
-    'runSimuTool',           'logical(1)';
+    'runSimuTool',           'logical(0)';
     'ZYprnt',                'logical(1)';
     'Modprnt',               'logical(1)';
     'f',                     'transpose(logspaceppd(-1,6,20))';
     'ZYsave',                'logical(1)';
     'Figsave',               'logical(1)';
     'export2EMTP',           'logical(0)';
-    'export2XML',            'logical(0)';
-    'export2ULM',            'logical(0)';
-    'decmp_flag',            {'9','10'};              % <---- example range
-    'rho',                   {'100','200'};           % <---- another range
-};
-
-% If you want some constants slammed on every run regardless of ranges, do it here.
-% (Still strings of MATLAB code, same convention.)
-static_vars = {
-    % 'someOtherFlag', '42';
+    'export2XML',            'logical(1)';
+    'export2PCH',            'logical(1)';
+    'export2ULM',            'logical(1)';
+    'decmp_flag',            '9';              % <---- example range
 };
 
 % --- Directory & file pattern -----------------------------------------------------------------------
@@ -517,7 +525,7 @@ try
     % Create input dialog with error checking
     prompt = {'Enter file filter (default *.m):'};
     dlgTitle = 'File filter';
-    defaultInput = {'*.m'};
+    defaultInput = {'RunJob*.m'};
     dims = [1 50]; % Dialog box dimensions [rows columns]
 
     % Display the input dialog and get result
