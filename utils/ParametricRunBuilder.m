@@ -183,12 +183,18 @@ for ff = 1:numel(files)
         fprintf(fid, '    fprintf(''======================================\\n\\n'');\n');
         fprintf(fid, '    run(''%s'');\n', outName);
         fprintf(fid, '    if exist(''jobid'',''var'')\n');
-        fprintf(fid, '        copyfile([jobid ''_NLTSimu.mat''], ''%s'', ''f'');\n', tgtdir);
-        fprintf(fid, '        fprintf(''Copied %%s_NLTSimu.mat to target directory.\\n'', jobid);\n');
-        fprintf(fid, '        copyfile([jobid ''_LineParam.mat''], ''%s'', ''f'');\n', tgtdir);
-        fprintf(fid, '        fprintf(''Copied %%s_LineParam.mat to target directory.\\n'', jobid);\n');
-        fprintf(fid, '        copyfile(''./plots'', fullfile(''%s'',''plots''));\n', tgtdir);
-        fprintf(fid, '        fprintf(''Copied plots subfolder to target directory.\\n'');\n');
+        fprintf(fid, '        if isfile([jobid ''_NLTSimu.mat''])\n');
+        fprintf(fid, '            copyfile([jobid ''_NLTSimu.mat''], ''%s'', ''f'');\n', tgtdir);
+        fprintf(fid, '            fprintf(''Copied %%s_NLTSimu.mat to target directory.\\n'', jobid);\n');
+        fprintf(fid, '        end\n');
+        fprintf(fid, '        if isfile([jobid ''_LineParam.mat''])\n');
+        fprintf(fid, '            copyfile([jobid ''_LineParam.mat''], ''%s'', ''f'');\n', tgtdir);
+        fprintf(fid, '            fprintf(''Copied %%s_LineParam.mat to target directory.\\n'', jobid);\n');
+        fprintf(fid, '        end\n');
+        fprintf(fid, '        if isdir(''./plots'')\n');
+        fprintf(fid, '            copyfile(''./plots'', fullfile(''%s'',''plots''));\n', tgtdir);
+        fprintf(fid, '            fprintf(''Copied plots subfolder to target directory.\\n'');\n');
+        fprintf(fid, '        end\n');
         fprintf(fid, '    else\n');
         fprintf(fid, '        warning(''jobid variable not defined after running %s. Results may not have been copied.'');\n', outName);
         fprintf(fid, '    end\n');
@@ -217,7 +223,7 @@ fprintf('Spawned %d parametric job scripts (%d originals × %d combos).\n', gene
 %% 8. EXECUTE THE MASTER SCRIPT ----------------------------------------------------------------------
 warning('on');
 run(scriptName);
-fprintf('\n\nBatch processing finished. Enjoy the combinatorial explosion like an erudite pyromaniac .\n');
+fprintf('\n\nBatch processing finished. Enjoy the combinatorial explosion like an erudite pyromaniac.\n');
 
 %% Auxiliary functions --------------------------------------------------------------------------------
 function [combKeys, suffixes, flatNames, flatSets] = expand_var_ranges(var_ranges)
