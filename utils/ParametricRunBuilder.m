@@ -297,39 +297,62 @@ end
 
 function token = sanitize_token(rhsString)
 % sanitize_token - turn an RHS string of code into a raw suffix token
-% Rules (per your royal decree):
+% Rules per your royal tantrum:
 %   - Print raw values only (no key names)
-%   - Replace '.' with '_' because filesystems cry
-%   - Keep everything else; you gave us strings, we echo your sins
-% Edge cases:
-%   - If rhsString is a literal string like '''abc''', we strip outer quotes to use abc
-%   - If it’s a number-like token '1e-3', we use it as-is then '.'→'_'
-%   - If it’s a function call, you’ll get something ugly. That’s the deal you wanted.
+%   - Replace '.' with '_' because filesystems are drama queens
+%   - For vector/matrix literals like [a b; c d], emit '_a_b_c_d' (flatten row-major)
+%   - Strip whitespace, brackets, parens; collapse delimiters to single '_'
+%   - If RHS is a quoted string literal, use the inner text as-is (then apply '. -> _')
+%
+% This is intentionally “dumb but deterministic”. You asked for raw.
+
     s = char(rhsString);
 
-    % If s starts and ends with single quotes (literal), strip them
+    % If it's a quoted literal like '''abc''' → use abc
     if numel(s) >= 2 && s(1)=='''' && s(end)==''''
-        % collapse doubled quotes '' -> '
         inner = s(2:end-1);
-        inner = regexprep(inner, '''''', '''');
+        inner = regexprep(inner, '''''', ''''); % collapse doubled quotes
         s = inner;
+        s = strrep(s, '.', '_');
+        s = regexprep(s, '\s+', '');
+        s = regexprep(s, '[/\\:;,\[\]\(\)]', '_');
+        s = regexprep(s, '_+', '_');
+        token = s;
+        return;
     end
 
-    % Replace '.' with '_'
-    s = strrep(s, '.', '_');
+    % If it's a MATLAB vector/matrix literal: [ ... ]
+    isVec = numel(s) >= 2 && s(1)=='[' && s(end)==']';
+    if isVec
+        inside = s(2:end-1);
 
-    % Also purge whitespace because nothing good comes from spaces in IDs
-    s = regexprep(s, '\s+', '');
+        % Grab number-like tokens (supports integers, decimals, scientific)
+        % Examples matched: 10, 0.5, .75, -1.2e-3, +3E4
+        numTokens = regexp(inside, '[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?', 'match');
 
-    % And maybe commas (if someone passes "1,2"), convert to '_' for determinism
-    s = strrep(s, ',', '_');
+        if ~isempty(numTokens)
+            % Map '.' → '_' within each token
+            for k = 1:numel(numTokens)
+                numTokens{k} = strrep(numTokens{k}, '.', '_');
+            end
+            token = ['_', strjoin(numTokens, '_')]; % leading underscore per your format
+            return;
+        end
 
-    % Brackets out ([]) — you wanted raw, not math
-    s = regexprep(s, '[\[\]\(\)]', '');
+        % If no numeric tokens (weird), fall through to generic sanitization
+        s = inside;
+    end
 
-    % Finally, assassinate filesystem hostiles: slashes and colons
-    s = regexprep(s, '[/\\:;]', '_');
-
+    % Generic “raw” sanitization path
+    s = strrep(s, '.', '_');             % dots are heresy
+    s = regexprep(s, '\s+', '');         % obliterate whitespace
+    s = strrep(s, ',', '_');             % commas to underscores
+    s = regexprep(s, '[\[\]\(\)]', '');  % strip brackets/parens
+    s = regexprep(s, '[/\\:;]', '_');    % slashes/colons/semicolons → _
+    s = regexprep(s, '_+', '_');         % de-chonk repeated underscores
+    if ~isempty(s) && s(1) ~= '_'
+        s = ['_', s];                    % keep leading '_' convention consistent
+    end
     token = s;
 end
 
